@@ -1,0 +1,52 @@
+8
+
+dir
+18
+http://django-chronograph.googlecode.com/svn/trunk/chronograph/templates/admin/chronograph/job
+http://django-chronograph.googlecode.com/svn
+
+
+
+2009-05-06T23:49:51.347451Z
+18
+wnielson
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+3eb1f754-06c4-11de-bbfd-a7c1bc4c261e
+
+change_list.html
+file
+
+
+
+
+2009-07-21T04:39:23.000000Z
+7396549059709fe1c1ef214269277ff1
+2009-05-06T23:49:51.347451Z
+18
+wnielson
+
+change_form.html
+file
+
+
+
+
+2009-04-20T18:42:51.000000Z
+50e56ddffd33039c570a2d4087d2be9a
+2009-04-16T17:50:49.251913Z
+17
+wnielson
+
