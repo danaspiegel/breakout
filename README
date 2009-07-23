@@ -1,0 +1,66 @@
+See http://git.or.cz/gitwiki/GitSubmoduleTutorial for info on using python-twitter submodule within git
+
+
+* Announcing yourself for hire
+** Taxonomy
+
+More interesting:
+* vouching for someone else
+
+1st phase:
+----------
+* user tweets with #frhire
+* frhire sees tweet and parses
+* frhire creates "profile" page with twitter public info and #frhire tweet stream
+* first time, create @reply for user with a link to their profile
+* attempt to find user's linked in profile and let user verify
+* let a user claim their profile by logging into twitter using oauth
+* advertising ($)
+* possible marketing/ads through strategic partners ($)
+* send out a tweet asking your friends to vouch for you
+* send out a tweet asking your friends to recommend you on LinkedIn
+
+with a user account, user can add:
+* resume link
+* full name
+* description
+* other links
+* location
+
+2nd phase:
+----------
+* allow a user to be able to create an account that's "private", but available via search anonymously
+* enable a user to be contacted via the site (via twitter DM) ($)
+* affiliate sales for things that are useful for people looking for a job ($)
+
+
+Vouching mechanism:
+-------------------
+* RT of #frhire post
+* how do we assign value/verifiability to the vouching
+* LinkedIn recommendations and tweeting it with #frhire and user's @twitter name
+* user can construct a tweet that lists the recommendation from LinkedIn with a link to the LinkedIn profile
+
+
+Distribution lists:
+-------------------
+* Let users sign up for email alerts when certain criteria are discovered ($)
+
+
+Search for talent:
+------------------
+* make it easy for people to promote themselves
+* claimed profiles can pay to appear in a paid-for section of the search system
+* user can pay to appear ahead of non-paying profiles, with bolder/more prominent listing (with user photo) ($)
+
+
+--------------------
+TODO:
+* top nav like LinkedIn - Candidates  Jobs  Search
+* Featured Seekers/Featured Jobs boxes  (on the right) 
+
+
+DONE:
+* something like Twitscoop - tweets down the middle... nice little search cloud on the right
+* Nice search box like linked in
+* On Candidate and Jobs pages - ads to the right like Google
