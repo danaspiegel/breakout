@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block title %}{% block pagetitle %}{{ venue.name }}{% endblock %}{% endblock %}
+
+{% block content %}
+
+{% include "venue/ul.location_menu.html" %}
+
+{% endblock %}
+
+{% block content_secondary %}
+
+    <div class="sidebar-information">
+        <h2>About This Location</h2>
+
+        <div class="venue-address">
+            <p>
+                {{ venue.street_address_1 }}<br/>
+                {% if venue.street_address_2 %}{{ venue.street_address_2 }}<br/>{% endif %}
+                {{ venue.city }}, {{ venue.state }} {{ venue.zip_code }}
+            </p>
+        </div>
+        
+        <div class="venue-description">{{ venue.description|linebreaks }}</div>
+    </div>
+    
+    <div class="sidebar-information">
+        <h2>Here Now</h2>
+    </div>
+
+    <div class="sidebar-information">
+        <h2>{{ venue.past_breakout_sessions.count }} Past Sessions Here</h2>
+        {% with venue.past_breakout_sessions as breakout_sessions %}
+            {% include 'breakout_session/ul.list.html' %}
+        {% endwith %}
+    </div>
+
+{% endblock %}
+

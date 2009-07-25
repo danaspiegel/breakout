@@ -1,0 +1,66 @@
+{% load settings_tags %}
+
+{% settings MEDIA_URL LOGIN_URL %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>500 &ndash; Server Error</title>
+	
+	<link href="{{ MEDIA_URL }}css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="{{ MEDIA_URL }}css/breakout.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<!-- BEGIN container -->
+
+<div id="container">
+    <!-- BEGIN HEADER -->
+    <div id="header">
+        <div id="header-content">
+            <div id="header-login">
+            </div>
+
+        	<div id="header-left">
+                <div id="header-left">
+                    <h1><a href="/">Breakout Festival</a></h1>
+                </div>
+        	</div>
+
+        	<div id="primary-navigation">
+        	</div>
+        </div>
+    </div>
+
+	<div id="content">
+    		<!-- BEGIN SIDE CONTENT -->
+    		<div id="content-secondary">
+    		</div>
+    		<!-- END SIDE CONTENT -->
+
+            <h1>Breakout is broken :(</h1>
+
+    		<!-- BEGIN MAIN CONTENT -->
+    		<div id="content-main">
+                <p>You've stumbled upon an error. We have been notified, and are already looking into the issue.</p>
+                </p>
+                <h2>What can you do now?</h2>
+                <ol>
+                    <li>Try going to the page again. If there was a server error, or you've typed the page's address incorrectly, trying to go to the correct page should fix this error.</li>
+                    <li><a href="/contact/">Let us know</a>. If you've found a bug, or a link on one of our pages was incorrect, please let us know so we can fix it. Drop us a note via our <a href="/contact/">Contact page</a> including what you did to get the error.</li>
+                </ol>
+
+    		</div>
+    		<!-- END MAIN CONTENT -->
+	</div>
+
+</div>
+
+<div id="footer">
+	<div class="footer-text">&copy; 2009 Breakout Festival. All rights reserved. <a href="/help/terms_of_service/">Terms of Service</a> | <a href="/help/privacy_policy/">Privacy Policy</a></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block content %}
+
+<div>
+
+{% if not user.is_authenticated %}
+    <p><a class="claim-profile" href="{% url twitter_login %}">Login Via Twitter</a></p>
+{% endif %}
+
+</div>
+
+{% endblock %}

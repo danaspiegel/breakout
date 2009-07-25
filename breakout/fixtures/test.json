@@ -1,0 +1,187 @@
+[
+    {
+        "pk": 1,
+         "model": "sites.site",
+         "fields": 
+        {
+            "domain": "localhost:8000",
+             "name": "Breakout Festival"
+        }
+    },
+
+    {
+        "pk": 1,
+         "model": "account.userprofile",
+         "fields": 
+        {
+            "twitter_access_token": null,
+             "updated_on": "2009-07-23 23:12:42",
+             "created_on": "2009-07-23 23:12:42",
+             "user": 1
+        }
+    },
+     
+    {
+        "pk": 1,
+         "model": "breakout.venue",
+         "fields": 
+        {
+            "phone_number": "",
+             "city": "New York",
+             "description": "Testing the display of the description",
+             "url": "http://www.nwcny.com/",
+             "image": "venues/logo-horizontal-site_.jpg",
+             "street_address_1": "200 Varick Street",
+             "state": "NY",
+             "street_address_2": "#507B",
+             "created_on": "2009-07-24 16:31:08",
+             "updated_on": "2009-07-24 16:32:04",
+             "zip_code": "11211",
+             "slug": "new-work-city",
+             "name": "New Work City"
+        }
+    },
+     
+    {
+        "pk": 5,
+         "model": "breakout.breakoutcategory",
+         "fields": 
+        {
+            "description": "",
+             "slug": "speed-networking",
+             "created_on": "2009-07-24 22:14:55",
+             "updated_on": "2009-07-24 22:15:01",
+             "order": 7,
+             "name": "Speed Networking"
+        }
+    },
+     
+    {
+        "pk": 6,
+         "model": "breakout.breakoutcategory",
+         "fields": 
+        {
+            "description": "",
+             "slug": "coworking-partial-day",
+             "created_on": "2009-07-24 22:15:30",
+             "updated_on": "2009-07-24 22:15:30",
+             "order": 8,
+             "name": "Coworking - Partial Day"
+        }
+    },
+     
+    {
+        "pk": 2,
+         "model": "breakout.breakoutcategory",
+         "fields": 
+        {
+            "description": "",
+             "slug": "coworking-full-day",
+             "created_on": "2009-07-24 21:19:42",
+             "updated_on": "2009-07-24 22:15:46",
+             "order": 9,
+             "name": "Coworking - Full Day"
+        }
+    },
+     
+    {
+        "pk": 1,
+         "model": "breakout.breakoutcategory",
+         "fields": 
+        {
+            "description": "",
+             "slug": "class",
+             "created_on": "2009-07-24 21:19:33",
+             "updated_on": "2009-07-24 22:15:51",
+             "order": 12,
+             "name": "Class"
+        }
+    },
+     
+    {
+        "pk": 1,
+         "model": "breakout.breakoutsession",
+         "fields": 
+        {
+            "category": 2,
+             "name": "NWC Coworking",
+             "end_date": "2009-07-24 18:00:00",
+             "venue": 1,
+             "moderator": 1,
+             "created_on": "2009-07-24 21:28:44",
+             "available_spots": 20,
+             "updated_on": "2009-07-24 21:28:44",
+             "start_date": "2009-07-24 09:00:00",
+             "description": ""
+        }
+    },
+    {
+        "pk": 2,
+         "model": "breakout.breakoutsession",
+         "fields": 
+        {
+            "category": 2,
+             "name": "NWC Coworking",
+             "end_date": "2009-07-23 18:00:00",
+             "venue": 1,
+             "moderator": 1,
+             "created_on": "2009-07-24 21:28:44",
+             "available_spots": 20,
+             "updated_on": "2009-07-24 21:28:44",
+             "start_date": "2009-07-23 09:00:00",
+             "description": ""
+        }
+    },
+    {
+        "pk": 3,
+         "model": "breakout.breakoutsession",
+         "fields": 
+        {
+            "category": 2,
+             "name": "NWC Coworking",
+             "end_date": "2009-07-22 18:00:00",
+             "venue": 1,
+             "moderator": 1,
+             "created_on": "2009-07-24 21:28:44",
+             "available_spots": 20,
+             "updated_on": "2009-07-24 21:28:44",
+             "start_date": "2009-07-22 09:00:00",
+             "description": ""
+        }
+    },
+    {
+        "pk": 4,
+         "model": "breakout.breakoutsession",
+         "fields": 
+        {
+            "category": 2,
+             "name": "NWC Coworking",
+             "end_date": "2009-07-25 18:00:00",
+             "venue": 1,
+             "moderator": 1,
+             "created_on": "2009-07-24 21:28:44",
+             "available_spots": 20,
+             "updated_on": "2009-07-24 21:28:44",
+             "start_date": "2009-07-25 09:00:00",
+             "description": ""
+        }
+    },
+    {
+        "pk": 5,
+         "model": "breakout.breakoutsession",
+         "fields": 
+        {
+            "category": 1,
+             "name": "NWC Coworking",
+             "end_date": "2009-07-26 18:00:00",
+             "venue": 1,
+             "moderator": 1,
+             "created_on": "2009-07-24 21:28:44",
+             "available_spots": 20,
+             "updated_on": "2009-07-24 21:28:44",
+             "start_date": "2009-07-26 09:00:00",
+             "description": ""
+        }
+    }
+]
+

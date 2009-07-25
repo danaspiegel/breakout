@@ -8,15 +8,15 @@ import django.contrib.auth.views
 from django.contrib import admin
 admin.autodiscover()
 
-from breakout.models import TwitterUserSitemap
+from breakout.models import VenueSitemap
 
 urlpatterns = patterns('',
     url(r'^', include('breakout.urls')),
-    url(r'^admin/(.*)', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     # url(r'^oauth/twitter/', include('twitter_app.urls')),
     url(r'^account/', include('account.urls')),
     
-    url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', { 'sitemaps': { 'users': TwitterUserSitemap() } }),
+    url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', { 'sitemaps': { 'venues': VenueSitemap() } }),
     url(r'^robots.txt$', include('django_robots.urls')),
     # url(r"^announcements/", include('django_announcements.urls')),
 )

@@ -1,0 +1,188 @@
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  background-color: #fcf321;
+  color: #000000;
+  text-align: left;
+  line-height: 15px;
+}
+
+p {
+    margin: 3px 0;
+}
+
+h1 {
+    font-size: 22px;
+    padding: 0 0 8px 0;
+}
+
+h2 {
+    font-size: 18px;
+    padding: 0 0 8px 0;
+}
+
+div.clear {
+    clear: both;
+    height: 5px;
+}
+
+.float-right {
+    float: right;
+}
+
+#container {
+    width: 956px;
+    margin: 0 auto;
+    padding: 0;
+    background-color: #fff;
+    height: 100%;
+}
+
+#site-wide-announcements {
+    background: #123;
+    color: #ddd;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    padding: 6px;
+}
+
+#header {
+    margin: 0 auto;
+    height: 120px;
+}
+
+#header-login {
+    float: right;
+    padding: 0 10px;
+}
+
+#footer {
+    font-size: 11px;
+    clear: both;
+    padding: 30px 10px 10px 10px;
+}
+
+#sponsors {
+    font-size: 11px;
+    clear: both;
+    padding: 10px;
+    background-color: #ddd;
+}
+
+#content-secondary {
+    text-align: left;
+    float: right;
+    width: 300px;
+    padding: 10px;
+}
+
+#content-main {
+    float: left;
+    width: 610px;
+    padding: 10px;
+}
+
+ul#twitter-results {
+    width: 580px;
+    margin: 10px 0;
+    padding: 0;
+}
+
+ul#twitter-results li.twitter-status {
+    padding: 8px 0;
+    list-style: none;
+    display: block;
+    clear: left;
+}
+
+div.twitter-icon {
+    float: left;
+    width: 52px;
+    height: 48px;
+}
+
+div.twitter-icon img {
+    height: 48px;
+    width: 48px;
+    padding-right: 4px;
+}
+
+div.twitter-message {
+    float: left;
+    width: 520px;
+}
+
+div.twitter-date {
+    color: #bbb;
+    font-size: 10px;
+    margin-top: 6px;
+}
+
+.pagination {
+    color: #888;
+    clear: both;
+    margin: 2px 0;
+}
+
+.pagination a,
+.pagination a:hover,
+.pagination a:visited {
+    color: #444;
+    text-decoration: none;
+}
+
+.pagination .prev,
+.pagination .next,
+.pagination .page {
+    padding: 3px 5px;
+    background: #ddf;
+    border: 1px solid #668;
+}
+
+.pagination .current {
+    color: #fff;
+    font-weight: bold;
+    background: #668;
+    border: 1px solid #668;
+}
+
+.pagination .disabled {
+    color: #aaa;
+    background: #fff;
+    border: 1px solid #aaa;
+}
+
+div#messages {
+    padding: 3px;
+    margin: 5px 0;
+    background: #fee;
+}
+
+div#messages .notice {
+    color: #f00;
+    font-size: 10px;
+}
+
+span.search-terms {
+    color: #acd;
+}
+
+span.highlight {
+    padding: 2px 0;
+    background: #cef;
+}
+
+a.claim-profile {
+    text-align: center;
+    background: #aad;
+    border: 1px solid #88c;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    margin: 5px 0;
+    text-decoration: none;
+}

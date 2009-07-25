@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block content %}
+{% for venue in venues %}
+
+    <div><a href="{% url venue_view slug=venue.slug %}">{{ venue.name }}</a></div>
+    
+{% endfor %}
+{% endblock %}
+

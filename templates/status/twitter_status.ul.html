@@ -1,0 +1,25 @@
+{% load common_tags %}
+
+<ul id="twitter-results">
+    {% for twitter_status in twitter_statuses %}
+        <li class="twitter-status">
+            {% ifnotequal twitter_user twitter_status.user %}
+            <div class="twitter-icon">
+                <a href="{% url profile screen_name=twitter_status.user.screen_name %}"><img src="{{ twitter_status.user.profile_image_url }}" /></a>
+            </div>
+            {% endifnotequal %}
+            
+            <div class="twitter-message">
+                {% ifnotequal twitter_user twitter_status.user %}
+                    <strong><a href="{% url profile screen_name=twitter_status.user.screen_name %}">{{ twitter_status.user.screen_name }}</a></strong>: 
+                {% endifnotequal %}
+                {% if search_terms %}
+                    {{ twitter_status.text|urlize|twitterize|highlight:search_terms }}<br/>
+                {% else %}
+                    {{ twitter_status.text|urlize|twitterize }}<br/>
+                {% endif %}
+                <div class="twitter-date">posted {{ twitter_status.created_on|timesince }} ago</div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

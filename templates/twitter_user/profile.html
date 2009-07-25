@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block content %}
+
+{% if not user.is_authenticated %}
+{% ifnotequal user.get_profile.twitter_user twitter_user %}
+    <a class="claim-profile float-right" href="{% url claim screen_name=twitter_user.screen_name %}">Claim This Profile</a>
+{% endifnotequal %}
+{% endif %}
+
+<div class="twitter-icon">
+    {% if twitter_user.profile_image_url %}<img src="{{ twitter_user.profile_image_url }}" />{% endif %}
+</div>
+<div class="">
+    <h1> {{ twitter_user.screen_name }} {% if user.is_authenticated %}{% ifequal user.get_profile.twitter_user twitter_user %}(you!){% endifequal %}{% endif %}</h1>
+
+    <a href="http://twitter.com/{{ twitter_user.screen_name }}/">@{{ twitter_user.screen_name }}</a>
+    {% if user.is_superuser %}
+    <a href="{% url blacklist screen_name=twitter_user.screen_name %}">blacklist</a>
+    {% endif %}
+</div>
+
+<div class="clear"></div>
+
+<div class="about">
+    {% if twitter_user.description %}<p>{{ twitter_user.description|linebreaksbr }}</p>{% endif %}
+    {% if twitter_user.location %}<p><strong>Location</strong>: {{ twitter_user.location }}<p>{% endif %}
+    {% if twitter_user.url %}<p><strong>Website</strong>: {{ twitter_user.url|urlize }}</p>{% endif %}
+</div>
+
+{% load pagination_tags %}
+{% autopaginate twitter_statuses 20 %}
+{% paginate %}
+<div class="clear"></div>
+
+{% include "status/twitter_status.ul.html" %}
+
+<div class="clear"></div>
+{% paginate %}
+
+
+{% endblock %}

@@ -1,0 +1,12 @@
+<ul id="location-menu">
+    <li class="active">
+        {% if venue.current_breakout_session %}
+            <a href="{{ venue.current_breakout_session.get_absolute_url }}">Current Session: {{ venue.current_breakout_session.name }}</a></li>
+        {% else %}
+            {% if venue.next_breakout_session %}
+                <a href="{{ venue.next_breakout_session.get_absolute_url }}">Upcoming Session: {{ venue.next_breakout_session.name }}</a></li>
+            {% endif %}
+        {% endif %}
+    <li><a href="{{ venue.get_absolute_url }}">About This Location</a></li>
+    <li><a href="{% url archive_session_list venue_slug=venue.slug %}">Session Archive</a></li>
+</ul>

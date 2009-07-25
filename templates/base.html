@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>BREAKOUT! / {% block title %}Home{% endblock %}</title>
+	
+	<link href="{{ MEDIA_URL }}css/reset.css" rel="stylesheet" type="text/css" />
+	<link href="{{ MEDIA_URL }}css/breakout.css" rel="stylesheet" type="text/css" />
+    
+    {% block media %}{% endblock media %}
+    {% if form %}{{ form.media }}{% endif %}
+
+    {% block script %}{% endblock script %}
+    {% block style %}{% endblock style %}
+
+</head>
+
+
+<body>
+<!-- BEGIN container -->
+
+{% if site_wide_announcements %}
+    <div id="site-wide-announcements">
+        {% for announcement in site_wide_announcements %}
+            {{ announcement }}<br/>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div id="container">
+    <!-- BEGIN HEADER -->
+    <div id="header">
+        <div id="header-content">
+        	<div id="header-left">
+                {% block header %}
+                    <div id="header-left">
+                        <a href="/"><img id="logo" alt="Breakout Festival" src="{{ MEDIA_URL }}images/logo.png" /></a>
+                    </div>
+        		{% endblock header %}
+        	</div>
+
+            <div id="header-login">
+                {% if user.is_authenticated %}
+                    {% if request.session.superuser %}
+                        <span class="red-background">LOGGED IN AS USER {{ user }}</span> | <a href="{% url end_masquerade %}">Logout</a>
+                    {% else %}
+                        <a href="{% url logout %}">Logout</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+        	<div id="primary-navigation">
+        	    {% block primary_navigation %}
+                    <ul>
+                        {# <li class="{% active request '^/home/' %}"><a href="/home/"><span>Home</span></a></li> #}
+                        {# <li class="{% active request '^/help/' %}"><a href="/help/"><span>Help</span></a></li> #}
+                    </ul>
+                {% endblock primary_navigation %}	
+        	</div>
+        </div>
+    </div>
+
+	<div id="content">
+        {% block content_container %}
+    		<!-- BEGIN SIDE CONTENT -->
+    		<div id="content-secondary">
+    	        {% block content_secondary %}
+    			{% endblock content_secondary %}
+    		</div>
+    		<!-- END SIDE CONTENT -->
+
+    		<!-- BEGIN MAIN CONTENT -->
+    		<div id="content-main">
+                <h1>{% block pagetitle %}{% endblock %}</h1>
+
+                {% if messages %}
+                    <div id="messages">
+                        {% for message in messages %}
+                            <p class="notice">{{ message|safe }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+    		    {% block content %}
+    		    {% endblock content %}
+
+    		</div>
+    		<!-- END MAIN CONTENT -->
+        {% endblock content_container %}
+	</div>
+
+
+    <div id="sponsors">
+    	<h1>
+    		<img src="http://breakoutfestival.org/wp-content/themes/breakoutfestival/images/sponsors.png"/>
+    	</h1>
+    	<ul>
+    		<li><img src="http://breakoutfestival.org/wp-content/themes/breakoutfestival/images/sponsor_architectural_league_ny.png"/></li>
+    	</ul>
+    </div>
+
+    <div id="footer">
+    	<div class="footer-text">
+    	    <ul>
+    			<li><a href="/follow/">Follow</a></li>
+    			<li><a href="/sponsor/">Sponsor</a></li>
+    			<li><a href="/email/">Contact</a></li>
+    			<li><a href="/2009/">Archives</a></li>
+    		</ul>
+        	<div class="attribution">Creative Commons Attribution&mdash;Noncommercial&mdash;Share Alike 3.0 | <a href="/help/terms_of_service/">Terms of Service</a> | <a href="/help/privacy_policy/">Privacy Policy</a></div>
+    	</div>
+    </div>
+</div>
+
+</body>
+</html>

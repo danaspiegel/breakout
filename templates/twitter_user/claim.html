@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block content %}
+
+<h1>{% if twitter_user.profile_image_url %}<img src="{{ twitter_user.profile_image_url }}" />{% endif %} {{ twitter_user.screen_name }}</h1>
+
+
+<div>
+    <a href="http://twitter.com/{{ twitter_user.screen_name }}/">@{{ twitter_user.screen_name }}</a>
+    {% if user.is_superuser %}
+    <a href="{% url blacklist screen_name=twitter_user.screen_name %}">blacklist</a>
+    {% endif %}
+</div>
+
+<div>
+    <p>To claim this profile, you must log into FrHire using your Twitter user credentials. Upon clicking on the "Claim Profile" button below, you'll be redirected to Twitter's authentication page, where you must <strong>ALLOW</strong> FrHire to access your Twitter account.</p>
+
+{% if not user.is_authenticated %}
+{% ifnotequal user.get_profile.twitter_user twitter_user %}
+    <p><a class="claim-profile" href="{% url twitter_login %}">Claim This Profile</a></p>
+{% endifnotequal %}
+{% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+
+{% block content %}
+
+<h2>Recent Tweets</h2>
+
+{% autopaginate twitter_statuses 20 %}
+{% paginate %}
+<div class="clear"></div>
+
+{% include "status/twitter_status.ul.html" %}
+
+<div class="clear"></div>
+{% paginate %}
+
+{% endblock %}

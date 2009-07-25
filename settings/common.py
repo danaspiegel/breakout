@@ -27,7 +27,8 @@ MANAGERS = ADMINS
 DATABASE_ENGINE = 'mysql'
 DATABASE_OPTIONS = {
     'init_command': 'SET storage_engine=INNODB',
-    'use_unicode': 'utf8',
+    'use_unicode': True,
+    'charset': 'utf8', 
 }
 
 
@@ -91,6 +92,9 @@ AUTH_PROFILE_MODULE = 'account.UserProfile'
 CONSUMER_KEY = 'i7jNBFeCfpLgLgxuxCuA'
 CONSUMER_SECRET = 'TzYNIUtvemCkKWUjwlB8S4GAsabqcWQvQiIneYX6gw'
 
+ANALYTICS_ID = 'UA-5053085-4'
+ANALYTICS_IGNORE_ADMIN = True
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -98,6 +102,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.sitemaps',
+    'django.contrib.flatpages',
     'django_announcements',
     'django_robots',
     'django_extensions',
@@ -107,5 +112,6 @@ INSTALLED_APPS = (
     'django_mailer',
     'twitter_app',
     'account',
-    'search',
+    'breakout',
+    # 'search',
 )
