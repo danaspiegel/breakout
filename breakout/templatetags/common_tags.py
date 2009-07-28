@@ -7,6 +7,13 @@ from django.template.defaultfilters import stringfilter
 
 register = Library()
 
+@register.simple_tag
+def active(request, pattern):
+    pattern = '^%s' % pattern
+    if re.search(pattern, request.path):
+        return 'active'
+    return ''
+
 # from http://www.djangosnippets.org/snippets/1609/
 @register.filter
 def sortby(sequence, attribute):

@@ -1,0 +1,7 @@
+Breakout OS is built using Django 1.1
+
+All libraries are in the 'libraries' directory.
+
+To run in development mode:
+
+./manage.py runserver --settings=settings.local

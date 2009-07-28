@@ -8,34 +8,46 @@
 
 {% include "venue/ul.location_menu.html" %}
 
+<div class="breakout-session-list-date">Upcoming Sessions</div>
+
+{% regroup venue.future_breakout_sessions by event_date as breakout_session_dates_list %}
+
+{% for breakout_session_dates in breakout_session_dates_list %}
+
+<div class="breakout-session-list-date">{{ breakout_session_dates.grouper|date:"l, F dS" }}</div>
+<div class="">
+    <table class="">
+        {% for breakout_session in breakout_session_dates.list %}
+            <tr>
+                <td>
+                    <a href="{{ breakout_session.get_absolute_url }}"><strong>{{ breakout_session.name }}</strong></a></br>
+                    {{ breakout_session.description|linebreaks }}
+                </td>
+                <td><a href="{{ breakout_session.venue.get_absolute_url }}">{{ breakout_session.venue.name }}</a></td>
+                <td>{{ breakout_session.start_date|date:"P" }} - {{ breakout_session.end_date|date:"P" }}</td>
+                <td><a href="">Sign Up &raquo;</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endfor %}
+
+<h2>MAP</h2>
+
+<div class="">Useful Nearby Locations</div>
+
 {% endblock %}
 
 {% block content_secondary %}
 
-    <div class="sidebar-information">
-        <h2>About This Location</h2>
+    {% include 'venue/sidebar.about_location.html' %}
 
-        <div class="venue-address">
-            <p>
-                {{ venue.street_address_1 }}<br/>
-                {% if venue.street_address_2 %}{{ venue.street_address_2 }}<br/>{% endif %}
-                {{ venue.city }}, {{ venue.state }} {{ venue.zip_code }}
-            </p>
-        </div>
-        
-        <div class="venue-description">{{ venue.description|linebreaks }}</div>
-    </div>
-    
     <div class="sidebar-information">
         <h2>Here Now</h2>
     </div>
 
-    <div class="sidebar-information">
-        <h2>{{ venue.past_breakout_sessions.count }} Past Sessions Here</h2>
-        {% with venue.past_breakout_sessions as breakout_sessions %}
-            {% include 'breakout_session/ul.list.html' %}
-        {% endwith %}
-    </div>
+    {% include 'venue/sidebar.past_sessions.html' %}
 
 {% endblock %}
 

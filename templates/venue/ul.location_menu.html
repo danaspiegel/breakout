@@ -1,12 +1,21 @@
-<ul id="location-menu">
-    <li class="active">
-        {% if venue.current_breakout_session %}
-            <a href="{{ venue.current_breakout_session.get_absolute_url }}">Current Session: {{ venue.current_breakout_session.name }}</a></li>
-        {% else %}
-            {% if venue.next_breakout_session %}
-                <a href="{{ venue.next_breakout_session.get_absolute_url }}">Upcoming Session: {{ venue.next_breakout_session.name }}</a></li>
+{% load common_tags %}
+
+<div class="tabs">
+    <ul id="location-menu">
+        <li class="{% active request '/venues/[a-zA-Z0-9\-]+/[0-9]+/$' %}">
+            {% if venue.current_breakout_session %}
+                <a href="{{ venue.current_breakout_session.get_absolute_url }}"><span>Current Session: {{ venue.current_breakout_session.name }}</span></a>
+            {% else %}
+                {% if venue.next_breakout_session %}
+                    <a href="{{ venue.next_breakout_session.get_absolute_url }}"><span>Upcoming Session: {{ venue.next_breakout_session.name }}</span></a>
+                {% endif %}
             {% endif %}
-        {% endif %}
-    <li><a href="{{ venue.get_absolute_url }}">About This Location</a></li>
-    <li><a href="{% url archive_session_list venue_slug=venue.slug %}">Session Archive</a></li>
-</ul>
+        </li>
+        <li class="{% active request '/venues/[a-zA-Z0-9\-]+/$' %}">
+            <a href="{{ venue.get_absolute_url }}"><span>About This Location</span></a>
+        </li>
+        <li class="{% active request '/venues/[a-zA-Z0-9\-]+/archive/$' %}">
+            <a href="{% url archive_session_list venue_slug=venue.slug %}"><span>Session Archive</span></a>
+        </li>
+    </ul>
+</div>

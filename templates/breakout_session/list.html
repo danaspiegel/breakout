@@ -6,6 +6,8 @@
 
 {% block content %}
 
+{% include "venue/ul.location_menu.html" %}
+
 {% for breakout_session in breakout_sessions %}
 
     <div><a href="{{ breakout_session.get_absolute_url }}">{{ breakout_session.name }}</a> (<a href="{% url session_list category_slug=breakout_session.category.slug %}">{{ breakout_session.category }}</a>) {{ breakout_session.start_date|date:"M d, Y" }}</div>

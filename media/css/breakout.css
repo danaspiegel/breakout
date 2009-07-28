@@ -14,12 +14,12 @@ p {
 
 h1 {
     font-size: 22px;
-    padding: 0 0 8px 0;
+    padding: 10px 0 8px 0;
 }
 
 h2 {
     font-size: 18px;
-    padding: 0 0 8px 0;
+    padding: 10px 0 8px 0;
 }
 
 div.clear {
@@ -185,4 +185,139 @@ a.claim-profile {
     padding: 10px;
     margin: 5px 0;
     text-decoration: none;
+}
+
+/* Page Tabs */
+
+div.tabs {
+    clear: both;
+    height: 40px;
+    border-bottom: 1px solid #000;
+    padding-left: 4px;
+    margin-top: 10px;
+}
+
+div.tabs li {
+    float: left;
+    list-style: none;
+}
+
+div.tabs li a {
+    cursor: pointer;
+    display: block;
+    float: left;
+    margin-top: 10px;
+    padding: 7px 12px;
+    font-size: 10px;
+    font-weight: bold;
+    border: 1px solid #000;
+    border-bottom: 0;
+    color: #31373f;
+    background: #eee;
+}
+
+
+/*div.tabs li a span {
+  display: block;
+  padding-top: 10px;
+  padding-right: 20px;
+  margin-top: -10px;
+  background: #eee;
+}
+*/
+div.tabs li a:hover {
+  text-decoration: none;
+  color: #0063a2;
+}
+
+div.tabs li.active a {
+    border-left: solid 1px #000;
+    font-size: 14px;
+    margin-top: 0px;
+    padding: 12px 12px;
+    border-bottom: none;
+    cursor: default;
+    background: #fff;
+}
+
+/*div.tabs li.active a span {
+  padding-top: 15px;
+  padding-right: 20px;
+  background: #fff;
+}
+*/
+div.tabs li.active a:hover {
+  color: #31373f;
+}
+
+
+
+/* Breakout Design */
+
+.breakout-session-list-date {
+    border: 1px solid #555;
+    border-bottom: 0;
+    background: #aaa;
+    color: #fff;
+    font-weight: bold;
+    padding: 4px;
+    margin: 0px;
+}
+
+.breakout-session-list {
+    padding: 0;
+    margin: 0 0 8px 0;
+    border: 1px solid #555;
+    border-top: 0;
+}
+
+.breakout-session-list-container {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #555;
+}
+
+table.breakout-session-list-container {
+    margin: 0;
+    padding: 0;
+}
+
+.breakout-session-list-description {
+    width: 450px;
+    padding-right: 10px;
+    vertical-align: top;
+    padding: 4px;
+}
+
+.breakout-session-list-details {
+    width: 140px;
+    vertical-align: top;
+    padding: 4px;
+}
+
+.breakout-session-list-attending {
+    width: 450px;
+    vertical-align: top;
+    border-top: 1px solid #aaa;
+    padding: 4px;
+}
+
+.breakout-session-list-action {
+    width: 140px;
+    vertical-align: top;
+    border-top: 1px solid #aaa;
+    background: #aaa;
+    color: #fff;
+    font-weight: bold;
+    padding: 4px;
+    text-align: center;
+}
+
+.host-session-action {
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+    border: 2px solid #aac;
+    background: #dde;
+    padding: 10px 4px;
 }

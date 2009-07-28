@@ -110,6 +110,7 @@ INSTALLED_APPS = (
     'django_timezones',
     'django_pagination',
     'django_mailer',
+    'south',
     'twitter_app',
     'account',
     'breakout',

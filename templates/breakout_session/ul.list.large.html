@@ -1,4 +1,4 @@
-<ul class="breakout-session-list-small">
+<ul class="breakout-session-list">
     {% for breakout_session in breakout_sessions %}
         <li><a href="{{ breakout_session.get_absolute_url }}">{{ breakout_session.name }} on {{ breakout_session.start_date|date:"M j, Y" }}</a></li>
     {% endfor %}

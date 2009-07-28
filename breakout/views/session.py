@@ -10,6 +10,13 @@ from django.utils.encoding import smart_unicode, force_unicode
 
 from ..models import Venue, BreakoutSession, BreakoutCategory
 
+def index(request):
+    today = datetime.datetime.today()
+    breakout_sessions = BreakoutSession.objects.filter(start_date__gte=datetime.datetime(today.year, today.month, today.day, 0, 0, 0)).order_by('start_date')
+    past_breakout_sessions = BreakoutSession.objects.filter(start_date__lt=datetime.datetime(today.year, today.month, today.day, 0, 0, 0)).order_by('-start_date')[0:5]
+    categories = BreakoutCategory.objects.all().order_by('name')
+    return render_to_response('breakout_session/index.html', { 'breakout_sessions': breakout_sessions, 'past_breakout_sessions': past_breakout_sessions, 'categories': categories, }, context_instance=RequestContext(request))    
+
 def list(request, category_slug=None, venue_slug=None, include_future=True, include_past=True):
     breakout_sessions = BreakoutSession.objects.all().order_by('-created_on')
     if category_slug:
@@ -24,10 +31,10 @@ def list(request, category_slug=None, venue_slug=None, include_future=True, incl
         venue = None
     if not include_past:
         today = datetime.datetime.today()
-        breakout_sessions = breakout_sessions.filter(start_date__gte=datetime.datetime(today.year, today.month, today.day, 0, 0, 0))    
+        breakout_sessions = breakout_sessions.filter(start_date__gte=datetime.datetime(today.year, today.month, today.day, 0, 0, 0))
     elif not include_future:
         today = datetime.datetime.today()
-        breakout_sessions = breakout_sessions.filter(start_date__lt=datetime.datetime(today.year, today.month, today.day, 0, 0, 0))    
+        breakout_sessions = breakout_sessions.filter(start_date__lt=datetime.datetime(today.year, today.month, today.day, 0, 0, 0))
     return render_to_response('breakout_session/list.html', 
                                 { 'breakout_sessions': breakout_sessions, 
                                   'category': category, 

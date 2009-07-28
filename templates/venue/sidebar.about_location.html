@@ -1,0 +1,13 @@
+<div class="sidebar-information">
+    <h2>About This Location</h2>
+
+    <div class="venue-address">
+        <p>
+            {{ venue.street_address_1 }}<br/>
+            {% if venue.street_address_2 %}{{ venue.street_address_2 }}<br/>{% endif %}
+            {{ venue.city }}, {{ venue.state }} {{ venue.zip_code }}
+        </p>
+    </div>
+    
+    <div class="venue-description">{{ venue.description|linebreaks }}</div>
+</div>

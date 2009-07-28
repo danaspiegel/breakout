@@ -37,6 +37,11 @@ class Venue(models.Model):
         return self.breakout_sessions.filter(end_date__lt=datetime.datetime(today.year, today.month, today.day)).order_by('-start_date')
     
     @property
+    def recent_past_breakout_sessions(self):
+        today = datetime.datetime.now()
+        return self.breakout_sessions.filter(end_date__lt=datetime.datetime(today.year, today.month, today.day)).order_by('-start_date')[0:5]
+    
+    @property
     def future_breakout_sessions(self):
         today = datetime.datetime.now()
         return self.breakout_sessions.filter(start_date__gt=datetime.datetime(today.year, today.month, today.day)).order_by('start_date')
@@ -72,7 +77,7 @@ class BreakoutCategory(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ('session_list', (), { 'category_slug': self.slug })
+        return ('upcoming_session_list', (), { 'category_slug': self.slug })
     
     class Meta:
         get_latest_by = 'updated_on'
@@ -97,12 +102,24 @@ class BreakoutSession(models.Model):
     def __unicode__(self):
         return '%s at %s' % (self.name, self.venue, )
     
+    @property
+    def event_date(self):
+        return self.start_date.date()
+    
+    @property
+    def remaining_spots(self):
+        if self.available_spots:
+            return self.available_spots - self.registered_users.count()
+        else:
+            return None
+    
     @models.permalink
     def get_absolute_url(self):
         return ('session_view', (), { 'session_id': self.id, 'venue_slug': self.venue.slug })
     
     def is_active(self):
         return self.start_date <= datetime.datetime.now() <= self.end_date
+    is_active.boolean = True
     
     class Meta:
         get_latest_by = 'updated_on'
