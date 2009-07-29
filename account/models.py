@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db.models.signals import post_save
 
-# import frhire.models
+# short_name is a user's first name and last initial
+User.short_name = property(lambda self: "%s %s." % (self.first_name, self.last_name[0:1]))
 
 class UserProfile(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)

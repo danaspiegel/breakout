@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block title %}{% block pagetitle %}{{ venue.name }}{% endblock %}{% endblock %}
+
+{% block content %}
+
+{% include "venue/ul.location_menu.html" %}
+
+<div class="breakout-session-list-header">Past Sessions Here</div>
+
+{% for breakout_session in breakout_sessions %}
+    <div class="breakout-session-list-item">
+        <a href="{{ breakout_session.get_absolute_url }}"><strong>{{ breakout_session.name }}</strong></a> &mdash; 
+        {{ breakout_session.start_date|date:"P" }} &ndash; {{ breakout_session.end_date|date:"P" }} on {{ breakout_session.start_date|date:"D, M j" }}<br/>
+        <a href="{{ breakout_session.moderator.get_absolute_url }}">{{ breakout_session.moderator.short_name }}</a> moderated<br/>
+        {{ breakout_session.attending_users.count }} {{ breakout_session.attending_users.count|pluralize:"person,people" }} attended
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block content_secondary %}
+
+    {% include 'venue/sidebar.about_location.html' %}
+
+    <div class="sidebar-information">
+        <h2>Here Now</h2>
+    </div>
+
+    {% include 'venue/sidebar.past_sessions.html' %}
+
+{% endblock %}
+

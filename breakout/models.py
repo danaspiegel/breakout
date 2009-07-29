@@ -1,4 +1,5 @@
 import datetime
+from geopy import geocoders
 
 from django.db import models
 from django.db.models.signals import post_save
@@ -23,7 +24,11 @@ class Venue(models.Model):
     phone_number = PhoneNumberField(null=True, blank=True)
     url = models.URLField(max_length=400, verify_exists=False, blank=True, null=True)
     image = models.ImageField(max_length=400, upload_to='venues', blank=True, null=True)
-        
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
+    
+    geocoder = geocoders.GeocoderDotUS()
+    
     def __unicode__(self):
         return self.name
     
@@ -60,6 +65,10 @@ class Venue(models.Model):
             return self.future_breakout_sessions[0]
         except BreakoutSession.DoesNotExist:
             return None
+    
+    def geocode(self):
+        place, (self.latitude, self.longitude) = Venue.geocoder.geocode("%s, %s, %s %s" % (self.street_address_1, self.city, self.state, self.zip_code, ))
+        return place
     
     class Meta:
         get_latest_by = 'updated_on'
@@ -113,6 +122,10 @@ class BreakoutSession(models.Model):
         else:
             return None
     
+    @property
+    def attending_users(self):
+        return self.registered_users.filter(session_attendance__status='A')
+    
     @models.permalink
     def get_absolute_url(self):
         return ('session_view', (), { 'session_id': self.id, 'venue_slug': self.venue.slug })
@@ -141,6 +154,9 @@ class SessionAttendance(models.Model):
     
     def __unicode__(self):
         return '%s %s %s' % (self.registrant, self.get_status_display(), self.session.name, )
+    
+    def length(self):
+        return self.departure_time - self.arrival_time
     
     class Meta:
         get_latest_by = 'updated_on'

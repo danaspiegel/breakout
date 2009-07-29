@@ -18,7 +18,7 @@ def index(request):
     return render_to_response('breakout_session/index.html', { 'breakout_sessions': breakout_sessions, 'past_breakout_sessions': past_breakout_sessions, 'categories': categories, }, context_instance=RequestContext(request))    
 
 def list(request, category_slug=None, venue_slug=None, include_future=True, include_past=True):
-    breakout_sessions = BreakoutSession.objects.all().order_by('-created_on')
+    breakout_sessions = BreakoutSession.objects.all().order_by('-end_date')
     if category_slug:
         category = BreakoutCategory.objects.get(slug=category_slug)
         breakout_sessions = breakout_sessions.filter(category=category)
@@ -34,7 +34,7 @@ def list(request, category_slug=None, venue_slug=None, include_future=True, incl
         breakout_sessions = breakout_sessions.filter(start_date__gte=datetime.datetime(today.year, today.month, today.day, 0, 0, 0))
     elif not include_future:
         today = datetime.datetime.today()
-        breakout_sessions = breakout_sessions.filter(start_date__lt=datetime.datetime(today.year, today.month, today.day, 0, 0, 0))
+        breakout_sessions = breakout_sessions.filter(end_date__lt=datetime.datetime(today.year, today.month, today.day, 0, 0, 0))
     return render_to_response('breakout_session/list.html', 
                                 { 'breakout_sessions': breakout_sessions, 
                                   'category': category, 

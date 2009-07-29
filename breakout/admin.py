@@ -7,17 +7,37 @@ from django.core.urlresolvers import reverse
 from models import *
 
 class VenueAdmin(admin.ModelAdmin):
+    fieldsets = ((None, { 'fields': ('name', 'slug', 'description', 'phone_number', 'url', 'image', ) }),
+                ('Location', { 'fields': ('street_address_1', 'street_address_2', 'city', 'state', 'zip_code', 'latitude', 'longitude', ) }), )
     prepopulated_fields = { 'slug': ('name', ) }
     list_display_links = ('name', )
-    list_display = ('name', 'slug', 'website', 'street_address_1', 'city', 'state', 'zip_code', 'phone_number', )
+    list_display = ('name', 'slug', 'website', 'street_address_1', 'city', 'state', 'zip_code', 'is_geocoded', 'phone_number', )
     search_fields = ['name', 'slug', 'street_address_1', 'city', 'state', 'zip_code', 'phone_number', ]
     save_on_top = True
+    actions = ['geocode', ]
     
     def website(self, obj):
         return '<a href="%s" target="_blank">website</a>' % obj.url
     website.allow_tags = True
     website.short_description = 'Website'
     website.admin_order_field = 'url'
+    
+    def geocode(self, request, queryset):
+        geocoded_entries = 0
+        for venue in queryset:
+            try:
+                venue.geocode()
+                venue.save()
+                geocoded_entries += 1
+            except Exception, e:
+                self.message_user(request, e)
+        self.message_user(request, "%s successfully geocoded." % geocoded_entries)
+    geocode.short_description = "Geocode Venues"
+    
+    def is_geocoded(self, obj):
+        return bool(obj.latitude) and bool(obj.longitude)
+    is_geocoded.boolean = True
+    is_geocoded.short_description = 'Geocoded'
 
 admin.site.register(Venue, VenueAdmin)
 

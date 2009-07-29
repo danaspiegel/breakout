@@ -8,7 +8,7 @@
 
 {% include "venue/ul.location_menu.html" %}
 
-<div class="breakout-session-list-date">Upcoming Sessions</div>
+<div class="breakout-session-list-header">Upcoming Sessions</div>
 
 {% regroup venue.future_breakout_sessions by event_date as breakout_session_dates_list %}
 

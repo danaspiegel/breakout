@@ -5,3 +5,27 @@ All libraries are in the 'libraries' directory.
 To run in development mode:
 
 ./manage.py runserver --settings=settings.local
+
+
+TO-DO
+-----
+* Lifestream (see http://Plaxo.com and http://soup.io)
+  * twitter
+  * flickr
+  * friendfeed
+  * facebook
+  * Bloglines
+  * Delicious
+  * Digg
+  * Reddit
+  * Picasa
+  * SlideShare
+  * iLike
+  * Last.fm
+  * Vimeo
+  * YouTube
+* Add useful info for site:
+  * weather
+  * bathrooms
+* google map
+* geolocation for venue
