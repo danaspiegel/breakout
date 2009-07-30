@@ -321,3 +321,8 @@ table.breakout-session-list-container {
     background: #dde;
     padding: 10px 4px;
 }
+
+.google-map {
+    width: 610px; 
+    height: 400px;
+}

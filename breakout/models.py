@@ -1,6 +1,7 @@
 import datetime
 from geopy import geocoders
 
+from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
@@ -27,7 +28,7 @@ class Venue(models.Model):
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     
-    geocoder = geocoders.GeocoderDotUS()
+    geocoder = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
     
     def __unicode__(self):
         return self.name
@@ -62,7 +63,7 @@ class Venue(models.Model):
     @property
     def next_breakout_session(self):
         try:
-            return self.future_breakout_sessions[0]
+            return self.future_breakout_sessions[0:1]
         except BreakoutSession.DoesNotExist:
             return None
     

@@ -17,7 +17,7 @@ def list(request):
 def view(request, venue_slug):
     try:
         venue = Venue.objects.get(slug=venue_slug)
-        return render_to_response('venue/view.html', { 'venue': venue }, context_instance=RequestContext(request))
+        return render_to_response('venue/view.html', { 'venue': venue, }, context_instance=RequestContext(request))
     except Venue.DoesNotExist:
         return HttpResponseRedirect(reverse('index'))        
 

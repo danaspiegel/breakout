@@ -114,5 +114,5 @@ INSTALLED_APPS = (
     'twitter_app',
     'account',
     'breakout',
-    # 'search',
+    'lifestream',
 )
