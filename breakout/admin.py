@@ -74,7 +74,7 @@ class BreakoutSessionAdmin(admin.ModelAdmin):
     list_display_links = ('name', )
     inlines = (SessionAttendanceInline, )
     list_filter = ('category', )
-    list_display = ('name', 'venue', 'category', 'start_end_date', 'is_active', 'moderator', 'available_spots', 'registered_users_count')
+    list_display = ('name', 'venue', 'category', 'start_end_date', 'is_active', 'moderator', 'available_spots', 'registered_users_count', 'lifestream_entries_count')
     list_editable = ( 'category', 'moderator', 'available_spots', )
     search_fields = ['name', 'description', ]
     save_on_top = True
@@ -87,6 +87,10 @@ class BreakoutSessionAdmin(admin.ModelAdmin):
     
     def registered_users_count(self, obj):
         return obj.registered_users.count()
-    registered_users_count.short_description = '# of Registrants'
+    registered_users_count.short_description = 'Registrants'
+
+    def lifestream_entries_count(self, obj):
+        return obj.lifestream_entries.count()
+    lifestream_entries_count.short_description = 'Entries'
 
 admin.site.register(BreakoutSession, BreakoutSessionAdmin)

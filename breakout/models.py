@@ -135,6 +135,13 @@ class BreakoutSession(models.Model):
         return self.start_date <= datetime.datetime.now() <= self.end_date
     is_active.boolean = True
     
+    """
+    Returns a list of all of the different lifestream objects ordered by created_on
+    """
+    @property
+    def lifestream(self):
+        pass
+        
     class Meta:
         get_latest_by = 'updated_on'
         verbose_name = 'Breakout Session'

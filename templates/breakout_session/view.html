@@ -8,6 +8,20 @@
 
 {% include "venue/ul.location_menu.html" %}
 
+{% for lifestream_entry in breakout_session.lifestream_entries.all %}
+
+    {% if lifestream_entry.twitterstatus %}
+        {% include "lifestream/twitterstatus.html" %}
+    {% else %}
+        {% if lifestream_entry.flickrimage %}
+            <p>FlickrImage - {{ lifestream_entry }}</p>
+        {% else %}
+            <p>{{ lifestream_entry }}</p>
+        {% endif %}
+    {% endif %}
+    
+{% endfor %}
+
 {% endblock %}
 
 {% block content_secondary %}

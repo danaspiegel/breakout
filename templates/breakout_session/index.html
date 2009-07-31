@@ -33,7 +33,7 @@
                         {{ breakout_session.venue.street_address_1 }}<br/>
                         {% if venue.street_address_2 %}{{ breakout_session.venue.street_address_2 }}<br/>{% endif %}
                         {{ breakout_session.venue.city }}, {{ breakout_session.venue.state }} {{ breakout_session.venue.zip_code }}<br/>
-                        {{ breakout_session.description|linebreaksbr }}
+                        {{ breakout_session.venue.description|linebreaksbr }}
                     </p>
                 </td>
             </tr>

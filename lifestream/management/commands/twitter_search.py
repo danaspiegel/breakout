@@ -55,7 +55,7 @@ class Command(NoArgsCommand):
                             if len(response) == 0: break
                             print '    Parsing page %s' % page
                             for result in response:
-                                twitter_status, created = TwitterStatus.objects.get_or_create(twitter_id=result['id'], twitter_user=twitter_user, breakout_session=breakout_session)
+                                twitter_status, created = TwitterStatus.objects.get_or_create(twitter_id=result['id'], twitter_user=twitter_user, user=user, breakout_session=breakout_session)
                                 if created:
                                     imported_statuses = imported_statuses + 1
                                     twitter_status.twitter_user = twitter_user

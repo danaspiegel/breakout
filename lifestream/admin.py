@@ -43,3 +43,8 @@ class TwitterStatusAdmin(admin.ModelAdmin):
     breakout_session_name.admin_order_field = 'breakout_session__name'
 
 admin.site.register(TwitterStatus, TwitterStatusAdmin)
+
+class FlickrImageAdmin(admin.ModelAdmin):
+    list_display = ('url', )
+
+admin.site.register(FlickrImage, FlickrImageAdmin)

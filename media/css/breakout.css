@@ -24,7 +24,7 @@ h2 {
 
 div.clear {
     clear: both;
-    height: 5px;
+    height: 0px;
 }
 
 .float-right {
@@ -325,4 +325,33 @@ table.breakout-session-list-container {
 .google-map {
     width: 610px; 
     height: 400px;
+}
+
+
+div.lifestream-entry {
+    padding: 2px;
+    border: 1px solid #ddd;
+    clear: both;
+    margin-bottom: 2px;
+}
+
+div.lifestream-entry .lifestream-color {
+    float: left;
+    width: 3px;
+    height: 100%;
+}
+
+div.lifestream-entry .lifestream-service-icon {
+    float: right;
+}
+
+div.lifestream-entry .profile-image {
+    margin: 0 4px 4px 0;
+    float: left;
+}
+
+div.lifestream-entry .lifestream-created-time,
+div.lifestream-entry .lifestream-created-time a {
+    font-size: 10px;
+    color: #666;
 }

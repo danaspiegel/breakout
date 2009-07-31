@@ -7,53 +7,19 @@ class Migration:
     
     def forwards(self, orm):
         
-        # Adding model 'LifestreamEntry'
-        db.create_table('lifestream_lifestreamentry', (
-            ('id', orm['lifestream.LifestreamEntry:id']),
-            ('created_on', orm['lifestream.LifestreamEntry:created_on']),
-            ('updated_on', orm['lifestream.LifestreamEntry:updated_on']),
-            ('user', orm['lifestream.LifestreamEntry:user']),
-            ('breakout_session', orm['lifestream.LifestreamEntry:breakout_session']),
+        # Adding model 'FlickrImage'
+        db.create_table('lifestream_flickrimage', (
+            ('lifestreamentry_ptr', orm['lifestream.flickrimage:lifestreamentry_ptr']),
+            ('url', orm['lifestream.flickrimage:url']),
         ))
-        db.send_create_signal('lifestream', ['LifestreamEntry'])
-        
-        # Adding model 'TwitterUser'
-        db.create_table('lifestream_twitteruser', (
-            ('id', orm['lifestream.TwitterUser:id']),
-            ('created_on', orm['lifestream.TwitterUser:created_on']),
-            ('updated_on', orm['lifestream.TwitterUser:updated_on']),
-            ('twitter_id', orm['lifestream.TwitterUser:twitter_id']),
-            ('screen_name', orm['lifestream.TwitterUser:screen_name']),
-            ('url', orm['lifestream.TwitterUser:url']),
-            ('profile_image_url', orm['lifestream.TwitterUser:profile_image_url']),
-            ('location', orm['lifestream.TwitterUser:location']),
-            ('description', orm['lifestream.TwitterUser:description']),
-            ('is_muted', orm['lifestream.TwitterUser:is_muted']),
-        ))
-        db.send_create_signal('lifestream', ['TwitterUser'])
-        
-        # Adding model 'TwitterStatus'
-        db.create_table('lifestream_twitterstatus', (
-            ('lifestreamentry_ptr', orm['lifestream.TwitterStatus:lifestreamentry_ptr']),
-            ('twitter_id', orm['lifestream.TwitterStatus:twitter_id']),
-            ('twitter_user', orm['lifestream.TwitterStatus:twitter_user']),
-            ('text', orm['lifestream.TwitterStatus:text']),
-            ('location', orm['lifestream.TwitterStatus:location']),
-        ))
-        db.send_create_signal('lifestream', ['TwitterStatus'])
+        db.send_create_signal('lifestream', ['FlickrImage'])
         
     
     
     def backwards(self, orm):
         
-        # Deleting model 'LifestreamEntry'
-        db.delete_table('lifestream_lifestreamentry')
-        
-        # Deleting model 'TwitterUser'
-        db.delete_table('lifestream_twitteruser')
-        
-        # Deleting model 'TwitterStatus'
-        db.delete_table('lifestream_twitterstatus')
+        # Deleting model 'FlickrImage'
+        db.delete_table('lifestream_flickrimage')
         
     
     
@@ -132,6 +98,10 @@ class Migration:
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+        },
+        'lifestream.flickrimage': {
+            'lifestreamentry_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['lifestream.LifestreamEntry']", 'unique': 'True', 'primary_key': 'True'}),
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '400', 'null': 'True', 'blank': 'True'})
         },
         'lifestream.lifestreamentry': {
             'breakout_session': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'lifestream_entries'", 'to': "orm['breakout.BreakoutSession']"}),
