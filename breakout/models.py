@@ -63,9 +63,10 @@ class Venue(models.Model):
     @property
     def next_breakout_session(self):
         try:
-            return self.future_breakout_sessions[0:1]
-        except BreakoutSession.DoesNotExist:
+            return self.future_breakout_sessions[0]
+        except IndexError:
             return None
+        
     
     def geocode(self):
         place, (self.latitude, self.longitude) = Venue.geocoder.geocode("%s, %s, %s %s" % (self.street_address_1, self.city, self.state, self.zip_code, ))
