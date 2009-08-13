@@ -103,6 +103,7 @@ class BreakoutSession(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     category = models.ForeignKey(BreakoutCategory, related_name='breakout_sessions')
+    # TODO: these fields must be made timezone aware
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     moderator = models.ForeignKey(User, related_name='moderating_sessions')

@@ -6,7 +6,9 @@
 
 {% block content %}
 
-{% include "venue/ul.location_menu.html" %}
+{% if venue %}
+    {% include "venue/ul.location_menu.html" %}
+{% endif %}
 
 {% for breakout_session in breakout_sessions %}
 
@@ -17,6 +19,7 @@
 
 {% block content_secondary %}
 
+{% if venue %}
     {% include 'venue/sidebar.about_location.html' %}
     
     <div class="sidebar-information">
@@ -24,6 +27,7 @@
     </div>
 
     {% include 'venue/sidebar.upcoming_sessions.html' %}
+{% endif %}
 
 {% endblock %}
 

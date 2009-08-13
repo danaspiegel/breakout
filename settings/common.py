@@ -8,9 +8,9 @@ import sys
 PROJECT_PATH = os.path.abspath(os.path.split(os.path.split(__file__)[0])[0])
 
 # add the lib directory to the path
-sys.path.insert(0, os.path.join(PROJECT_PATH, 'libraries'))
+sys.path.insert(0, os.path.join(PROJECT_PATH, 'lib'))
 
-DMIGRATIONS_DIR = os.path.join(PROJECT_PATH, 'migrations')
+# DMIGRATIONS_DIR = os.path.join(PROJECT_PATH, 'migrations')
 
 TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'en-us'
