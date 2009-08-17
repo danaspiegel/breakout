@@ -15,27 +15,13 @@ def list(request):
     return render_to_response('venue/list.html', { 'venues': venues }, context_instance=RequestContext(request))
 
 def view(request, venue_slug):
-    try:
-        venue = Venue.objects.get(slug=venue_slug)
-        return render_to_response('venue/view.html', { 'venue': venue, }, context_instance=RequestContext(request))
-    except Venue.DoesNotExist:
-        return HttpResponseRedirect(reverse('index'))        
+    return render_to_response('venue/view.html', context_instance=RequestContext(request))
 
 def archive(request, category_slug=None, venue_slug=None):
     today = datetime.datetime.today()
     breakout_sessions = BreakoutSession.objects.filter(end_date__lt=datetime.datetime(today.year, today.month, today.day, 0, 0, 0)).order_by('-end_date')
-    if category_slug:
-        category = BreakoutCategory.objects.get(slug=category_slug)
-        breakout_sessions = breakout_sessions.filter(category=category)
-    else:
-        category = None
-    if venue_slug:
-        venue = Venue.objects.get(slug=venue_slug)
-        breakout_sessions = breakout_sessions.filter(venue=venue)
-    else:
-        venue = None
-    return render_to_response('venue/archive.html', 
-                                { 'breakout_sessions': breakout_sessions, 
-                                  'category': category, 
-                                  'venue': venue, }, 
-                                context_instance=RequestContext(request))    
+    if hasattr(request, 'category'):
+        breakout_sessions = breakout_sessions.filter(category=request.category)
+    if hasattr(request, 'venue'):
+        breakout_sessions = breakout_sessions.filter(venue=request.venue)
+    return render_to_response('venue/archive.html', { 'breakout_sessions': breakout_sessions, }, context_instance=RequestContext(request))    

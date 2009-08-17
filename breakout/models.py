@@ -131,7 +131,7 @@ class BreakoutSession(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ('session_view', (), { 'session_id': self.id, 'venue_slug': self.venue.slug })
+        return ('breakout_session_view', (), { 'breakout_session_id': self.id, 'venue_slug': self.venue.slug })
     
     def is_active(self):
         return self.start_date <= datetime.datetime.now() <= self.end_date
@@ -153,8 +153,7 @@ class BreakoutSession(models.Model):
 class SessionAttendance(models.Model):
     STATUS_CHOICES = (
         ('R', 'Registered'),
-        ('P', 'Participating'),
-        ('A', 'Attended'),
+        ('P', 'Participated'),
     )
     registrant = models.ForeignKey(User, related_name='session_attendance')
     session = models.ForeignKey(BreakoutSession, related_name='session_attendance')

@@ -53,25 +53,4 @@
 
 {% endblock %}
 
-{% block content_secondary %}
-    
-    <div class="host-session-action">
-        <a href="">Host a Breakout Session</a>
-    </div>
-    
-    <div class="sidebar-information">
-        <h2></h2>
-    </div>
-    
-    <div class="sidebar-information">
-        <h2>Past Breakout Sessions</h2>
-        {% with past_breakout_sessions as breakout_sessions %}
-            {% include 'breakout_session/ul.list.small.html' %}
-        {% endwith %}
-        <p><a href="{% url past_session_list %}">View More &raquo;</a></p>
-    </div>
-
-    {% include 'breakout_session/sidebar.categories.html' %}
-
-{% endblock %}
 

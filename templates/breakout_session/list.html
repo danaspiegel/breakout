@@ -17,17 +17,3 @@
 {% endfor %}
 {% endblock %}
 
-{% block content_secondary %}
-
-{% if venue %}
-    {% include 'venue/sidebar.about_location.html' %}
-    
-    <div class="sidebar-information">
-        <h2>Here Now</h2>
-    </div>
-
-    {% include 'venue/sidebar.upcoming_sessions.html' %}
-{% endif %}
-
-{% endblock %}
-

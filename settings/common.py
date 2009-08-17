@@ -16,7 +16,6 @@ TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 INTERNAL_IPS = ('127.0.0.1', )
-APPEND_SLASH = True
 IGNORABLE_404_STARTS = ('/favicon.ico', )
 
 ADMINS = (
@@ -46,20 +45,22 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.media',
     'django.core.context_processors.request',
     'django_announcements.context_processors.site_wide_announcements',
+    'breakout.context_processors.sidebar',
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'middleware.profiler.ProfilerMiddleware',
     'middleware.google_analytics.GoogleAnalyticsMiddleware',
     'middleware.timer.TimerMiddleware',
     'middleware.debug.DebugFooter',
     'django.contrib.csrf.middleware.CsrfMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django_pagination.middleware.PaginationMiddleware',
+    'breakout.middleware.BreakoutMiddleware',
     # 'django.middleware.gzip.GZipMiddleware',
 )
 
@@ -76,7 +77,7 @@ for root, dirs, files in os.walk(PROJECT_PATH):
 SITE_ID = 1
 ROOT_URLCONF = 'urls'
 
-MEDIA_ROOT = PROJECT_PATH + '/media/'
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 MEDIA_URL = '/media/'
 ADMIN_MEDIA_PREFIX = '/admin/media/'
 
@@ -88,12 +89,15 @@ DEFAULT_FROM_EMAIL = 'no-reply@breakoutfestival.org'
 SERVER_EMAIL = 'server@breakoutfestival.org'
 
 AUTH_PROFILE_MODULE = 'account.UserProfile'
+LOGIN_REDIRECT_URL = '/'
 
 CONSUMER_KEY = 'i7jNBFeCfpLgLgxuxCuA'
 CONSUMER_SECRET = 'TzYNIUtvemCkKWUjwlB8S4GAsabqcWQvQiIneYX6gw'
 
 ANALYTICS_ID = 'UA-5053085-4'
 ANALYTICS_IGNORE_ADMIN = True
+
+ACCOUNT_ACTIVATION_DAYS = 14
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -110,6 +114,7 @@ INSTALLED_APPS = (
     'django_timezones',
     'django_pagination',
     'django_mailer',
+    'registration',
     'south',
     'twitter_app',
     'account',

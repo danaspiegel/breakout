@@ -61,3 +61,28 @@ def highlight(text, search_terms=None):
     highlighted = mark_safe(expr.sub(replace, text))
     count = len(matches)
     return highlighted
+
+    from django.contrib.sites.models import Site
+
+# http://www.djangosnippets.org/snippets/1685/
+def location(request):
+    location = {}
+    current_site = Site.objects.get_current()
+    location['site'] = current_site
+    
+    script_name = request.META['SCRIPT_NAME']
+    location['script_name'] = script_name
+    
+    path = request.META['PATH_INFO']
+    location['path'] = path
+    
+    url = 'http://%s%s%s' % (current_site, script_name, path)
+    location['url'] = url
+    
+    return {'location': location}
+
+# http://www.djangosnippets.org/snippets/1686/
+@register.filter
+def match(value, regex):
+    """Usage: {% if value|match:"regex" %}"""
+    return re.match(regex, value)

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block title %}{% block pagetitle %}Register Breakout Session{% endblock %}{% endblock %}
+
+{% block content %}
+
+{% if venue %}
+    {% include "venue/ul.location_menu.html" %}
+{% endif %}
+
+<form action="#" method="POST">
+    <table>
+        {{ form }}
+        <tr><th></th><td><button type="submit">Register Breakout Session!</button>
+    </table>
+</form>
+
+{% endblock %}
+
+{# {% block content_secondary %} #}
+{#  #}
+{# {% include 'breakout_session/sidebar.past_sessions.html' %} #}
+{#  #}
+{# {% endblock %} #}
+

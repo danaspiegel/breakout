@@ -1,4 +1,4 @@
-VERSION = (0, 1, 0, "pre")
+VERSION = (0, 1, 0, "alpha")
 
 def get_version():
     if VERSION[3] != "final":
@@ -15,8 +15,34 @@ PRIORITY_MAPPING = {
     "deferred": "4",
 }
 
-# replacement for django.core.mail.send_mail
+import django.template.loader
+from django.template import Template, Context
+from django.conf import settings
 
+def send_email(to_addresses, extra_context, subject_template_file, text_template_file, html_template_file=None):
+    context = Context(extra_context)
+    context['MEDIA_URL'] = settings.MEDIA_URL
+    if type(to_addresses) is str or unicode:
+        to_addresses = (to_addresses, )
+    
+    # Get the email subject template
+    subject_template = django.template.loader.get_template(subject_template_file)
+    subject_text = subject_template.render(context)
+    
+    # subject_text can't contain newlines
+    subject_text = ''.join(subject_text.splitlines())
+    
+    # Get the email body template
+    body_text_template = django.template.loader.get_template(text_template_file)
+    body_text = body_text_template.render(context)
+    if html_template_file:
+        body_html_template = django.template.loader.get_template(html_template_file)
+        body_html = body_html_template.render(context)
+    else:
+        body_html = None
+    send_html_mail(subject=subject_text, message=body_text, message_html=body_html, from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=to_addresses)
+
+# replacement for django.core.mail.send_mail
 def send_mail(subject, message, from_email, recipient_list, priority="medium",
               fail_silently=False, auth_user=None, auth_password=None):
     from django.utils.encoding import force_unicode

@@ -71,6 +71,9 @@ class Message(models.Model):
     # @@@ campaign?
     # @@@ content_type?
     
+    def __unicode__(self):
+        return "To: %s, Subject: %s" % (self.to_address, self.subject, )
+    
     def defer(self):
         self.priority = '4'
         self.save()

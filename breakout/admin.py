@@ -44,13 +44,13 @@ admin.site.register(Venue, VenueAdmin)
 class BreakoutCategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ('name', ) }
     list_display_links = ('name', )
-    list_display = ('order', 'name', 'slug', 'session_count', 'description', )
+    list_display = ('order', 'name', 'slug', 'breakout_session_count', 'description', )
     list_editable = ('order', )
     save_on_top = True
     
-    def session_count(self, obj):
+    def breakout_session_count(self, obj):
         return obj.breakout_sessions.count()
-    session_count.short_description = '# of Sessions'
+    breakout_session_count.short_description = '# of Sessions'
 
 admin.site.register(BreakoutCategory, BreakoutCategoryAdmin)
 

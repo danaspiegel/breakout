@@ -2,11 +2,13 @@
 {% load pagination_tags %}
 {% load common_tags %}
 
-{% block content %}
-{% for venue in venues %}
+{% block title %}{% block pagetitle %}Breakout Venues{% endblock %}{% endblock %}
 
-    <div><a href="{% url venue_view slug=venue.slug %}">{{ venue.name }}</a></div>
+{% block content %}
+
+    {% for venue in venues %}
+        <div><a href="{% url venue_view venue_slug=venue.slug %}">{{ venue.name }}</a></div>
+    {% endfor %}
     
-{% endfor %}
 {% endblock %}
 

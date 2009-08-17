@@ -43,11 +43,19 @@
 
             <div id="header-login">
                 {% if user.is_authenticated %}
-                    {% if request.session.superuser %}
-                        <span class="red-background">LOGGED IN AS USER {{ user }}</span> | <a href="{% url end_masquerade %}">Logout</a>
-                    {% else %}
-                        <a href="{% url logout %}">Logout</a>
-                    {% endif %}
+		            <span {% if user.is_superuser or user.is_staff or request.session.superuser %}class="red-background"{% endif %}>
+        		        {% if request.session.superuser %}LOGGED IN AS USER {% else %}Welcome, {% endif %}
+                        {# <strong><a href="{% url settings %}">{{user}}</a></strong> #}
+                        <strong>{{ user }}</strong>
+            		    {% if user.is_superuser %}(superuser){% endif %}
+            		    {% if user.is_staff and not user.is_superuser %}(staff){% endif %}
+            		    | 
+            		    {% if request.session.superuser %}
+            		        <a href="{% url end_masquerade %}">Logout</a>{% else %}<a href="{% url logout %}">Logout</a>
+            		    {% endif %}
+                    </span>
+        		{% else %}
+        		    <a href="{% url login %}">Login</a> or <a href="{% url registration_register %}">Register</a>
                 {% endif %}
             </div>
 
@@ -66,8 +74,20 @@
         {% block content_container %}
     		<!-- BEGIN SIDE CONTENT -->
     		<div id="content-secondary">
-    	        {% block content_secondary %}
-    			{% endblock content_secondary %}
+                {% block content_secondary %}
+                    {% include 'breakout_session/sidebar.host_session.html' %}
+                    {% if venue %}
+                        {% include 'venue/sidebar.about_location.html' %}
+                        <div class="sidebar-information">
+                            <h2>Here Now</h2>
+                        </div>
+                        {% include 'venue/sidebar.upcoming_sessions.html' %}
+                        {% include 'breakout_session/sidebar.past_sessions.html' %}
+                    {% else %}
+                        {% include 'breakout_session/sidebar.past_sessions.html' %}
+                        {% include 'breakout_session/sidebar.categories.html' %}
+                    {% endif %}
+                {% endblock %}
     		</div>
     		<!-- END SIDE CONTENT -->
 

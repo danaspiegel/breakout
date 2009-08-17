@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r'^', include('breakout.urls')),
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^oauth/twitter/', include('twitter_app.urls')),
-    url(r'^account/', include('account.urls')),
+    url(r'^accounts/', include('account.urls')),
     
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', { 'sitemaps': { 'venues': VenueSitemap() } }),
     url(r'^robots.txt$', include('django_robots.urls')),

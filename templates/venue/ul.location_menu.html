@@ -15,7 +15,7 @@
             <a href="{{ venue.get_absolute_url }}"><span>About This Location</span></a>
         </li>
         <li class="{% active request '/venues/[a-zA-Z0-9\-]+/archive/$' %}">
-            <a href="{% url archive_session_list venue_slug=venue.slug %}"><span>Session Archive</span></a>
+            <a href="{% url archive_breakout_session_list venue_slug=venue.slug %}"><span>Session Archive</span></a>
         </li>
     </ul>
 </div>

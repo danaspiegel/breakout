@@ -1,3 +1,4 @@
+{% if venue.future_breakout_sessions.count %}
 <div class="sidebar-information">
 
     <h2>{{ venue.future_breakout_sessions.count }} Upcoming Sessions Here</h2>
@@ -7,3 +8,4 @@
     {% endwith %}
     
 </div>
+{% endif %}
