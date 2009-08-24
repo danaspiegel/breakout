@@ -78,9 +78,7 @@
                     {% include 'breakout_session/sidebar.host_session.html' %}
                     {% if venue %}
                         {% include 'venue/sidebar.about_location.html' %}
-                        <div class="sidebar-information">
-                            <h2>Here Now</h2>
-                        </div>
+                        {% include 'breakout_session/sidebar.participants.html' %}
                         {% include 'venue/sidebar.upcoming_sessions.html' %}
                         {% include 'breakout_session/sidebar.past_sessions.html' %}
                     {% else %}

@@ -59,18 +59,63 @@ def create(request):
     return render_to_response('breakout_session/create.html', { 'form': form, }, context_instance=RequestContext(request))
 
 @login_required
+def register(request, venue_slug, breakout_session_id):
+    """
+    Registers a user for a session
+    
+    Session must be taking place, or scheduled for the future
+    """
+    try:
+        breakout_session = BreakoutSession.objects.filter(venue=request.venue).get(pk=breakout_session_id)
+        if breakout_session.register(request.user):
+            request.user.message_set.create(message="You have been registered for this Breakout Session")
+        return HttpResponseRedirect(reverse('breakout_session_view', kwargs={ "breakout_session_id": breakout_session.id, "venue_slug": breakout_session.venue.slug }))
+    except BreakoutSession.DoesNotExist:
+        request.user.message_set.create(message="Breakout Session does not exist")
+        return HttpResponseRedirect(reverse('index'))
+
+@login_required
+def unregister(request, venue_slug, breakout_session_id):
+    """
+    Registers a user for a session
+    """
+    try:
+        breakout_session = BreakoutSession.objects.filter(venue=request.venue).get(pk=breakout_session_id)
+        if breakout_session.unregister(request.user):
+            request.user.message_set.create(message="You have been un-registered for this Breakout Session")
+        return HttpResponseRedirect(reverse('breakout_session_view', kwargs={ "breakout_session_id": breakout_session.id, "venue_slug": breakout_session.venue.slug }))
+    except BreakoutSession.DoesNotExist:
+        request.user.message_set.create(message="Breakout Session does not exist")
+        return HttpResponseRedirect(reverse('index'))
+    except SessionAttendance.DoesNotExist:
+        request.user.message_set.create(message="You aren't registered for this Breakout Session")
+        return HttpResponseRedirect(reverse('breakout_session_view', kwargs={ "breakout_session_id": breakout_session.id, "venue_slug": breakout_session.venue.slug }))
+
+@login_required
 def checkin(request, venue_slug, breakout_session_id):
     """
     Checks a user into a session
     """
     try:
-        breakout_session = BreakoutSession.objects.get(pk=breakout_session_id)
-        session_attendance, created = SessionAttendance.objects.get_or_create(registrant=request.user, session=breakout_session)
-        session_attendance.status = 'P'
-        session_attendance.arrival_time = datetime.datetime.now()
-        session_attendance.save()
+        breakout_session = BreakoutSession.objects.filter(venue=request.venue).get(pk=breakout_session_id)
+        if breakout_session.checkin(request.user):
+            request.user.message_set.create(message="You have been checked into this Breakout Session")
         return HttpResponseRedirect(reverse('breakout_session_view', kwargs={ "breakout_session_id": breakout_session.id, "venue_slug": breakout_session.venue.slug }))
     except BreakoutSession.DoesNotExist:
         request.user.message_set.create(message="Breakout Session does not exist")
         return HttpResponseRedirect(reverse('index'))        
-    
+
+
+@login_required
+def checkout(request, venue_slug, breakout_session_id):
+    """
+    Checks a user out of a session
+    """
+    try:
+        breakout_session = BreakoutSession.objects.filter(venue=request.venue).get(pk=breakout_session_id)
+        if breakout_session.checkout(request.user):
+            request.user.message_set.create(message="You have been checked out of this Breakout Session")
+        return HttpResponseRedirect(reverse('breakout_session_view', kwargs={ "breakout_session_id": breakout_session.id, "venue_slug": breakout_session.venue.slug }))
+    except BreakoutSession.DoesNotExist:
+        request.user.message_set.create(message="Breakout Session does not exist")
+        return HttpResponseRedirect(reverse('index'))        

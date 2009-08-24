@@ -10,6 +10,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.sitemaps import Sitemap
 from django.contrib.localflavor.us.models import USStateField, PhoneNumberField
 
+from . import InactiveSessionException
 
 class Venue(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
@@ -133,9 +134,177 @@ class BreakoutSession(models.Model):
     def get_absolute_url(self):
         return ('breakout_session_view', (), { 'breakout_session_id': self.id, 'venue_slug': self.venue.slug })
     
+    @property
     def is_active(self):
         return self.start_date <= datetime.datetime.now() <= self.end_date
-    is_active.boolean = True
+    
+    @property
+    def is_future(self):
+        return self.start_date > datetime.datetime.now()
+    
+    @property
+    def is_past(self):
+        return not self.is_future and not self.is_active
+    
+    def is_registered(self, user):
+        """
+        Checks if a user is already registered to attend
+        """
+        return self.registered_users.filter(pk=user.pk).count() == 1
+
+    def is_participating(self, user):
+        """
+        Checks if a user is already registered to attend
+        """
+        # TODO: this may need to also check the checkout date to make sure the user is still on site
+        return self.participants.filter(pk=user.pk, session_attendance__departure_time=None).count() == 1
+    
+    @property
+    def participants(self):
+        return self.registered_users.filter(session_attendance__status='P')
+    
+    def register(self, user):
+        """
+        Registers a user for a session
+        * session must be in the future or currently happening
+        """
+        if self.is_active or self.is_future:
+            session_attendance, created = SessionAttendance.objects.get_or_create(registrant=user, session=self)
+            return created
+        else:
+            return False
+    
+    def unregister(self, user):
+        """
+        Un-registers a user for a session
+        * session must be in the future or currently happening
+        """
+        if self.is_active or self.is_future:
+            session_attendance = SessionAttendance.objects.get(registrant=user, session=self, status='R')
+            session_attendance.delete()
+            return True
+        else:
+            return False
+    
+    def checkin(self, user):
+        """
+        To be able to check into a breakout session:
+        * session must exist
+        * session must be active
+        * user can only have a single registration, so if they have checked out, remove the checkout time
+        
+        >>> from datetime import datetime, timedelta
+        >>> today = datetime.today()
+        >>> start_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour, minute=today.minute)
+        >>> end_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour + 1, minute=today.minute)
+        >>> breakout_category = BreakoutCategory.objects.get(pk=1)
+        >>> test_user_1, created = User.objects.get_or_create(username='test user 1')
+        >>> test_user_2, created = User.objects.get_or_create(username='test user 2')
+        >>> venue = Venue.objects.create(name="Test Venue", slug="test-venue", city="City", state="NY")
+        >>> breakout_session, created = BreakoutSession.objects.get_or_create(name="Test Session", category=breakout_category, start_date=start_date, end_date=end_date, moderator=test_user_1, venue=venue)
+        >>> breakout_session.is_active
+        True
+        >>> breakout_session.checkin(test_user_2)
+        True
+        >>> SessionAttendance.objects.filter(registrant=test_user_2, session=breakout_session).count()
+        1
+        
+        # check that we only ever have a single entry per checked in user
+        >>> breakout_session.checkin(test_user_2)
+        True
+        >>> SessionAttendance.objects.filter(registrant=test_user_2, session=breakout_session).count()
+        1
+        
+        # check that the departure time is none
+        >>> session_attendance = SessionAttendance.objects.get(registrant=test_user_2, session=breakout_session)
+        >>> session_attendance.departure_time == None
+        True
+        >>> session_attendance.departure_time = datetime.today()
+        >>> session_attendance.save()
+        >>> breakout_session.checkin(test_user_2)
+        True
+        >>> session_attendance = SessionAttendance.objects.get(registrant=test_user_2, session=breakout_session)
+        >>> session_attendance.departure_time == None
+        True
+        
+        # check to make sure we throw an exception when session is inactive
+        >>> start_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour - 2, minute=today.minute)
+        >>> end_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour - 1, minute=today.minute)
+        >>> inactive_breakout_session, created = BreakoutSession.objects.get_or_create(name="Test Session", category=breakout_category, start_date=start_date, end_date=end_date, moderator=test_user_1, venue=venue)
+        >>> inactive_breakout_session.is_active
+        False
+        
+        >>> inactive_breakout_session.checkin(test_user_2)
+        Traceback (most recent call last):
+        ...
+        InactiveSessionException
+        
+        # check that we the right status set
+        >>> session_attendance = SessionAttendance.objects.get(registrant=test_user_2, session=breakout_session)
+        >>> session_attendance.get_status_display()
+        u'Participated'
+        
+        >>> session_attendance.status = 'R'
+        >>> session_attendance.save()
+        >>> session_attendance.get_status_display()
+        u'Registered'
+        
+        >>> breakout_session.checkin(test_user_2)        
+        True
+        >>> session_attendance = SessionAttendance.objects.get(registrant=test_user_2, session=breakout_session)
+        >>> session_attendance.get_status_display()
+        u'Participated'
+        
+        # check that we have the right arrival time (now if no prev. registration, old time if there was a previous registration)
+        >>> SessionAttendance.objects.all().delete()
+        >>> today = datetime.today()
+        >>> breakout_session.checkin(test_user_2)        
+        True
+        >>> session_attendance = SessionAttendance.objects.get(registrant=test_user_2, session=breakout_session)
+        >>> abs(session_attendance.arrival_time - today) < timedelta(seconds=5)
+        True
+        
+        >>> session_attendance.arrival_time = breakout_session.start_date
+        >>> session_attendance.save()
+        >>> breakout_session.checkin(test_user_2)        
+        True
+        >>> session_attendance = SessionAttendance.objects.get(registrant=test_user_2, session=breakout_session)
+        >>> session_attendance.arrival_time == breakout_session.start_date
+        True
+        """
+        if not self.is_active:
+            raise InactiveSessionException()
+        session_attendance, created = SessionAttendance.objects.get_or_create(registrant=user, session=self)
+        # if a user is checking in, then they are participating
+        session_attendance.status = 'P'
+        if not session_attendance.arrival_time:
+            # if there is no arrival_time, set it now
+            # if there was an arrival time, leave it alone
+            session_attendance.arrival_time = datetime.datetime.now()
+        # remove any departure time, since the user is now at the session
+        session_attendance.departure_time = None
+        session_attendance.save()
+        return True
+    
+    def checkout(self, user):
+        """
+        To be able to check out of a breakout session:
+        * session must exist
+        * session must be active, or the checkout must be bound to the end of the session
+        * user must have been checked in
+        * user can only have a single registration, so if they have checked out, throw an exception, because you can't checkout twice
+        """
+        # raises a DoesNotExistException, which is correct
+        session_attendance = SessionAttendance.objects.get(registrant=user, session=self)
+        if session_attendance.status != 'P' or not session_attendance.arrival_time or session_attendance.departure_time:
+            raise InvalidSessionCheckoutException()
+        if self.end_date < datetime.datetime.now():
+            session_attendance.departure_time = self.end_date
+        else:
+            session_attendance.departure_time = datetime.datetime.now()
+        session_attendance.save()
+        return True
+        
     
     """
     Returns a list of all of the different lifestream objects ordered by created_on

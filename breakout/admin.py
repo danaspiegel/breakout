@@ -81,6 +81,10 @@ class BreakoutSessionAdmin(admin.ModelAdmin):
     ordering = ('-start_date', '-end_date', )
     form = BreakoutSessionAdminForm
     
+    def is_active(self, obj):
+        return obj.is_active
+    is_active.boolean = True
+    
     def start_end_date(self, obj):
         return "%s-%s" % (obj.start_date.strftime('%a, %b %d %I:%M%p'), obj.end_date.strftime('%I:%M%p'), )
     start_end_date.short_description = 'Event Date'

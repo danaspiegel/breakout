@@ -4,6 +4,9 @@ from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from django.template import Library
 from django.template.defaultfilters import stringfilter
+from django.contrib.auth.models import User
+
+from breakout.models import BreakoutSession
 
 register = Library()
 
@@ -62,8 +65,6 @@ def highlight(text, search_terms=None):
     count = len(matches)
     return highlighted
 
-    from django.contrib.sites.models import Site
-
 # http://www.djangosnippets.org/snippets/1685/
 def location(request):
     location = {}
@@ -86,3 +87,74 @@ def location(request):
 def match(value, regex):
     """Usage: {% if value|match:"regex" %}"""
     return re.match(regex, value)
+
+# TODO: This should be converted into a tag {% ifregistered %}
+@register.filter
+def is_registered(breakout_session, user):
+    try:
+        if breakout_session:
+            return breakout_session.is_registered(user)
+    except:
+        print "Bad user: %s" % user
+    return False
+
+# TODO: This should be converted into a tag {% ifregistered %}
+@register.filter
+def is_participating(breakout_session, user):
+    try:
+        if breakout_session:
+            return breakout_session.is_participating(user)
+    except:
+        print "Bad user: %s" % user
+    return False
+ 
+# @register.simple_tag
+# def is_registered(request, breakout_session):
+#     if not breakout_session:
+#         return False
+#     if not hasattr(request, user):
+#         return False
+#     return breakout_session.is_registered(request.user)
+# 
+# class IfRegisteredNode(Node):
+#     def __init__(self, nodelist_true, nodelist_false, *varlist):
+#         self.nodelist_true, self.nodelist_false = nodelist_true, nodelist_false
+#         self._last_seen = None
+#         self._varlist = varlist
+#         self._id = str(id(self))
+# 
+#     def render(self, context):
+#         if 'forloop' in context and self._id not in context['forloop']:
+#             self._last_seen = None
+#             context['forloop'][self._id] = 1
+#         try:
+#             if self._varlist:
+#                 # Consider multiple parameters.  This automatically behaves
+#                 # like an OR evaluation of the multiple variables.
+#                 compare_to = [var.resolve(context, True) for var in self._varlist]
+#             else:
+#                 compare_to = self.nodelist_true.render(context)
+#         except VariableDoesNotExist:
+#             compare_to = None
+# 
+#         if compare_to != self._last_seen:
+#             firstloop = (self._last_seen == None)
+#             self._last_seen = compare_to
+#             content = self.nodelist_true.render(context)
+#             return content
+#         elif self.nodelist_false:
+#             return self.nodelist_false.render(context)
+#         return ''
+# 
+# def ifregistered(parser, token):
+#     bits = token.contents.split()
+#     nodelist_true = parser.parse(('else', 'endifregistered'))
+#     token = parser.next_token()
+#     if token.contents == 'else':
+#         nodelist_false = parser.parse(('endifregistered',))
+#         parser.delete_first_token()
+#     else:
+#         nodelist_false = NodeList()
+#     values = [parser.compile_filter(bit) for bit in bits[1:]]
+#     return IfRegisteredNode(nodelist_true, nodelist_false, *values)
+# ifregistered = register.tag(ifregistered)

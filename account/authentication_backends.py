@@ -21,7 +21,6 @@ from django.http import *
 import simplejson
 
 from twitter_app.utils import *
-# from frhire.models import TwitterUser
 
 CONSUMER = oauth.OAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET)
 CONNECTION = httplib.HTTPSConnection(SERVER)

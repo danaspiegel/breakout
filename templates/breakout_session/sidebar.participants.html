@@ -1,0 +1,11 @@
+<div class="sidebar-information">
+    
+    <h2>Here Now</h2>
+    
+    <ul class="participant-list">
+        {% for participant in breakout_session.participants %}
+            <li><a href="{{ participant.get_absolute_url }}">{{ participant.short_name }}</a></li>
+        {% endfor %}
+    </ul>
+    
+</div>

@@ -1,13 +1,15 @@
 <div class="sidebar-information">
 
 {% if venue %}
-    <h2>{{ venue.past_breakout_sessions.count }} Past Sessions Here</h2>
+    {% if venue.recent_past_breakout_sessions %}
+        <h2>{{ venue.past_breakout_sessions.count }} Past Sessions Here</h2>
 
-    {% with venue.recent_past_breakout_sessions as breakout_sessions %}
-        {% include 'breakout_session/ul.list.small.html' %}
-    {% endwith %}
-    
-    <p><a href="{% url archive_breakout_session_list venue_slug=venue.slug %}">View More &raquo;</a></p>
+        {% with venue.recent_past_breakout_sessions as breakout_sessions %}
+            {% include 'breakout_session/ul.list.small.html' %}
+        {% endwith %}
+
+        <p><a href="{% url archive_breakout_session_list venue_slug=venue.slug %}">View More &raquo;</a></p>
+    {% endif %}
 {% else %}
     {% if past_breakout_sessions %}
         <h2>Past Breakout Sessions</h2>

@@ -8,6 +8,31 @@
 
 {% include "venue/ul.location_menu.html" %}
 
+{% if breakout_session.is_active %}
+<div id="participation-bar">
+    {% if breakout_session|is_participating:request.user %}
+        You are participating in this Breakout Session &mdash; <a href="{% url breakout_session_checkout venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Check Out</a>
+    {% endif %}
+
+    {% if not breakout_session|is_participating:request.user %}
+        <a href="{% url breakout_session_checkin venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Check in to participate in this Breakout Session</a>
+    {% endif %}
+</div>
+{% endif %}
+
+{# Show the sign in button if the session is active and the user is not yet signed in #}
+{% if breakout_session.is_active %}
+{% endif %}
+
+{% if breakout_session.is_future %}
+    {# the breakout session is in the future, so let the user register #}
+    {% if breakout_session|is_registered:request.user %}
+        <a href="{% url breakout_session_unregister venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Remove your Registration &raquo;</a>
+    {% else %}
+        <a href="{% url breakout_session_register venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Sign Up To Attend &raquo;</a>
+    {% endif %}
+{% endif %}    
+
 {% for lifestream_entry in breakout_session.lifestream_entries.all %}
 
     {% if lifestream_entry.twitterstatus %}
