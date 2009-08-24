@@ -114,7 +114,7 @@ INSTALLED_APPS = (
     'django_timezones',
     'django_pagination',
     'django_mailer',
-    'registration',
+    # 'registration',
     'south',
     'twitter_app',
     'account',
