@@ -16,6 +16,7 @@ For all users that aren't logged in right now:
 
 import datetime
 import dateutil.parser
+from dateutil.relativedelta import *
 from django.core.management.base import CommandError, NoArgsCommand
 from django.conf import settings
 
@@ -33,7 +34,8 @@ class Command(NoArgsCommand):
         
         # Get a list of all active sessions
         now = datetime.datetime.now()
-        breakout_sessions = breakout.models.BreakoutSession.objects.filter(start_date__lte=now, end_date__gte=now)
+        last_week = now - relativedelta(weeks=1)
+        breakout_sessions = breakout.models.BreakoutSession.objects.filter(start_date__lte=now, end_date__gte=last_week)
         
         # for each active breakout session, iterate through the attending_users
         for breakout_session in breakout_sessions:
