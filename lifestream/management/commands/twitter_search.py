@@ -15,7 +15,7 @@ For all users that aren't logged in right now:
 """
 
 import datetime
-from dateutil.parser import parse
+import dateutil.parser
 from django.core.management.base import CommandError, NoArgsCommand
 from django.conf import settings
 
@@ -28,7 +28,6 @@ import breakout.models
 class Command(NoArgsCommand):    
     def handle_noargs(self, **options):
         imported_statuses = 0
-        imported_users = 0
         api = pytwitter.pytwitter()
         search_api = pytwitter.pytwitter(url='http://search.twitter.com')
         
@@ -39,30 +38,37 @@ class Command(NoArgsCommand):
         # for each active breakout session, iterate through the attending_users
         for breakout_session in breakout_sessions:
             print 'Looking at BreakoutSession: %s (%s)' % (breakout_session.name, breakout_session.id, )
-            for user in breakout_session.attending_users:
+            # for all participants in a session
+            for user in breakout_session.participants:
                 # if the user has a TwitterUser that's not muted
+                session_attendance = breakout.models.SessionAttendance.objects.get(registrant=user, session=breakout_session)
                 twitter_user = user.get_profile().twitter_user
                 if not twitter_user:
                     print '  User has no TwitterUser: %s' % (user.short_name, )
                     continue
-                print '  Looking at User (screen_name): %s (%s)' % (user.short_name, twitter_user.screen_name, )                
+                print '  Looking at User (screen_name): %s (%s) (muted: %s)' % (user.short_name, twitter_user.screen_name, twitter_user.is_muted)
+                # make sure that the twitter_user isn't muted
                 if not twitter_user.is_muted:
                     # get the paged twitter statuses
-                    for page in xrange(1, 2):
-                        # try:
+                    for page in xrange(1, 15):
+                        try:
                             response_json = api.statuses_user_timeline(screen_name=twitter_user.screen_name, page=page, rpp=100, format='json')
                             response = simplejson.loads(response_json)
                             if len(response) == 0: break
                             print '    Parsing page %s' % page
                             for result in response:
-                                twitter_status, created = TwitterStatus.objects.get_or_create(twitter_id=result['id'], twitter_user=twitter_user, user=user, breakout_session=breakout_session)
-                                if created:
-                                    imported_statuses = imported_statuses + 1
-                                    twitter_status.twitter_user = twitter_user
-                                    twitter_status.text = result['text']
-                                    twitter_status.created_on = parse(result['created_at'], ignoretz=True)
-                                    twitter_status.location = twitter_user.location
-                                    twitter_status.save()
-                        # except Exception, e:
-                            # print e
-        print "Imported %s statuses and %s users" % (imported_statuses, imported_users)
+                                # make sure we are only importing statuses that are created while the user is active
+                                created_on = dateutil.parser.parse(result['created_at'], ignoretz=True)
+                                if session_attendance.is_during(created_on):
+                                    print '    Status is during breakout session: %s' % created_on
+                                    twitter_status, created = TwitterStatus.objects.get_or_create(twitter_id=result['id'], twitter_user=twitter_user, user=user, breakout_session=breakout_session)
+                                    if created:
+                                        imported_statuses = imported_statuses + 1
+                                        twitter_status.twitter_user = twitter_user
+                                        twitter_status.text = result['text']
+                                        twitter_status.created_on = created_on
+                                        twitter_status.location = twitter_user.location
+                                        twitter_status.save()
+                        except Exception, e:
+                            print e
+        print "Imported %s statuses" % (imported_statuses, )

@@ -156,8 +156,14 @@ class BreakoutSession(models.Model):
         """
         Checks if a user is already registered to attend
         """
-        # TODO: this may need to also check the checkout date to make sure the user is still on site
-        return self.participants.filter(pk=user.pk, session_attendance__departure_time=None).count() == 1
+        return self.registered_users.filter(pk=user.pk, session_attendance__status='P', session_attendance__departure_time=None).count() == 1
+    
+    @property
+    def current_participants(self):
+        """
+        Returns a QuerySet of users that are currently participating in this Breakout Session
+        """
+        return self.registered_users.filter(session_attendance__status='P', session_attendance__departure_time=None)
     
     @property
     def participants(self):
@@ -332,6 +338,14 @@ class SessionAttendance(models.Model):
     
     def __unicode__(self):
         return '%s %s %s' % (self.registrant, self.get_status_display(), self.session.name, )
+    
+    def is_during(self, event_datetime):
+        """
+        Tests if the given event is happening between the arrival_time and departure time
+        """
+        if isinstance(event_datetime, datetime.datetime):
+            return self.arrival_time <= event_datetime and (self.departure_time == None or self.departure_time >= event_datetime)
+        return False
     
     def length(self):
         return self.departure_time - self.arrival_time
