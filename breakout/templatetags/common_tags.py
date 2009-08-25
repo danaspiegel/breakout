@@ -32,12 +32,10 @@ word_split_re = re.compile(r'(\s+)')
 @stringfilter
 def twitterize(text, autoescape=None):
     """Converts twitter usernames in plain text into clickable links."""
-    words = word_split_re.split(force_unicode(text))
-    for i, word in enumerate(words):
-        if word.startswith('@') and len(word) > 1:
-            # Make URL we want to point to.
-            words[i] = mark_safe('<a href="http://twitter.com/%s">%s</a>' % (word[1:], word))
-    return u''.join(words)
+    text = force_unicode(text)
+    text = re.sub(r'@([a-zA-Z0-9_]+)', r'<a href="http://twitter.com/\1" target="_blank">@\1</a>', text)
+    text = re.sub(r'#([a-zA-Z0-9_]+)', r'<a href="http://twitter.com/search?q=%23\1" target="_blank">#\1</a>', text)
+    return mark_safe(text)
 twitterize.is_safe=True
 twitterize.needs_autoescape = True
 
@@ -95,7 +93,8 @@ def is_registered(breakout_session, user):
         if breakout_session:
             return breakout_session.is_registered(user)
     except:
-        print "Bad user: %s" % user
+        pass
+        # print "Bad user: %s" % user
     return False
 
 # TODO: This should be converted into a tag {% ifregistered %}
@@ -105,7 +104,8 @@ def is_participating(breakout_session, user):
         if breakout_session:
             return breakout_session.is_participating(user)
     except:
-        print "Bad user: %s" % user
+        pass
+        # print "Bad user: %s" % user
     return False
  
 # @register.simple_tag
