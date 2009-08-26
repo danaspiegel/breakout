@@ -3,7 +3,7 @@
 <div class="lifestream-entry" style="border-left: 4px solid #4de;">
     <a href="{{ lifestream_entry.twitterstatus.twitter_user.get_absolute_url }}" target="_blank"><img src="http://assets1.twitter.com/images/favicon.ico" class="lifestream-service-icon"></a>
 
-    <a href=""><img class="profile-image" src="{{ lifestream_entry.twitterstatus.twitter_user.profile_image_url }}" />{{ lifestream_entry.user.short_name }}</a>: {{ lifestream_entry.twitterstatus.text|urlize|twitterize }}<br/>
+    <a href=""><img class="profile-image" src="{{ lifestream_entry.twitterstatus.twitter_user.profile_image_url }}" />{{ lifestream_entry.user.short_name }}</a>: {{ lifestream_entry.twitterstatus.text|safe|urlize|twitterize }}<br/>
 
     <span class="lifestream-created-time">{{ lifestream_entry.created_on|timesince }} ago on <a href="{{ lifestream_entry.twitterstatus.twitter_user.get_absolute_url }}">Twitter</a></span>
 

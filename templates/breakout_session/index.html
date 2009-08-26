@@ -33,7 +33,7 @@
                         {{ breakout_session.venue.street_address_1|default_if_none:"" }}<br/>
                         {% if breakout_session.venue.street_address_2 %}{{ breakout_session.venue.street_address_2 }}<br/>{% endif %}
                         {{ breakout_session.venue.city }}, {{ breakout_session.venue.state }} {{ breakout_session.venue.zip_code|default_if_none:"" }}<br/>
-                        {{ breakout_session.venue.description|default_if_none:""|linebreaksbr }}
+                        {{ breakout_session.venue.description|default_if_none:""|safe|urlize|linebreaksbr }}
                     </p>
                 </td>
             </tr>
