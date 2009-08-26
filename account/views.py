@@ -72,10 +72,19 @@ def register(request):
             return HttpResponseRedirect(reverse('configure_services', kwargs={ 'user_id': user.id }))
     else:
         form = RegistrationForm()
-    return render_to_response('registration/registration_form.html', { 'form': form }, context_instance=RequestContext(request))
+    return render_to_response('account/register.html', { 'form': form }, context_instance=RequestContext(request))
 
-def configure_services(request, user_id):
-    pass
+@login_required
+def configure_services(request):
+    if request.method == 'POST':
+        form = ServicesForm(data=request.POST, instance=request.user)
+        if form.is_valid():
+            user_profile = form.save()
+            request.user.message_set.create(message="Social services updated")
+            return HttpResponseRedirect(reverse('index'))
+    else:
+        form = ServicesForm()
+    return render_to_response('account/register.html', { 'form': form }, context_instance=RequestContext(request))
 
 
 def password_reset(request):

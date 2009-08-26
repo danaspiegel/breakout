@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block title %}{% block pagetitle %}Register for a Breakout Festival Account{% endblock %}{% endblock %}
+
+{% block content %}
+
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
+
+<form method="post" action="#">
+    <table>
+        {{ form }}
+    </table>
+
+    <button type="submit">Create Account</button>
+</form>
+
+<script type="text/javascript">
+document.getElementById('id_username').focus()
+</script>
+
+{% endblock %}
