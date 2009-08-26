@@ -8,18 +8,29 @@ body {
   line-height: 15px;
 }
 
+a {
+	color: #0093df;
+}
+
+a:hover {
+	color: #61b1e5;
+}
+
 p {
     margin: 3px 0;
 }
 
 h1 {
     font-size: 22px;
-    padding: 10px 0 8px 0;
+    padding: 0px 0 8px 0;
+    margin-top: 0px;
+    color: #0093df;
 }
 
 h2 {
     font-size: 18px;
     padding: 10px 0 8px 0;
+    color: #0093df;
 }
 
 div.clear {
@@ -60,11 +71,81 @@ div.clear {
     padding: 0 10px;
 }
 
-#footer {
-    font-size: 11px;
-    clear: both;
-    padding: 30px 10px 10px 10px;
+/*** Sidebar ***/
+
+.sidebar-information {
+	border: 1px solid #0093df;
+	padding: 0px;
+	margin-top: 10px;
 }
+
+.sidebar-information p {
+	margin: 10px;
+}
+
+.sidebar-information h2 {
+	color: #fff;
+	background-color: #0093df;
+	padding: 7px;
+	margin-top: 0px;
+	font-size: 16px;
+}
+
+.sidebar-information ul {
+	padding: 0px 10px 5px 25px;
+}
+
+#footer {		
+	font-size: 11px;
+	clear: both;
+	padding: 10px 10px 10px 10px;
+	background-color:#b5b5b5;
+	height: 46px;
+}
+
+.footer-text {
+  color:#ffffff;
+  font-size:14px;
+  font-weight:bold;
+  line-height:1.25em;
+  padding: 0px 0 3px 0px;
+  float:left;
+  width: 100%;
+}
+.footer-text ul {
+	list-style: none;
+	float:left;
+	width: 30%;
+	margin: 0px;
+	padding: 0px;
+}
+.footer-text li {
+	display:inline;
+	margin:0 5px;
+	letter-spacing:-1px
+}
+.footer-text li a{
+	color: #ffffff;
+	text-decoration: none;
+}
+.footer-text li a:hover{
+	color: #ccc;
+}
+
+.footer-text .attribution {
+  color:#494949;
+  font-size:10px;
+  text-align:right;
+  padding:0px 17px 3px 0;
+	float:right;
+}
+.footer-text .attribution a {
+  color:#494949;
+}
+.footer-text .attribution a:hover {
+  color:#797979;
+}
+
 
 #sponsors {
     font-size: 11px;
@@ -255,9 +336,9 @@ div.tabs li.active a:hover {
 /* Breakout Design */
 
 .breakout-session-list-date {
-    border: 1px solid #555;
+    border: 1px solid #0093df;
     border-bottom: 0;
-    background: #aaa;
+    background: #0093df;
     color: #fff;
     font-weight: bold;
     padding: 4px;
@@ -267,17 +348,17 @@ div.tabs li.active a:hover {
 .breakout-session-list {
     padding: 0;
     margin: 0 0 8px 0;
-    border: 1px solid #555;
+    border: 1px solid #0093df;
     border-top: 0;
 }
 
 .breakout-session-list-container {
     margin: 0;
     padding: 0;
-    border-top: 1px solid #555;
+    border-top: 1px solid #0093df;
 }
 
-table.breakout-session-list-container {
+breakout-session-list-container table{
     margin: 0;
     padding: 0;
 }
@@ -290,7 +371,7 @@ table.breakout-session-list-container {
 }
 
 .breakout-session-list-details {
-    width: 140px;
+    width: 200px;
     vertical-align: top;
     padding: 4px;
 }
@@ -298,28 +379,42 @@ table.breakout-session-list-container {
 .breakout-session-list-attending {
     width: 450px;
     vertical-align: top;
-    border-top: 1px solid #aaa;
+    border-top: 1px solid #0093df;
     padding: 4px;
 }
 
 .breakout-session-list-action {
-    width: 140px;
+    width: 200px;
     vertical-align: top;
-    border-top: 1px solid #aaa;
-    background: #aaa;
+    background: #dedede;
     color: #fff;
     font-weight: bold;
-    padding: 4px;
+    padding: 7px;
     text-align: center;
+    border-top: 1px solid #0093df;
+}
+
+.breakout-session-list-action a {
+	text-decoration: none;
+	color: #0093df;
+	font-size: 16px;
+}
+
+.breakout-session-list-action a:hover {
+	color: #61b1e5;
 }
 
 .host-session-action {
     font-weight: bold;
-    font-size: 22px;
+    font-size: 18px;
     text-align: center;
     border: 2px solid #aac;
     background: #dde;
     padding: 10px 4px;
+}
+
+.host-session-action a {
+	text-decoration: none;
 }
 
 .google-map {
