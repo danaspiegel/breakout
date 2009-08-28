@@ -54,6 +54,8 @@ class RegistrationForm(forms.Form):
     Validates that the requested username is not already in use, and
     requires the password to be entered twice to catch typos.
     """
+    first_name = forms.CharField(label=_(u'First Name'), max_length=30)
+    last_name = forms.CharField(label=_(u'Last Name'), max_length=30)
     username = forms.RegexField(regex=r'^\w+$',
                                 max_length=30,
                                 widget=forms.TextInput(attrs=attrs_dict),
@@ -97,6 +99,9 @@ class RegistrationForm(forms.Form):
         user = User.objects.create_user(username=self.cleaned_data['username'], 
                                         password=self.cleaned_data['password1'], 
                                         email=self.cleaned_data['email'])
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.save()
         user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password1'])
         return user
 

@@ -115,7 +115,7 @@ INSTALLED_APPS = (
     'django_pagination',
     'django_mailer',
     # 'registration',
-    'south',
+    # 'south',
     'twitter_app',
     'account',
     'breakout',

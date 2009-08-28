@@ -14,7 +14,7 @@ class UserProfile(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
     twitter_access_token = models.CharField(max_length=500, blank=True, null=True)
-    twitter_user = models.ForeignKey(lifestream.models.TwitterUser, related_name='twitter_user', unique=True, blank=True, null=True)
+    twitter_user = models.ForeignKey(lifestream.models.TwitterUser, related_name='twitter_user', blank=True, null=True)
     
     class Meta:
         verbose_name = 'User Profile'

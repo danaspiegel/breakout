@@ -347,6 +347,22 @@ class SessionAttendance(models.Model):
             return self.arrival_time <= event_datetime and (self.departure_time == None or self.departure_time >= event_datetime)
         return False
     
+    def is_before(self, event_datetime):
+        """
+        Tests if the datetime is before the given event attendance
+        """
+        if isinstance(event_datetime, datetime.datetime):
+            return self.arrival_time > event_datetime
+        return False
+    
+    def is_after(self, event_datetime):
+        """
+        Tests if the datetime is after the given event attendance
+        """
+        if isinstance(event_datetime, datetime.datetime):
+            return self.departure_time and self.departure_time < event_datetime
+        return False
+    
     def length(self):
         return self.departure_time - self.arrival_time
     

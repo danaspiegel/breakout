@@ -71,6 +71,13 @@ class Command(NoArgsCommand):
                                         twitter_status.created_on = created_on
                                         twitter_status.location = twitter_user.location
                                         twitter_status.save()
+                                elif session_attendance.is_before(created_on):
+                                    # since we are going back in time as we process twitter statuses, if we find one that is before the given
+                                    # session attendance, then all of the rest are before the session attendance too
+                                    break
+                        except TwitterError, e:
+                            print e
+                            break
                         except Exception, e:
                             print e
         print "Imported %s statuses" % (imported_statuses, )
