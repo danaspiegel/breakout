@@ -22,10 +22,10 @@ class LifestreamEntry(models.Model):
 class TwitterUser(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
-    twitter_id = models.PositiveIntegerField(unique=True)
+    twitter_id = models.PositiveIntegerField(unique=True, blank=True, null=True)
     screen_name = models.CharField(max_length=50, unique=True)
     url = models.URLField(max_length=400, verify_exists=False, blank=True, null=True)
-    profile_image_url = models.URLField(max_length=400, verify_exists=False)
+    profile_image_url = models.URLField(max_length=400, verify_exists=False, blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(null=True, blank=True)
     is_muted = models.BooleanField(default=False)

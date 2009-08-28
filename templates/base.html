@@ -45,8 +45,7 @@
                 {% if user.is_authenticated %}
 		            <span {% if user.is_superuser or user.is_staff or request.session.superuser %}class="red-background"{% endif %}>
         		        {% if request.session.superuser %}LOGGED IN AS USER {% else %}Welcome, {% endif %}
-                        {# <strong><a href="{% url settings %}">{{user}}</a></strong> #}
-                        <strong>{{ user }}</strong>
+                        <strong><a href="{% url configure_services %}">{{ user }}</a></strong>
             		    {% if user.is_superuser %}(superuser){% endif %}
             		    {% if user.is_staff and not user.is_superuser %}(staff){% endif %}
             		    | 
@@ -112,10 +111,11 @@
 
     <div id="sponsors">
     	<h1>
-    		<img src="http://breakoutfestival.org/wp-content/themes/breakoutfestival/images/sponsors.png"/>
+    		<img src="{{ MEDIA_URL }}images/sponsors.png"/>
     	</h1>
     	<ul>
-    		<li><img src="http://breakoutfestival.org/wp-content/themes/breakoutfestival/images/sponsor_architectural_league_ny.png"/></li>
+    		<li><img src="{{ MEDIA_URL }}images/sponsor_architectural_league_ny.png"/></li>
+    	    <li><img src="{{ MEDIA_URL }}images/sponsor_nycwlogo.png" /></li>
     	</ul>
     </div>
 
@@ -127,8 +127,8 @@
     			<li><a href="/email/">Contact</a></li>
     			<li><a href="/2009/">Archives</a></li>
     		</ul>
-        	<div class="attribution">Creative Commons Attribution&mdash;Noncommercial&mdash;Share Alike 3.0 | <a href="/help/terms_of_service/">Terms of Service</a> | <a href="/help/privacy_policy/">Privacy Policy</a></div>
     	</div>
+    	<div class="attribution">Creative Commons Attribution&mdash;Noncommercial&mdash;Share Alike 3.0 | <a href="/help/terms_of_service/">Terms of Service</a> | <a href="/help/privacy_policy/">Privacy Policy</a></div>
     </div>
 </div>
 

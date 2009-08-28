@@ -3,6 +3,7 @@
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 import django.contrib.auth.forms
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site
@@ -12,6 +13,8 @@ from django.utils.translation import ugettext_lazy as _
 from django_mailer import send_email
 
 from models import UserProfile
+
+from lifestream.models import TwitterUser
 
 # I put this on all required fields, because it's easier to pick up
 # on them with CSS or JavaScript if they have a class of "required"
@@ -77,15 +80,6 @@ class RegistrationForm(forms.Form):
             return self.cleaned_data['username']
         raise forms.ValidationError(_(u'This username is already taken. Please choose another.'))
     
-    # def clean_email(self):
-    #     """
-    #     Validate that the supplied email address is unique for the
-    #     site.
-    #     """
-    #     if User.objects.filter(email__iexact=self.cleaned_data['email']):
-    #         raise forms.ValidationError(_(u'This email address is already in use. Please supply a different email address.'))
-    #     return self.cleaned_data['email']
-
     def clean(self):
         """
         Verifiy that the values entered into the two password fields
@@ -100,17 +94,19 @@ class RegistrationForm(forms.Form):
         return self.cleaned_data
     
     def save(self):
-        user = User.objects.create(username=self.cleaned_data['username'], 
-                                    password=self.cleaned_data['password1'], 
-                                    email=self.cleaned_data['email'])
-        # new_user = RegistrationProfile.objects.create_inactive_user(username=self.cleaned_data['username'],
-        #                                                             password=self.cleaned_data['password1'],
-        #                                                             email=self.cleaned_data['email'])
-        # return new_user
+        user = User.objects.create_user(username=self.cleaned_data['username'], 
+                                        password=self.cleaned_data['password1'], 
+                                        email=self.cleaned_data['email'])
+        user = authenticate(username=self.cleaned_data['username'], password=self.cleaned_data['password1'])
         return user
 
-class ServicesForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('twitter_user', )
+class ServicesForm(forms.Form):
+    twitter_screen_name = forms.RegexField(regex=r'^\w*$', max_length=50, widget=forms.TextInput(attrs=attrs_dict), label=_(u'Enter Your Twitter Username'))
     
+    def save(self):
+        if self.cleaned_data['twitter_screen_name']:
+            twitter_user, created = TwitterUser.objects.get_or_create(screen_name=self.cleaned_data['twitter_screen_name'])
+            return twitter_user
+        else:
+            return None
+

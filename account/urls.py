@@ -20,7 +20,6 @@ urlpatterns = patterns('',
                                 {'template_name': 'account/password_reset_done.html'}, name='password_reset_done'),
     url(r'^register/$', views.register, name='registration_register'),
     url(r'^services/$', views.configure_services, name='configure_services'),
-    url(r'^(?P<user_id>\w{3,})/services/$', views.configure_services, name='configure_services'),
 
     # url(r'^register/complete/$', direct_to_template, {'template': 'registration/registration_complete.html'}, name='registration_complete'),
     # url(r'^login/twitter/$', views.twitter_login, name='twitter_login'),

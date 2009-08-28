@@ -69,7 +69,10 @@ def register(request):
         form = RegistrationForm(data=request.POST)
         if form.is_valid():
             user = form.save()
-            return HttpResponseRedirect(reverse('configure_services', kwargs={ 'user_id': user.id }))
+            # log the user in for now
+            # TODO: Fix me!!
+            django.contrib.auth.login(request, user)
+            return HttpResponseRedirect(reverse('configure_services'))
     else:
         form = RegistrationForm()
     return render_to_response('account/register.html', { 'form': form }, context_instance=RequestContext(request))
@@ -77,14 +80,20 @@ def register(request):
 @login_required
 def configure_services(request):
     if request.method == 'POST':
-        form = ServicesForm(data=request.POST, instance=request.user)
+        form = ServicesForm(data=request.POST)
         if form.is_valid():
-            user_profile = form.save()
+            twitter_user = form.save()
+            user_profile = request.user.get_profile()
+            user_profile.twitter_user = twitter_user
+            user_profile.save()
             request.user.message_set.create(message="Social services updated")
             return HttpResponseRedirect(reverse('index'))
     else:
-        form = ServicesForm()
-    return render_to_response('account/register.html', { 'form': form }, context_instance=RequestContext(request))
+        user_profile = request.user.get_profile()
+        twitter_screen_name = user_profile.twitter_user and user_profile.twitter_user.screen_name or ''
+        initial = { 'twitter_screen_name': twitter_screen_name, }
+        form = ServicesForm(initial=initial)
+    return render_to_response('account/services.html', { 'form': form }, context_instance=RequestContext(request))
 
 
 def password_reset(request):

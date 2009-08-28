@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block title %}{% block pagetitle %}Configure Your Social Services{% endblock %}{% endblock %}
+
+{% block content %}
+
+<p>Enter your usernames for the social services below. BreakoutOS will use this information to gather public information from your accounts and keep track of your activity while you are participating at a Breakout Festival event.</p>
+
+<form method="post" action="#">
+    <table>
+        {{ form }}
+    </table>
+
+    <button type="submit">Save Your Social Services</button>
+</form>
+
+<script type="text/javascript">
+document.getElementById('id_twitter_screen_name').focus()
+</script>
+
+{% endblock %}
