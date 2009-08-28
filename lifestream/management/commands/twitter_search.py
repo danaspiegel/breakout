@@ -79,7 +79,6 @@ class Command(NoArgsCommand):
                                     raise TwitterStatusesTooOld('    Skipping old statuses')
                     except pytwitter.TwitterError, e:
                         print e
-                        break
                     except Exception, e:
                         print e
         print "Imported %s statuses" % (imported_statuses, )
