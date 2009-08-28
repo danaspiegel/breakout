@@ -89,7 +89,7 @@ class BreakoutCategory(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ('upcoming_session_list', (), { 'category_slug': self.slug })
+        return ('breakout_session_list', (), { 'category_slug': self.slug })
     
     class Meta:
         get_latest_by = 'updated_on'
