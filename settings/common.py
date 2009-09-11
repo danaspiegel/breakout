@@ -99,6 +99,8 @@ ANALYTICS_IGNORE_ADMIN = True
 
 ACCOUNT_ACTIVATION_DAYS = 14
 
+FILE_UPLOAD_PERMISSIONS = 0644
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
