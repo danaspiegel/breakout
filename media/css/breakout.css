@@ -1,6 +1,6 @@
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
   font-size: 12px;
   background-color: #fcf321;
   color: #000000;
@@ -103,50 +103,47 @@ div.clear {
 	height: 46px;
 }
 
-#footer .footer-text {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: bold;
-  line-height: 1.25em;
+.footer-text {
+  color:#ffffff;
+  font-size:14px;
+  font-weight:bold;
+  line-height:1.25em;
   padding: 0px 0 3px 0px;
-  float: left;
+  float:left;
+  width: 100%;
 }
-
-#footer .footer-text ul {
+.footer-text ul {
 	list-style: none;
-    display: inline;
+	float:left;
 	width: 30%;
 	margin: 0px;
 	padding: 0px;
 }
-
-#footer .footer-text ul li {
-	display: inline;
-	margin: 0 5px;
+.footer-text li {
+	display:inline;
+	margin:0 5px;
+	letter-spacing:-1px
 }
-
-#footer .footer-text li a {
+.footer-text li a{
 	color: #ffffff;
 	text-decoration: none;
 }
-
-#footer .footer-text li a:hover{
+.footer-text li a:hover{
 	color: #ccc;
 }
 
-#footer .attribution {
-    color: #494949;
-    text-align: right;
-    padding: 0px 17px 3px 0;
-	float: right;
+.footer-text .attribution {
+  color:#494949;
+  font-size:10px;
+  text-align:right;
+  padding:0px 17px 3px 0;
+	float:right;
 }
-
-#footer .attribution a {
-    color: #494949;
+.footer-text .attribution a {
+  color:#494949;
 }
-
-#footer .attribution a:hover {
-    color: #797979;
+.footer-text .attribution a:hover {
+  color:#797979;
 }
 
 
@@ -155,25 +152,6 @@ div.clear {
     clear: both;
     padding: 10px;
     background-color: #ddd;
-}
-
-#sponsors h1 {
-    display: inline;
-}
-
-#sponsors h1 img {
-    vertical-align: top;
-}
-
-#sponsors ul {
-    display: inline;
-    list-style: none;
-    padding: 0px 0px 0px 10px;
-}
-
-#sponsors ul li {
-    display: inline;
-    margin-right: 10px;
 }
 
 #content-secondary {
@@ -187,6 +165,30 @@ div.clear {
     float: left;
     width: 610px;
     padding: 10px;
+}
+
+#content-main div table tr td {
+	padding: 8px 0px;
+	vertical-align: top;
+}
+
+#content-main div table tr td a strong {
+	font-size: 16px;
+}
+
+.venue-name {
+	width: 200px;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.breakout-session-date {
+	margin-bottom: 5px;
+}
+
+.breakout-session-registration {
+	font-size: 14px;
 }
 
 ul#twitter-results {
@@ -354,7 +356,6 @@ div.tabs li.active a:hover {
 }
 
 
-
 /* Breakout Design */
 
 .breakout-session-list-date {
@@ -372,6 +373,20 @@ div.tabs li.active a:hover {
     margin: 0 0 8px 0;
     border: 1px solid #0093df;
     border-top: 0;
+}
+
+.breakout-session-list-small {
+	list-style-type: disc;
+}
+
+.breakout-session-list-small li {
+	margin-bottom: 5px;
+}
+
+.breakout-session-list-header {
+	margin: 10px 0px;
+	font-size: 18px;
+	clear: both;
 }
 
 .breakout-session-list-container {
@@ -473,10 +488,7 @@ div.lifestream-entry .lifestream-created-time a {
     color: #666;
 }
 
-div#participation-bar {
-    background: #faa;
-    font-weight: bold;
-    text-align: center;
-    font-size: 110%;
-    padding: 5px;
+#location-menu {
+	margin-left: 0px;
+	padding-left: 0px;
 }
