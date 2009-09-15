@@ -10,6 +10,10 @@
     {% include "venue/ul.location_menu.html" %}
 {% endif %}
 
+{% if category %}
+{{ category.description|linebreaks }}
+{% endif %}
+
 {% for breakout_session in breakout_sessions %}
 
     <div><a href="{{ breakout_session.get_absolute_url }}">{{ breakout_session.name }}</a> {% if not category %}(<a href="{{ breakout_session.category.get_absolute_url }}">{{ breakout_session.category }}</a>){% endif %} {{ breakout_session.start_date|date:"M d, Y" }}</div>

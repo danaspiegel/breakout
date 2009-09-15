@@ -1,12 +1,10 @@
 {% extends "base.html" %}
 {% load common_tags %}
 
-{% block title %}{% block pagetitle %}Login{% endblock %}{% endblock %}
+{% block title %}{% block pagetitle %}Logout{% endblock %}{% endblock %}
 
 {% block content %}
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
-
-<strong><a href="{% url login %}">Login again</a></strong>
+<p>You have been successfully logged out. <strong><a href="{% url login %}">Login again &raquo;</a></strong></p>
 
 {% endblock %}

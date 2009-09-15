@@ -8,6 +8,10 @@
             {% else %}
                 {% if venue.next_breakout_session %}
                     <a href="{{ venue.next_breakout_session.get_absolute_url }}"><span>Upcoming Session: {{ venue.next_breakout_session.name }}</span></a>
+                {% else %}
+                    {% if breakout_session %}
+                        <a href="{{ venue.next_breakout_session.get_absolute_url }}"><span>Session: {{ breakout_session.name }}</span></a>
+                    {% endif %}
                 {% endif %}
             {% endif %}
         </li>

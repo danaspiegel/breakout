@@ -21,6 +21,8 @@
 </div>
 {% endif %}
 
+<div class="session-description">{{ breakout_session.description|linebreaks }}</div>
+
 {% if breakout_session.is_future %}
     {# the breakout session is in the future, so let the user register #}
     {% if breakout_session|is_registered:request.user %}

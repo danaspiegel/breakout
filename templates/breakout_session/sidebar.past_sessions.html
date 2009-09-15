@@ -4,6 +4,8 @@
     {% if venue.recent_past_breakout_sessions %}
         <h2>{{ venue.past_breakout_sessions.count }} Past Sessions Here</h2>
 
+        <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
+
         {% with venue.recent_past_breakout_sessions as breakout_sessions %}
             {% include 'breakout_session/ul.list.small.html' %}
         {% endwith %}
@@ -13,6 +15,8 @@
 {% else %}
     {% if past_breakout_sessions %}
         <h2>Past Breakout Sessions</h2>
+
+        <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
 
         {% with past_breakout_sessions as breakout_sessions %}
             {% include 'breakout_session/ul.list.small.html' %}
