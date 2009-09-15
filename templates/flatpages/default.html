@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block title %}{% block pagetitle %}{{ flatpage.title }}{% endblock %}{% endblock %}
+
+{% block content %}
+{{ flatpage.content }}
+{% endblock %}

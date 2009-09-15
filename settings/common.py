@@ -101,6 +101,8 @@ ACCOUNT_ACTIVATION_DAYS = 14
 
 FILE_UPLOAD_PERMISSIONS = 0644
 
+FLATPAGE_WIDGET = ('rte_widgets.yui.YuiTextarea', {'config': {'height': '400px', 'width': '700px', 'format': 'xhtml'}})
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -116,6 +118,8 @@ INSTALLED_APPS = (
     'django_timezones',
     'django_pagination',
     'django_mailer',
+    'rte_widgets',
+    'flatpage_widget',
     # 'registration',
     # 'south',
     'twitter_app',
