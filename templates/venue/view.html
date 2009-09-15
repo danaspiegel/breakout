@@ -55,13 +55,16 @@ function create_venue_map() {
                         <a href="{{ breakout_session.get_absolute_url }}"><strong>{{ breakout_session.name }}</strong></a><br/>
                         {{ breakout_session.description|default_if_none:""|linebreaks }}
                     </td>
-                    <td><a href="{{ breakout_session.venue.get_absolute_url }}">{{ breakout_session.venue.name }}</a></td>
-                    <td>{{ breakout_session.start_date|date:"P" }} - {{ breakout_session.end_date|date:"P" }}</td>
-                    <td>{% if not breakout_session|is_registered:request.user.id %}
-                        <a href="{% url breakout_session_register venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Sign Up To Attend &raquo;</a>
-                    {% else %}
-                        <strong>Already Registered!</strong>
-                    {% endif %}
+                    <td>
+                        <div class="venue-name"><a href="{{ breakout_session.venue.get_absolute_url }}">{{ breakout_session.venue.name }}</a></div>
+                        <div class="breakout-session-date">{{ breakout_session.start_date|date:"P" }} - {{ breakout_session.end_date|date:"P" }}</div>
+                        <div class="breakout-session-registration">
+                            {% if not breakout_session|is_registered:request.user.id %}
+                                <a href="{% url breakout_session_register venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Sign Up To Attend &raquo;</a>
+                            {% else %}
+                                <strong>Already Registered!</strong>
+                            {% endif %}
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
