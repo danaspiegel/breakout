@@ -72,6 +72,11 @@ def register(request):
             # log the user in for now
             # TODO: Fix me!!
             django.contrib.auth.login(request, user)
+            user_profile = request.user.get_profile()
+            user_profile.age = form.cleaned_data['age']
+            user_profile.gender = form.cleaned_data['gender']
+            user_profile.occupation = form.cleaned_data['occupation']
+            user_profile.save()
             return HttpResponseRedirect(reverse('configure_services'))
     else:
         form = RegistrationForm()

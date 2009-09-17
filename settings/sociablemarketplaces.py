@@ -2,7 +2,7 @@
 
 from settings.common import *
 
-DEBUG = True
+DEBUG = False
 DEBUG_SQL = False
 TEMPLATE_DEBUG = DEBUG
 SEND_BROKEN_LINK_EMAILS = True

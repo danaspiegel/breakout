@@ -10,9 +10,18 @@ import lifestream.models
 User.short_name = property(lambda self: "%s %s." % (self.first_name, self.last_name[0:1]))
 
 class UserProfile(models.Model):
+    GENDER_CHOICES = (
+        ('', '---'),
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
+    age = models.PositiveSmallIntegerField(blank=True, null=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
+    occupation = models.CharField(max_length=100, blank=True, null=True)
     twitter_access_token = models.CharField(max_length=500, blank=True, null=True)
     twitter_user = models.ForeignKey(lifestream.models.TwitterUser, related_name='twitter_user', blank=True, null=True)
     

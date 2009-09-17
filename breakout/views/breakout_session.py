@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.encoding import smart_unicode, force_unicode
 
-from ..models import Venue, BreakoutSession, BreakoutCategory, SessionAttendance
+from ..models import Venue, BreakoutSession, BreakoutSessionFormat, SessionAttendance
 from ..forms import BreakoutSessionForm
 
 def index(request):
@@ -19,7 +19,7 @@ def index(request):
 def list(request, category_slug=None, venue_slug=None, include_future=True, include_past=True):
     today = datetime.datetime.today()
     past_breakout_sessions = BreakoutSession.objects.filter(start_date__lt=datetime.datetime(today.year, today.month, today.day, 0, 0, 0)).order_by('-start_date')[0:5]
-    categories = BreakoutCategory.objects.all().order_by('name')
+    categories = BreakoutSessionFormat.objects.all().order_by('name')
     breakout_sessions = BreakoutSession.objects.all().order_by('-end_date')
     if hasattr(request, 'category'):
         breakout_sessions = breakout_sessions.filter(category=request.category)

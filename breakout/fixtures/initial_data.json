@@ -1,7 +1,7 @@
 [
     {
         "pk": 1,
-         "model": "breakout.breakoutcategory",
+         "model": "breakout.breakoutsessionformat",
          "fields": 
         {
             "description": "",
@@ -14,7 +14,7 @@
     },
     {
         "pk": 2,
-         "model": "breakout.breakoutcategory",
+         "model": "breakout.breakoutsessionformat",
          "fields": 
         {
             "description": "",
@@ -27,7 +27,7 @@
     },
     {
         "pk": 3,
-         "model": "breakout.breakoutcategory",
+         "model": "breakout.breakoutsessionformat",
          "fields": 
         {
             "description": "",
@@ -40,7 +40,7 @@
     },
     {
         "pk": 4,
-         "model": "breakout.breakoutcategory",
+         "model": "breakout.breakoutsessionformat",
          "fields": 
         {
             "description": "",

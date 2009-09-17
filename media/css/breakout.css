@@ -1,6 +1,6 @@
 
 body {
-  font-family: Verdana, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 12px;
   background-color: #fcf321;
   color: #000000;
@@ -103,47 +103,50 @@ div.clear {
 	height: 46px;
 }
 
-.footer-text {
-  color:#ffffff;
-  font-size:14px;
-  font-weight:bold;
-  line-height:1.25em;
+#footer .footer-text {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.25em;
   padding: 0px 0 3px 0px;
-  float:left;
-  width: 100%;
+  float: left;
 }
-.footer-text ul {
+
+#footer .footer-text ul {
 	list-style: none;
-	float:left;
+    display: inline;
 	width: 30%;
 	margin: 0px;
 	padding: 0px;
 }
-.footer-text li {
-	display:inline;
-	margin:0 5px;
-	letter-spacing:-1px
+
+#footer .footer-text ul li {
+	display: inline;
+	margin: 0 5px;
 }
-.footer-text li a{
+
+#footer .footer-text li a {
 	color: #ffffff;
 	text-decoration: none;
 }
-.footer-text li a:hover{
+
+#footer .footer-text li a:hover{
 	color: #ccc;
 }
 
-.footer-text .attribution {
-  color:#494949;
-  font-size:10px;
-  text-align:right;
-  padding:0px 17px 3px 0;
-	float:right;
+#footer .attribution {
+    color: #494949;
+    text-align: right;
+    padding: 0px 17px 3px 0;
+	float: right;
 }
-.footer-text .attribution a {
-  color:#494949;
+
+#footer .attribution a {
+    color: #494949;
 }
-.footer-text .attribution a:hover {
-  color:#797979;
+
+#footer .attribution a:hover {
+    color: #797979;
 }
 
 
@@ -152,6 +155,25 @@ div.clear {
     clear: both;
     padding: 10px;
     background-color: #ddd;
+}
+
+#sponsors h1 {
+    display: inline;
+}
+
+#sponsors h1 img {
+    vertical-align: top;
+}
+
+#sponsors ul {
+    display: inline;
+    list-style: none;
+    padding: 0px 0px 0px 10px;
+}
+
+#sponsors ul li {
+    display: inline;
+    margin-right: 10px;
 }
 
 #content-secondary {
@@ -168,7 +190,7 @@ div.clear {
 }
 
 #content-main div table tr td {
-	padding: 8px 0px;
+	padding: 10px 0px;
 	vertical-align: top;
 }
 
@@ -356,6 +378,7 @@ div.tabs li.active a:hover {
 }
 
 
+
 /* Breakout Design */
 
 .breakout-session-list-date {
@@ -486,6 +509,14 @@ div.lifestream-entry .lifestream-created-time,
 div.lifestream-entry .lifestream-created-time a {
     font-size: 10px;
     color: #666;
+}
+
+div#participation-bar {
+    background: #faa;
+    font-weight: bold;
+    text-align: center;
+    font-size: 110%;
+    padding: 5px;
 }
 
 #location-menu {

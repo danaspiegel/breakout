@@ -33,7 +33,7 @@ class Venue(models.Model):
     longitude = models.FloatField(blank=True, null=True)
     
     tags = TagField()
-    
+    # rain_venue = models.ForeignKey('self', null=True, blank=True)
     geocoder = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
     
     def __unicode__(self):
@@ -81,9 +81,13 @@ class Venue(models.Model):
     class Meta:
         get_latest_by = 'updated_on'
 
+<<<<<<< HEAD:breakout/models.py
 tagging.register(Venue)
 
 class BreakoutCategory(models.Model):
+=======
+class BreakoutSessionFormat(models.Model):
+>>>>>>> a6fc27f50c9ab83b6e49a4c10dd720722f259f4d:breakout/models.py
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=50)    
@@ -101,8 +105,8 @@ class BreakoutCategory(models.Model):
     class Meta:
         get_latest_by = 'updated_on'
         ordering = ['order', ]
-        verbose_name = 'Breakout Category'
-        verbose_name_plural = 'Breakout Categories'
+        verbose_name = 'Breakout Session Format'
+        verbose_name_plural = 'Breakout Session Formats'
 
 
 class BreakoutSession(models.Model):
@@ -110,13 +114,14 @@ class BreakoutSession(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
-    category = models.ForeignKey(BreakoutCategory, related_name='breakout_sessions')
+    session_format = models.ForeignKey(BreakoutSessionFormat, related_name='breakout_sessions')
     # TODO: these fields must be made timezone aware
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     moderator = models.ForeignKey(User, related_name='moderating_sessions')
     registered_users = models.ManyToManyField(User, related_name='registered_sessions', through='SessionAttendance')
     venue = models.ForeignKey(Venue, related_name='breakout_sessions')
+    # is_rain_venue_active = models.BooleanField(default=False)
     available_spots = models.PositiveSmallIntegerField(null=True, blank=True)
     
     def __unicode__(self):
@@ -210,7 +215,7 @@ class BreakoutSession(models.Model):
         >>> today = datetime.today()
         >>> start_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour, minute=today.minute)
         >>> end_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour + 1, minute=today.minute)
-        >>> breakout_category = BreakoutCategory.objects.get(pk=1)
+        >>> breakout_category = BreakoutSessionFormat.objects.get(pk=1)
         >>> test_user_1, created = User.objects.get_or_create(username='test user 1')
         >>> test_user_2, created = User.objects.get_or_create(username='test user 2')
         >>> venue = Venue.objects.create(name="Test Venue", slug="test-venue", city="City", state="NY")
