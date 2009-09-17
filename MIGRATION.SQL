@@ -1,3 +1,5 @@
+SET FOREIGN_KEY_CHECKS =0;
+
 RENAME TABLE `breakout_breakoutcategory` TO `breakout_breakoutsessionformat`;
 
 ALTER TABLE `account_userprofile` ADD `age` smallint(5) unsigned default NULL;
@@ -15,3 +17,5 @@ ALTER TABLE `breakout_breakoutsession` ADD CONSTRAINT `session_format_id_refs_id
 -- ALTER TABLE `breakout_breakoutsession` ADD `rain_venue_id` int(11) default NULL;
 -- ALTER TABLE `breakout_breakoutsession` ADD KEY `breakout_venue_rain_venue_id` (`rain_venue_id`);
 -- ALTER TABLE `breakout_breakoutsession` ADD CONSTRAINT `rain_venue_id_refs_id_22c01e7b` FOREIGN KEY (`rain_venue_id`) REFERENCES `breakout_venue` (`id`);
+
+SET FOREIGN_KEY_CHECKS = 1;
