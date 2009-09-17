@@ -103,6 +103,9 @@ FILE_UPLOAD_PERMISSIONS = 0644
 
 FLATPAGE_WIDGET = ('rte_widgets.yui.YuiTextarea', {'config': {'height': '400px', 'width': '700px', 'format': 'xhtml'}})
 
+# Django-tagging-ng settings
+FORCE_LOWERCASE_TAGS = True
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,4 +129,5 @@ INSTALLED_APPS = (
     'account',
     'breakout',
     'lifestream',
+    'tagging',
 )

@@ -12,6 +12,9 @@ from django.contrib.localflavor.us.models import USStateField, PhoneNumberField
 
 from . import InactiveSessionException
 
+import tagging
+from tagging.fields import TagField
+
 class Venue(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -28,6 +31,8 @@ class Venue(models.Model):
     image = models.ImageField(max_length=400, upload_to='venues', blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
+    
+    tags = TagField()
     
     geocoder = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
     
@@ -75,6 +80,8 @@ class Venue(models.Model):
     
     class Meta:
         get_latest_by = 'updated_on'
+
+tagging.register(Venue)
 
 class BreakoutCategory(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
