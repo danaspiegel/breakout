@@ -21,16 +21,19 @@
 </div>
 {% endif %}
 
-<div class="session-description">{{ breakout_session.description|linebreaks }}</div>
+<div class="session-description">
+    
+    {{ breakout_session.description|linebreaks }}
 
-{% if breakout_session.is_future %}
-    {# the breakout session is in the future, so let the user register #}
-    {% if breakout_session|is_registered:request.user %}
-        <a href="{% url breakout_session_unregister venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Remove your Registration &raquo;</a>
-    {% else %}
-        <a href="{% url breakout_session_register venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Sign Up To Attend &raquo;</a>
-    {% endif %}
-{% endif %}    
+    {% if breakout_session.is_future %}
+        {# the breakout session is in the future, so let the user register #}
+        {% if breakout_session|is_registered:request.user %}
+            <a href="{% url breakout_session_unregister venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Remove your Registration &raquo;</a>
+        {% else %}
+            <a href="{% url breakout_session_register venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Sign Up To Attend &raquo;</a>
+        {% endif %}
+    {% endif %}    
+</div>
 
 {% for lifestream_entry in breakout_session.lifestream_entries.all %}
 
