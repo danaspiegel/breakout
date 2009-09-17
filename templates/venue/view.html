@@ -47,8 +47,8 @@ function create_venue_map() {
     {% regroup venue.future_breakout_sessions by event_date as breakout_session_dates_list %}
     {% for breakout_session_dates in breakout_session_dates_list %}
     <div class="breakout-session-list-date">{{ breakout_session_dates.grouper|date:"l, F dS" }}</div>
-    <div class="">
-        <table class="">
+    <div class="breakout-session-list">
+        <table class="breakout-session-list-container">
             {% for breakout_session in breakout_session_dates.list %}
                 <tr>
                     <td>

@@ -21,7 +21,7 @@ p {
 }
 
 h1 {
-    font-size: 22px;
+    font-size: 24px;
     padding: 0px 0 8px 0;
     margin-top: 0px;
     color: #0093df;
@@ -189,8 +189,14 @@ div.clear {
     padding: 10px;
 }
 
+#content-main h1 img {
+	margin-right: 5px; 
+	border:0px;
+	margin-bottom: -3px;
+}
+
 #content-main div table tr td {
-	padding: 10px 0px;
+	padding: 10px 10px;
 	vertical-align: top;
 }
 
@@ -319,8 +325,8 @@ a.claim-profile {
 div.tabs {
     clear: both;
     height: 40px;
-    border-bottom: 1px solid #000;
-    padding-left: 4px;
+    border-bottom: 1px solid #0093df;
+    padding-left: 0px;
     margin-top: 10px;
 }
 
@@ -335,12 +341,13 @@ div.tabs li a {
     float: left;
     margin-top: 10px;
     padding: 7px 12px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: bold;
-    border: 1px solid #000;
+    border: 1px solid #61b1e5;
     border-bottom: 0;
-    color: #31373f;
-    background: #eee;
+    color: #000;
+    text-decoration: none;
+    background-color: #dfdfdf;
 }
 
 
@@ -353,18 +360,23 @@ div.tabs li a {
 }
 */
 div.tabs li a:hover {
-  text-decoration: none;
-  color: #0063a2;
+	text-decoration: none;
+	background-color: #61b1e5;
+	color: #fff;
+}
+
+div.tabs li.active {
 }
 
 div.tabs li.active a {
-    border-left: solid 1px #000;
+	color: #fff;
+    border-left: solid 1px #0093df;
     font-size: 14px;
     margin-top: 0px;
     padding: 12px 12px;
     border-bottom: none;
     cursor: default;
-    background: #fff;
+	background-color: #0093df;
 }
 
 /*div.tabs li.active a span {
@@ -373,10 +385,6 @@ div.tabs li.active a {
   background: #fff;
 }
 */
-div.tabs li.active a:hover {
-  color: #31373f;
-}
-
 
 
 /* Breakout Design */
@@ -388,12 +396,12 @@ div.tabs li.active a:hover {
     color: #fff;
     font-weight: bold;
     padding: 4px;
-    margin: 0px;
+    font-size: 14px;
 }
 
 .breakout-session-list {
     padding: 0;
-    margin: 0 0 8px 0;
+    margin: 0 0 20px 0;
     border: 1px solid #0093df;
     border-top: 0;
 }
@@ -410,6 +418,9 @@ div.tabs li.active a:hover {
 	margin: 10px 0px;
 	font-size: 18px;
 	clear: both;
+	padding: 10px 0 8px 0;
+	color: #0093df;
+	font-weight: bold;
 }
 
 .breakout-session-list-container {
@@ -425,9 +436,13 @@ breakout-session-list-container table{
 
 .breakout-session-list-description {
     width: 450px;
+    padding: 4px;
     padding-right: 10px;
     vertical-align: top;
-    padding: 4px;
+}
+
+.breakout-session-list-description a {
+	font-weight: bold;
 }
 
 .breakout-session-list-details {
@@ -441,12 +456,14 @@ breakout-session-list-container table{
     vertical-align: top;
     border-top: 1px solid #0093df;
     padding: 4px;
+    font-weight: bold;
+    background-color: #d4eefe;
 }
 
 .breakout-session-list-action {
     width: 200px;
     vertical-align: top;
-    background: #dedede;
+    background: #faf257;
     color: #fff;
     font-weight: bold;
     padding: 7px;
@@ -454,27 +471,64 @@ breakout-session-list-container table{
     border-top: 1px solid #0093df;
 }
 
+.breakout-session-list-action:hover {
+	background: #fff200;
+	color: #0093df;
+}
+
 .breakout-session-list-action a {
 	text-decoration: none;
-	color: #0093df;
 	font-size: 16px;
 }
 
 .breakout-session-list-action a:hover {
-	color: #61b1e5;
+	color: #0093df;
+}
+
+.breakout-session-list-item {
+	margin: 10px 0px;
+	padding: 10px;
+	background-color: #f4f4f4;
+}
+
+.breakout-session-list-item h3 {
+	font-size: 16px;
+	margin-top: 0px;
+}
+
+.breakout-session-list-item:hover {
+	background-color: #eee;
+}
+
+.breakout-session-list-item strong {
+	font-size: 14px;
+	clear: right;
 }
 
 .host-session-action {
     font-weight: bold;
     font-size: 18px;
     text-align: center;
-    border: 2px solid #aac;
-    background: #dde;
+    border: 1px solid #0093df;
+    background: #faf257;
     padding: 10px 4px;
+}
+
+.host-session-action:hover {
+    background: #fff200;
 }
 
 .host-session-action a {
 	text-decoration: none;
+}
+.host-session-action a img {
+	margin-right:10px; 
+	border:0px;
+	margin-bottom: -5px;
+}
+
+.host-session-action a:hover {
+	color: #0093df;
 }
 
 .google-map {
@@ -482,6 +536,11 @@ breakout-session-list-container table{
     height: 400px;
 }
 
+.session-description {
+	padding: 10px;
+	border: 1px solid #0093df;
+	border-top: none;
+}
 
 div.lifestream-entry {
     padding: 2px;
