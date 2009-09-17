@@ -81,13 +81,10 @@ class Venue(models.Model):
     class Meta:
         get_latest_by = 'updated_on'
 
-<<<<<<< HEAD:breakout/models.py
+
 tagging.register(Venue)
 
-class BreakoutCategory(models.Model):
-=======
 class BreakoutSessionFormat(models.Model):
->>>>>>> a6fc27f50c9ab83b6e49a4c10dd720722f259f4d:breakout/models.py
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=50)    
