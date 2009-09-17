@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from models import *
 
 class VenueAdmin(admin.ModelAdmin):
-    fieldsets = ((None, { 'fields': ('name', 'slug', 'description', 'phone_number', 'url', 'image', ) }),
+    fieldsets = ((None, { 'fields': ('name', 'slug', 'description', 'phone_number', 'url', 'image','tags', ) }),
                 ('Location', { 'fields': ('street_address_1', 'street_address_2', 'city', 'state', 'zip_code', 'latitude', 'longitude', ) }), )
     prepopulated_fields = { 'slug': ('name', ) }
     list_display_links = ('name', )
