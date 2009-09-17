@@ -11,4 +11,4 @@ class BreakoutMiddleware:
             request.venue = Venue.objects.get(slug=venue_slug)
         category_slug = view_kwargs.get('category_slug')
         if category_slug:
-            request.category = BreakoutCategory.objects.get(slug=category_slug)
+            request.category = BreakoutSessionFormat.objects.get(slug=category_slug)

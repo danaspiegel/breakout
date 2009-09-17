@@ -27,6 +27,7 @@ class SessionAdmin(admin.ModelAdmin):
 admin.site.register(Session, SessionAdmin)
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'twitter_user', 'twitter_access_token', )
+    list_display = ('id', 'user', 'age', 'gender', 'twitter_user', 'twitter_access_token', )
+    list_filter = ('age', 'gender', )
 
 admin.site.register(UserProfile, UserProfileAdmin)

@@ -10,7 +10,7 @@ def sidebar(request):
     if hasattr(request, "venue"):
         past_breakout_sessions = past_breakout_sessions.filter(venue=request.venue)
     breakout_dictionary['past_breakout_sessions'] = past_breakout_sessions.order_by('-start_date')[0:5]
-    breakout_dictionary['categories'] = BreakoutCategory.objects.all().order_by('name')
+    breakout_dictionary['categories'] = BreakoutSessionFormat.objects.all().order_by('name')
     if hasattr(request, 'venue'):
         breakout_dictionary['venue'] = request.venue
     if hasattr(request, 'category'):

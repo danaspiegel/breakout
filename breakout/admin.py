@@ -41,7 +41,7 @@ class VenueAdmin(admin.ModelAdmin):
 
 admin.site.register(Venue, VenueAdmin)
 
-class BreakoutCategoryAdmin(admin.ModelAdmin):
+class BreakoutSessionFormatAdmin(admin.ModelAdmin):
     prepopulated_fields = { 'slug': ('name', ) }
     list_display_links = ('name', )
     list_display = ('order', 'name', 'slug', 'breakout_session_count', 'description', )
@@ -52,7 +52,7 @@ class BreakoutCategoryAdmin(admin.ModelAdmin):
         return obj.breakout_sessions.count()
     breakout_session_count.short_description = '# of Sessions'
 
-admin.site.register(BreakoutCategory, BreakoutCategoryAdmin)
+admin.site.register(BreakoutSessionFormat, BreakoutSessionFormatAdmin)
 
 class SessionAttendanceInline(admin.TabularInline):
     model = SessionAttendance
@@ -73,9 +73,9 @@ class BreakoutSessionAdminForm(forms.ModelForm):
 class BreakoutSessionAdmin(admin.ModelAdmin):
     list_display_links = ('name', )
     inlines = (SessionAttendanceInline, )
-    list_filter = ('category', )
-    list_display = ('name', 'venue', 'category', 'start_end_date', 'is_active', 'moderator', 'available_spots', 'registered_users_count', 'lifestream_entries_count')
-    list_editable = ( 'category', 'moderator', 'available_spots', )
+    list_filter = ('session_format', )
+    list_display = ('name', 'venue', 'session_format', 'start_end_date', 'is_active', 'moderator', 'available_spots', 'registered_users_count', 'lifestream_entries_count')
+    list_editable = ( 'session_format', 'moderator', 'available_spots', )
     search_fields = ['name', 'description', ]
     save_on_top = True
     ordering = ('-start_date', '-end_date', )

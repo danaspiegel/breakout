@@ -53,17 +53,17 @@ class Migration:
         ))
         db.send_create_signal('breakout', ['Venue'])
         
-        # Adding model 'BreakoutCategory'
-        db.create_table('breakout_breakoutcategory', (
-            ('id', orm['breakout.BreakoutCategory:id']),
-            ('created_on', orm['breakout.BreakoutCategory:created_on']),
-            ('updated_on', orm['breakout.BreakoutCategory:updated_on']),
-            ('name', orm['breakout.BreakoutCategory:name']),
-            ('slug', orm['breakout.BreakoutCategory:slug']),
-            ('description', orm['breakout.BreakoutCategory:description']),
-            ('order', orm['breakout.BreakoutCategory:order']),
+        # Adding model 'BreakoutSessionFormat'
+        db.create_table('breakout_breakoutsessionformat', (
+            ('id', orm['breakout.BreakoutSessionFormat:id']),
+            ('created_on', orm['breakout.BreakoutSessionFormat:created_on']),
+            ('updated_on', orm['breakout.BreakoutSessionFormat:updated_on']),
+            ('name', orm['breakout.BreakoutSessionFormat:name']),
+            ('slug', orm['breakout.BreakoutSessionFormat:slug']),
+            ('description', orm['breakout.BreakoutSessionFormat:description']),
+            ('order', orm['breakout.BreakoutSessionFormat:order']),
         ))
-        db.send_create_signal('breakout', ['BreakoutCategory'])
+        db.send_create_signal('breakout', ['BreakoutSessionFormat'])
         
     
     
@@ -78,8 +78,8 @@ class Migration:
         # Deleting model 'Venue'
         db.delete_table('breakout_venue')
         
-        # Deleting model 'BreakoutCategory'
-        db.delete_table('breakout_breakoutcategory')
+        # Deleting model 'BreakoutSessionFormat'
+        db.delete_table('breakout_breakoutsessionformat')
         
     
     
@@ -111,7 +111,7 @@ class Migration:
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'max_length': '30', 'unique': 'True'})
         },
-        'breakout.breakoutcategory': {
+        'breakout.breakoutsessionformat': {
             'created_on': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -122,7 +122,7 @@ class Migration:
         },
         'breakout.breakoutsession': {
             'available_spots': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'category': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'breakout_sessions'", 'to': "orm['breakout.BreakoutCategory']"}),
+            'category': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'breakout_sessions'", 'to': "orm['breakout.BreakoutSessionFormat']"}),
             'created_on': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'end_date': ('django.db.models.fields.DateTimeField', [], {}),
