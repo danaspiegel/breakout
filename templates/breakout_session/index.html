@@ -30,6 +30,9 @@
                     </p>
                     <p>
                         <strong>Location</strong><br/>
+						{% if breakout_session.venue.image %}
+						<a class="lightbox" href="{{breakout_session.venue.image.url}}" target="_blank"><img src="{{breakout_session.venue.image.url}}" width="50" height="50"></a><br/>
+						{% endif %}
                         {{ breakout_session.venue.street_address_1|default_if_none:"" }}<br/>
                         {% if breakout_session.venue.street_address_2 %}{{ breakout_session.venue.street_address_2 }}<br/>{% endif %}
                         {{ breakout_session.venue.city }}, {{ breakout_session.venue.state }} {{ breakout_session.venue.zip_code|default_if_none:"" }}<br/>
