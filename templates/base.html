@@ -1,3 +1,4 @@
+{% load common_tags %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
 
@@ -76,11 +77,15 @@
         	<div id="primary-navigation">
         	    {% block primary_navigation %}
                     <ul>
-                        {# <li class="{% active request '^/home/' %}"><a href="/home/"><span>Home</span></a></li> #}
-                        {# <li class="{% active request '^/help/' %}"><a href="/help/"><span>Help</span></a></li> #}
+        				<li class="page-item {% active request '^/about/' %}"><a href="/about/" title="About">About</a></li>
+        				<li class="page-item {% active request '^/contact/' %}"><a href="/contact/" title="Contact">Contact</a></li>
+        				<li class="page-item {% active request '^/press/' %}"><a href="/press/" title="Press">Press</a></li>
+        				<li class="page-item {% active request '^/home/' %}" ><a href="http://breakoutnow.pbworks.com" title="Wiki" target="new">Wiki</a></li>
+        				<li class="page-item {% active request '^/faq/' %}" ><a href="/faq/" title="Events">FAQ</a></li></ul>
                     </ul>
                 {% endblock primary_navigation %}	
         	</div>
+
         </div>
     </div>
 

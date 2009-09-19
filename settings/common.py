@@ -21,7 +21,10 @@ IGNORABLE_404_STARTS = ('/favicon.ico', )
 ADMINS = (
     ('Dana Spiegel', 'dana@nycwireless.com'),
 )
-MANAGERS = ADMINS
+MANAGERS = (
+    ('Dana Spiegel', 'dana@breakoutfestival.org'),
+    ('Anthony Townsend', 'anthony@breakoutfestival.org'),
+)
 
 DATABASE_ENGINE = 'mysql'
 DATABASE_OPTIONS = {
@@ -55,7 +58,7 @@ MIDDLEWARE_CLASSES = (
     'middleware.google_analytics.GoogleAnalyticsMiddleware',
     'middleware.timer.TimerMiddleware',
     'middleware.debug.DebugFooter',
-    'django.contrib.csrf.middleware.CsrfMiddleware',
+    # 'django.contrib.csrf.middleware.CsrfMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -123,6 +126,7 @@ INSTALLED_APPS = (
     'django_mailer',
     'rte_widgets',
     'flatpage_widget',
+    'contact_form',
     # 'registration',
     # 'south',
     'twitter_app',

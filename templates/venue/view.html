@@ -41,6 +41,8 @@ function create_venue_map() {
 
 {% include "venue/ul.location_menu.html" %}
 
+<div id="map_canvas" class="google-map"></div>
+
 {% if venue.future_breakout_sessions.count %}
     <div class="breakout-session-list-header">Upcoming Sessions</div>
 
@@ -54,8 +56,6 @@ function create_venue_map() {
     </div>
     {% endfor %}
 {% endif %}
-
-<div id="map_canvas" class="google-map"></div>
 
 {# <div class="">Useful Nearby Locations</div> #}
 

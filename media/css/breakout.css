@@ -63,7 +63,7 @@ div.clear {
 
 #header {
     margin: 0 auto;
-    height: 120px;
+    height: 140px;
 }
 
 #header-login {
@@ -94,6 +94,43 @@ div.sidebar-container p.sidebar-information {
 
 div.sidebar-container ul {
 	padding-left: 20px;
+}
+
+/* Navigation */
+#primary-navigation {
+    clear:both;
+}
+ 
+/* Top Navigation */
+#primary-navigation {
+    color: #fff;
+    background-color: #009fea;
+    font-size: 14px;
+    height: 25px;
+    padding: 0;
+}
+
+#primary-navigation ul {
+    list-style: none;
+    height: 25px;
+}
+
+#primary-navigation ul li {
+    float: left;
+    border-right: 1px solid #fff;
+    height: 25px;
+}
+
+#primary-navigation ul li.active {
+    background-color: #155978;
+}
+
+#primary-navigation ul li a {
+    color: #fff;
+    font-weight: bold;
+    padding: 3px 14px 5px 14px;
+    text-decoration: none;
+    line-height: 25px;
 }
 
 #footer {		

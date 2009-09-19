@@ -16,7 +16,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     # url(r'^oauth/twitter/', include('twitter_app.urls')),
     url(r'^accounts/', include('account.urls')),
-    
+
+    url(r'^contact/', include('contact_form.urls')),    
     url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', { 'sitemaps': { 'venues': VenueSitemap() } }),
     url(r'^robots.txt$', include('django_robots.urls')),

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block title %}{% block pagetitle %}Contact Us{% endblock %}{% endblock %}
+
+{% block content %}
+
+<form method="post" action=".">
+    <table>
+        {{ form }}
+    </table>
+
+    <button type="submit">Submit Contact</button>
+</form>
+
+{% endblock %}
