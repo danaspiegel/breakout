@@ -8,6 +8,7 @@ import django.contrib.auth.views
 from django.contrib import admin
 admin.autodiscover()
 
+from feeds import feeds
 from breakout.models import VenueSitemap
 
 urlpatterns = patterns('',
@@ -16,6 +17,7 @@ urlpatterns = patterns('',
     # url(r'^oauth/twitter/', include('twitter_app.urls')),
     url(r'^accounts/', include('account.urls')),
     
+    url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', { 'sitemaps': { 'venues': VenueSitemap() } }),
     url(r'^robots.txt$', include('django_robots.urls')),
     # url(r"^announcements/", include('django_announcements.urls')),
