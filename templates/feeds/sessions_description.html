@@ -16,7 +16,15 @@
     
     {{ obj.venue.description|default_if_none:""|safe|urlize|linebreaksbr }}
 </p>
+
 <p><strong>Session Format</strong>: {{ obj.session_format.name }}</p>
+
 <p><strong>Time</strong>: {{ obj.start_date_localized.time|time:"P" }}-{{ obj.end_date_localized.time|time:"P" }} ({{ obj.timezone }})</p>
-<p><strong>{{ obj.registered_users.count }} {{ obj.registered_users.count|pluralize:"person,people" }} attending{% if obj.remaining_spots %}</strong> | {{ obj.remaining_spots }} spots remaining{% endif %}</p>
+
+<p>
+    <strong>{{ obj.registered_users.count }} {{ obj.registered_users.count|pluralize:"person,people" }} attending</strong>
+    {% if obj.remaining_spots %} / {{ obj.remaining_spots }} spots remaining{% endif %}
+    {% if not obj.available_spots %} / Everyone is welcome{% endif %}
+</p>
+
 <p><a href="{% url breakout_session_register venue_slug=obj.venue.slug, breakout_session_id=obj.id %}">Sign Up To Attend &raquo;</a></p>

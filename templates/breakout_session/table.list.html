@@ -10,7 +10,9 @@
             {{ breakout_session.description|safe|urlize|linebreaks }}
         </td>
         <td class="breakout-session-list-details">
-            <p><a href="{{ breakout_session.session_format.get_absolute_url }}">{{ breakout_session.session_format }}</a></p>
+            <p>
+                <strong>Session Format</strong><br/>
+                <a href="{{ breakout_session.session_format.get_absolute_url }}">{{ breakout_session.session_format }}</a></p>
             <p>
                 <strong>Time</strong><br/>
                 {{ breakout_session.start_date_localized.time|time:"P" }}-{{ breakout_session.end_date_localized.time|time:"P" }} ({{ breakout_session.timezone }})
