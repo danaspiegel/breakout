@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/vobject/!svn/ver/218/trunk/vobject
+END
+base.py
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/vobject/!svn/ver/216/trunk/vobject/base.py
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/vobject/!svn/ver/195/trunk/vobject/__init__.py
+END
+behavior.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/vobject/!svn/ver/195/trunk/vobject/behavior.py
+END
+vcard.py
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/vobject/!svn/ver/213/trunk/vobject/vcard.py
+END
+win32tz.py
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/vobject/!svn/ver/195/trunk/vobject/win32tz.py
+END
+hcalendar.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/vobject/!svn/ver/195/trunk/vobject/hcalendar.py
+END
+change_tz.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/vobject/!svn/ver/218/trunk/vobject/change_tz.py
+END
+icalendar.py
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/vobject/!svn/ver/214/trunk/vobject/icalendar.py
+END
+ics_diff.py
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/vobject/!svn/ver/195/trunk/vobject/ics_diff.py
+END

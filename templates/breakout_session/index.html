@@ -8,6 +8,10 @@
 
 <p>Breakout! helps people and teams locate stimulating, serene and serendipitous places to work in the city. Whether you're trying to break a creative block, meet people to work on tough problems together, or just looking to escape from your cubicle for a few hours, there's a "breakout session" for that. Follow us on Twitter (<a href="http://www.twitter.com/breakoutnow" target="_blank">@breakoutnow</a>).</p>
 
+<div class="subscribe"><a href="{% url breakout_session_list_ical %}"><img src="{{ MEDIA_URL }}images/onebit_clock.png"> Subscribe in iCal</a></div>
+
+<div class="subscribe"><a href="/feeds/sessions/"><img src="{{ MEDIA_URL }}images/onebit_rss.png"> Subscribe to RSS</a></div>
+
 <h2>All Upcoming Sessions</h2>
 
 {% regroup breakout_sessions by event_date as breakout_session_dates_list %}

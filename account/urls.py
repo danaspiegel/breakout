@@ -1,11 +1,12 @@
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
 import django.contrib.auth.views
+from django.views.decorators.cache import never_cache
 
 import views
 
 urlpatterns = patterns('',
-    url(r'^login/$', django.contrib.auth.views.login, {'template_name': 'account/login.html'}, name='login'),
+    url(r'^login/$', never_cache(django.contrib.auth.views.login), {'template_name': 'account/login.html'}, name='login'),
     url(r'^logout/$', django.contrib.auth.views.logout, {'template_name': 'account/logout.html'}, name='logout'),
     url(r'^password/change/$', django.contrib.auth.views.password_change, 
                                 {'template_name': 'account/password_change_form.html'}, name='password_change'),

@@ -1,4 +1,5 @@
 import datetime
+import vobject
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.conf import settings
@@ -7,6 +8,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.encoding import smart_unicode, force_unicode
+from django.views.decorators.cache import never_cache
 
 from ..models import Venue, BreakoutSession, BreakoutSessionFormat, SessionAttendance
 from ..forms import BreakoutSessionForm
@@ -44,6 +46,7 @@ def view(request, venue_slug, breakout_session_id):
     except Venue.DoesNotExist:
         return HttpResponseRedirect(reverse('index'))
 
+@never_cache
 @login_required
 def create(request):
     breakout_session = BreakoutSession(moderator=request.user)
@@ -58,6 +61,7 @@ def create(request):
         form = BreakoutSessionForm(instance=breakout_session)
     return render_to_response('breakout_session/create.html', { 'form': form, }, context_instance=RequestContext(request))
 
+@never_cache
 @login_required
 def register(request, venue_slug, breakout_session_id):
     """
@@ -74,6 +78,7 @@ def register(request, venue_slug, breakout_session_id):
         request.user.message_set.create(message="Breakout Session does not exist")
         return HttpResponseRedirect(reverse('index'))
 
+@never_cache
 @login_required
 def unregister(request, venue_slug, breakout_session_id):
     """
@@ -91,6 +96,7 @@ def unregister(request, venue_slug, breakout_session_id):
         request.user.message_set.create(message="You aren't registered for this Breakout Session")
         return HttpResponseRedirect(reverse('breakout_session_view', kwargs={ "breakout_session_id": breakout_session.id, "venue_slug": breakout_session.venue.slug }))
 
+@never_cache
 @login_required
 def checkin(request, venue_slug, breakout_session_id):
     """
@@ -105,7 +111,7 @@ def checkin(request, venue_slug, breakout_session_id):
         request.user.message_set.create(message="Breakout Session does not exist")
         return HttpResponseRedirect(reverse('index'))        
 
-
+@never_cache
 @login_required
 def checkout(request, venue_slug, breakout_session_id):
     """
@@ -119,3 +125,25 @@ def checkout(request, venue_slug, breakout_session_id):
     except BreakoutSession.DoesNotExist:
         request.user.message_set.create(message="Breakout Session does not exist")
         return HttpResponseRedirect(reverse('index'))        
+
+def ical(request):
+    """
+    Outputs an iCalendar response with all of the upcoming BreakoutSessions
+    
+    see http://blog.thescoop.org/archives/2007/07/31/django-ical-and-vobject/
+    """
+    calendar = vobject.iCalendar()
+    calendar.add('method').value = 'PUBLISH'  # IE/Outlook needs this
+    breakout_sessions = BreakoutSession.objects.all()
+    for breakout_session in breakout_sessions:
+        vevent = calendar.add('vevent')
+        vevent.add('summary').value = breakout_session.name
+        vevent.add('description').value = breakout_session.description
+        vevent.add('location').value = "%s - %s, %s, %s %s" % (breakout_session.venue.name, breakout_session.venue.street_address_1, breakout_session.venue.city, breakout_session.venue.state, breakout_session.venue.zip_code, )
+        vevent.add('dtstart').value = breakout_session.start_date_localized
+        vevent.add('dtend').value = breakout_session.end_date_localized
+    icalendar_stream = calendar.serialize()
+    response = HttpResponse(icalendar_stream, mimetype='text/calendar')
+    response['Filename'] = 'breakout_sessions.ics'  # IE needs this
+    response['Content-Disposition'] = 'attachment; filename=breakout_sessions.ics'
+    return response

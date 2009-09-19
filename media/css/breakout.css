@@ -582,3 +582,16 @@ div#participation-bar {
 	margin-left: 0px;
 	padding-left: 0px;
 }
+
+.subscribe {
+    float: right;
+    padding: 12px 0 0 10px;
+}
+
+.subscribe a {
+    text-decoration: none;
+}
+
+.subscribe img {
+    vertical-align: bottom;
+}

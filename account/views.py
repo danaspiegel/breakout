@@ -10,6 +10,7 @@ import django.contrib.auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site, RequestSite
+from django.views.decorators.cache import never_cache
 
 import twitter_app.utils
 import twitter_app.oauth
@@ -36,6 +37,7 @@ def twitter_login(request):
     request.session['twitter_oauth_request_token'] = request_token.to_string()   
     return response
 
+@never_cache
 def logout(request):
     django.contrib.auth.logout(request)
     return HttpResponseRedirect(reverse('index'))
@@ -64,6 +66,7 @@ def twitter_callback(request):
     return HttpResponseRedirect(reverse('index'))
 
 # This was taken from django-registration (partly, anyway)
+@never_cache
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(data=request.POST)
@@ -101,13 +104,14 @@ def configure_services(request):
     return render_to_response('account/services.html', { 'form': form }, context_instance=RequestContext(request))
 
 
+@never_cache
 def password_reset(request):
     if request.method == "POST":
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             opts = { 'use_https': request.is_secure(), 'token_generator': default_token_generator, }
             form.save(**opts)
-            return HttpResponseRedirect(reverse('password_reset_done'))
+            return add_never_cache_headers(HttpResponseRedirect(reverse('password_reset_done')))
     else:
         form = PasswordResetForm()
     return render_to_response('account/password_reset_form.html', { 'form': form, }, context_instance=RequestContext(request))
