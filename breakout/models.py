@@ -100,7 +100,7 @@ class BreakoutSessionFormat(models.Model):
     
     @models.permalink
     def get_absolute_url(self):
-        return ('breakout_session_list', (), { 'category_slug': self.slug })
+        return ('upcoming_breakout_session_list', (), { 'session_format_slug': self.slug })
     
     class Meta:
         get_latest_by = 'updated_on'
@@ -148,7 +148,7 @@ class BreakoutSession(models.Model):
     @property
     def remaining_spots(self):
         if self.available_spots:
-            return self.available_spots - self.registered_users.count()
+            return max(0, self.available_spots - self.registered_users.count())
         else:
             return None
     
@@ -229,11 +229,11 @@ class BreakoutSession(models.Model):
         >>> today = datetime.today()
         >>> start_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour, minute=today.minute)
         >>> end_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour + 1, minute=today.minute)
-        >>> breakout_category = BreakoutSessionFormat.objects.get(pk=1)
+        >>> breakout_session_format = BreakoutSessionFormat.objects.get(pk=1)
         >>> test_user_1, created = User.objects.get_or_create(username='test user 1')
         >>> test_user_2, created = User.objects.get_or_create(username='test user 2')
         >>> venue = Venue.objects.create(name="Test Venue", slug="test-venue", city="City", state="NY")
-        >>> breakout_session, created = BreakoutSession.objects.get_or_create(name="Test Session", category=breakout_category, start_date=start_date, end_date=end_date, moderator=test_user_1, venue=venue)
+        >>> breakout_session, created = BreakoutSession.objects.get_or_create(name="Test Session", session_format=breakout_session_format, start_date=start_date, end_date=end_date, moderator=test_user_1, venue=venue)
         >>> breakout_session.is_active
         True
         >>> breakout_session.checkin(test_user_2)
@@ -262,7 +262,7 @@ class BreakoutSession(models.Model):
         # check to make sure we throw an exception when session is inactive
         >>> start_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour - 2, minute=today.minute)
         >>> end_date = datetime(year=today.year, month=today.month, day=today.day, hour=today.hour - 1, minute=today.minute)
-        >>> inactive_breakout_session, created = BreakoutSession.objects.get_or_create(name="Test Session", category=breakout_category, start_date=start_date, end_date=end_date, moderator=test_user_1, venue=venue)
+        >>> inactive_breakout_session, created = BreakoutSession.objects.get_or_create(name="Test Session", session_format=breakout_session_format, start_date=start_date, end_date=end_date, moderator=test_user_1, venue=venue)
         >>> inactive_breakout_session.is_active
         False
         

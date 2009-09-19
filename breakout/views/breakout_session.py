@@ -18,13 +18,13 @@ def index(request):
     breakout_sessions = BreakoutSession.objects.filter(start_date__gte=datetime.datetime(today.year, today.month, today.day, 0, 0, 0)).order_by('start_date')
     return render_to_response('breakout_session/index.html', { 'breakout_sessions': breakout_sessions, }, context_instance=RequestContext(request))    
 
-def list(request, category_slug=None, venue_slug=None, include_future=True, include_past=True):
+def list(request, session_format_slug=None, venue_slug=None, include_future=True, include_past=True):
     today = datetime.datetime.utcnow()
     past_breakout_sessions = BreakoutSession.objects.filter(start_date__lt=datetime.datetime(today.year, today.month, today.day, 0, 0, 0)).order_by('-start_date')[0:5]
-    categories = BreakoutSessionFormat.objects.all().order_by('name')
-    breakout_sessions = BreakoutSession.objects.all().order_by('-end_date')
-    if hasattr(request, 'category'):
-        breakout_sessions = breakout_sessions.filter(category=request.category)
+    session_formats = BreakoutSessionFormat.objects.all().order_by('name')
+    breakout_sessions = BreakoutSession.objects.all().order_by('end_date')
+    if hasattr(request, 'session_format'):
+        breakout_sessions = breakout_sessions.filter(session_format=request.session_format)
     if hasattr(request, 'venue'):
         breakout_sessions = breakout_sessions.filter(venue=request.venue)
     if not include_past:

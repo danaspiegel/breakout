@@ -19,4 +19,4 @@ from models import *
 class BreakoutSessionForm(ModelForm):    
     class Meta:
         model = BreakoutSession
-        fields = ('name', 'description', 'category', 'start_date', 'end_date', 'venue', 'available_spots', )
+        fields = ('name', 'description', 'session_format', 'start_date', 'end_date', 'venue', 'available_spots', )

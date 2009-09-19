@@ -17,11 +17,11 @@ def list(request):
 def view(request, venue_slug):
     return render_to_response('venue/view.html', context_instance=RequestContext(request))
 
-def archive(request, category_slug=None, venue_slug=None):
+def archive(request, session_format_slug=None, venue_slug=None):
     today = datetime.datetime.today()
     breakout_sessions = BreakoutSession.objects.filter(end_date__lt=datetime.datetime(today.year, today.month, today.day, 0, 0, 0)).order_by('-end_date')
-    if hasattr(request, 'category'):
-        breakout_sessions = breakout_sessions.filter(category=request.category)
+    if hasattr(request, 'session_format'):
+        breakout_sessions = breakout_sessions.filter(session_format=request.session_format)
     if hasattr(request, 'venue'):
         breakout_sessions = breakout_sessions.filter(venue=request.venue)
     return render_to_response('venue/archive.html', { 'breakout_sessions': breakout_sessions, }, context_instance=RequestContext(request))    

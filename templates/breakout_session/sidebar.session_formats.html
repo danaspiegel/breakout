@@ -5,10 +5,9 @@
     <div class="sidebar-information">
         <p>There are different kinds of breakout session formats for different people and different needs. Browse the different kinds of meetings and see upcoming sessions.</p>
     
-        <ul class="category-list">
-            {% for category in categories %}
-                <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
-            {% endfor %}
+        {% for session_format in session_formats %}
+            <a href="{{ session_format.get_absolute_url }}">{{ session_format.name }}</a><br/>
+        {% endfor %}
         </ul>
     </div>    
 </div>

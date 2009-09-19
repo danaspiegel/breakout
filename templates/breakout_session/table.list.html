@@ -10,7 +10,7 @@
             {{ breakout_session.description|safe|urlize|linebreaks }}
         </td>
         <td class="breakout-session-list-details">
-            <p><a href="{{ breakout_session.category.get_absolute_url }}">{{ breakout_session.category }}</a></p>
+            <p><a href="{{ breakout_session.session_format.get_absolute_url }}">{{ breakout_session.session_format }}</a></p>
             <p>
                 <strong>Time</strong><br/>
                 {{ breakout_session.start_date_localized.time|time:"P" }}-{{ breakout_session.end_date_localized.time|time:"P" }} ({{ breakout_session.timezone }})
@@ -27,7 +27,9 @@
     </tr>
     <tr>
         <td class="breakout-session-list-attending">
-            <strong>{{ breakout_session.registered_users.count }} {{ breakout_session.registered_users.count|pluralize:"person,people" }} attending{% if breakout_session.remaining_spots %}</strong> | {{ breakout_session.remaining_spots }} spots remaining{% endif %}
+            <strong>{{ breakout_session.registered_users.count }} {{ breakout_session.registered_users.count|pluralize:"person,people" }} attending</strong>
+            {% if breakout_session.remaining_spots %} / {{ breakout_session.remaining_spots }} spots remaining{% endif %}
+            {% if not breakout_session.available_spots %} / Everyone is welcome{% endif %}
         </td>
         <td class="breakout-session-list-action">
             {% if not breakout_session|is_registered:request.user %}

@@ -18,9 +18,9 @@ urlpatterns = patterns('',
     url(r'^sessions/create/$', breakout_session.create, name='breakout_session_create'),
     url(r'^sessions/upcoming/$', breakout_session.list, kwargs={ 'include_past': False }, name='breakout_session_list'),
     url(r'^sessions/past/$', breakout_session.list, kwargs={ 'include_future': False }, name='past_breakout_session_list'),
-    url(r'^sessions/(?P<category_slug>[\w\-\_]+)/$', breakout_session.list, name='breakout_session_list'),
-    url(r'^sessions/(?P<category_slug>[\w\-\_]+)/upcoming/$', breakout_session.list, kwargs={ 'include_past': False }, name='upcoming_breakout_session_list'),
-    url(r'^sessions/(?P<category_slug>[\w\-\_]+)/past/$', breakout_session.list, kwargs={ 'include_future': False }, name='past_breakout_session_list'),
+    url(r'^sessions/(?P<session_format_slug>[\w\-\_]+)/$', breakout_session.list, name='breakout_session_list'),
+    url(r'^sessions/(?P<session_format_slug>[\w\-\_]+)/upcoming/$', breakout_session.list, kwargs={ 'include_past': False }, name='upcoming_breakout_session_list'),
+    url(r'^sessions/(?P<session_format_slug>[\w\-\_]+)/past/$', breakout_session.list, kwargs={ 'include_future': False }, name='past_breakout_session_list'),
     
     url(r'^ical/sessions/$', breakout_session.ical, name='breakout_session_list_ical'),
     

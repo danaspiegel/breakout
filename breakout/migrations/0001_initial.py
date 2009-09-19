@@ -14,7 +14,7 @@ class Migration:
             ('updated_on', orm['breakout.BreakoutSession:updated_on']),
             ('name', orm['breakout.BreakoutSession:name']),
             ('description', orm['breakout.BreakoutSession:description']),
-            ('category', orm['breakout.BreakoutSession:category']),
+            ('session_format', orm['breakout.BreakoutSession:session_format']),
             ('start_date', orm['breakout.BreakoutSession:start_date']),
             ('end_date', orm['breakout.BreakoutSession:end_date']),
             ('moderator', orm['breakout.BreakoutSession:moderator']),
@@ -122,7 +122,7 @@ class Migration:
         },
         'breakout.breakoutsession': {
             'available_spots': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'category': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'breakout_sessions'", 'to': "orm['breakout.BreakoutSessionFormat']"}),
+            'session_format': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'breakout_sessions'", 'to': "orm['breakout.BreakoutSessionFormat']"}),
             'created_on': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'end_date': ('django.db.models.fields.DateTimeField', [], {}),
