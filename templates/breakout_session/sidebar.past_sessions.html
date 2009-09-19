@@ -1,28 +1,34 @@
-<div class="sidebar-information">
 
 {% if venue %}
     {% if venue.recent_past_breakout_sessions %}
-        <h2>{{ venue.past_breakout_sessions.count }} Past Sessions Here</h2>
+        <div class="sidebar-container">
+            <h2>{{ venue.past_breakout_sessions.count }} Past Sessions Here</h2>
 
-        <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
+            <div class="sidebar-information">
+                <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
 
-        {% with venue.recent_past_breakout_sessions as breakout_sessions %}
-            {% include 'breakout_session/ul.list.small.html' %}
-        {% endwith %}
+                {% with venue.recent_past_breakout_sessions as breakout_sessions %}
+                    {% include 'breakout_session/ul.list.small.html' %}
+                {% endwith %}
 
-        <p><a href="{% url archive_breakout_session_list venue_slug=venue.slug %}">View More &raquo;</a></p>
+                <p><a href="{% url archive_breakout_session_list venue_slug=venue.slug %}">View More &raquo;</a></p>
+            </div>
+        </div>
     {% endif %}
 {% else %}
     {% if past_breakout_sessions %}
-        <h2>Past Breakout Sessions</h2>
+        <div class="sidebar-container">
+            <h2>Past Breakout Sessions</h2>
 
-        <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
+            <div class="sidebar-information">
+                <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
 
-        {% with past_breakout_sessions as breakout_sessions %}
-            {% include 'breakout_session/ul.list.small.html' %}
-        {% endwith %}
+                {% with past_breakout_sessions as breakout_sessions %}
+                    {% include 'breakout_session/ul.list.small.html' %}
+                {% endwith %}
 
-        <p><a href="{% url past_breakout_session_list %}">View More &raquo;</a></p>
+                <p><a href="{% url past_breakout_session_list %}">View More &raquo;</a></p>
+            </div>
+        </div>
     {% endif %}
 {% endif %}
-</div>

@@ -1,0 +1,19 @@
+{% load common_tags %}
+
+<div class="venue-address">
+    {% if venue.image %}
+        <div class="image">
+            <a class="lightbox" href="{{venue.image.url}}" target="_blank"><img src="{{venue.image.url}}" width="50" height="50"></a>
+        </div>
+    {% endif %}
+
+    <div class="address">
+        {{ venue.street_address_1|default_if_none:"" }}<br/>
+        {% if venue.street_address_2 %}{{ venue.street_address_2 }}<br/>{% endif %}
+        {{ venue.city }}, {{ venue.state }} {{ venue.zip_code|default_if_none:"" }}
+    </div>
+    
+    <div class="description">
+        {{ venue.description|default_if_none:""|safe|urlize|linebreaksbr }}
+    </div>
+</div>

@@ -64,11 +64,9 @@ class BreakoutSessionAdminForm(forms.ModelForm):
     
     def clean_end_date(self):
         # do something that validates your data
-        start_date = self.cleaned_data["start_date"]
-        end_date = self.cleaned_data["end_date"]
-        if (start_date.year == end_date.year) and (start_date.month == end_date.month) and (start_date.day == end_date.day) and start_date < end_date:
-            return self.cleaned_data["end_date"]
-        raise forms.ValidationError("End date must be on the same day as the start date")
+        if self.cleaned_data["start_date"] > self.cleaned_data["end_date"]:
+            raise forms.ValidationError("End date must be after the start date")
+        return self.cleaned_data["end_date"]    
 
 class BreakoutSessionAdmin(admin.ModelAdmin):
     list_display_links = ('name', )
@@ -86,7 +84,10 @@ class BreakoutSessionAdmin(admin.ModelAdmin):
     is_active.boolean = True
     
     def start_end_date(self, obj):
-        return "%s-%s" % (obj.start_date.strftime('%a, %b %d %I:%M%p'), obj.end_date.strftime('%I:%M%p'), )
+        if obj.start_date_localized.date() == obj.end_date_localized.date():
+            return "%s-%s (%s)" % (obj.start_date_localized.strftime('%a, %b %d %I:%M%p'), obj.end_date_localized.strftime('%I:%M%p'), obj.timezone, )
+        else:
+            return "%s-%s (%s)" % (obj.start_date_localized.strftime('%a, %b %d %I:%M%p'), obj.end_date_localized.strftime('%a, %b %d %I:%M%p'), obj.timezone, )
     start_end_date.short_description = 'Event Date'
     
     def registered_users_count(self, obj):

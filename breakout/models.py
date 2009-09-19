@@ -1,5 +1,6 @@
 import datetime
 from geopy import geocoders
+import pytz
 
 from django.conf import settings
 from django.db import models
@@ -14,6 +15,8 @@ from . import InactiveSessionException
 
 import tagging
 from tagging.fields import TagField
+
+DEFAULT_TIMEZONE = 'US/Eastern'
 
 class Venue(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
@@ -45,23 +48,23 @@ class Venue(models.Model):
     
     @property
     def past_breakout_sessions(self):
-        today = datetime.datetime.now()
+        today = datetime.datetime.utcnow()
         return self.breakout_sessions.filter(end_date__lt=datetime.datetime(today.year, today.month, today.day)).order_by('-start_date')
     
     @property
     def recent_past_breakout_sessions(self):
-        today = datetime.datetime.now()
+        today = datetime.datetime.utcnow()
         return self.breakout_sessions.filter(end_date__lt=datetime.datetime(today.year, today.month, today.day)).order_by('-start_date')[0:5]
     
     @property
     def future_breakout_sessions(self):
-        today = datetime.datetime.now()
+        today = datetime.datetime.utcnow()
         return self.breakout_sessions.filter(start_date__gt=datetime.datetime(today.year, today.month, today.day)).order_by('start_date')
     
     @property
     def current_breakout_session(self):
         try:
-            today = datetime.datetime.now()
+            today = datetime.datetime.utcnow()
             return self.breakout_sessions.get(end_date__gte=today, start_date__lte=today)
         except BreakoutSession.DoesNotExist:
             return None
@@ -107,6 +110,7 @@ class BreakoutSessionFormat(models.Model):
 
 
 class BreakoutSession(models.Model):
+    TIMEZONE_CHOICES = [(s, s) for s in pytz.common_timezones]
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=100)
@@ -115,6 +119,7 @@ class BreakoutSession(models.Model):
     # TODO: these fields must be made timezone aware
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
+    timezone = models.CharField(max_length=100, default=DEFAULT_TIMEZONE, choices=TIMEZONE_CHOICES)
     moderator = models.ForeignKey(User, related_name='moderating_sessions')
     registered_users = models.ManyToManyField(User, related_name='registered_sessions', through='SessionAttendance')
     venue = models.ForeignKey(Venue, related_name='breakout_sessions')
@@ -123,6 +128,18 @@ class BreakoutSession(models.Model):
     
     def __unicode__(self):
         return '%s at %s' % (self.name, self.venue, )
+    
+    @property
+    def start_date_localized(self):
+        utc_start_date = pytz.utc.localize(self.start_date)
+        local_timezone = pytz.timezone(self.timezone)
+        return utc_start_date.astimezone(local_timezone)
+    
+    @property
+    def end_date_localized(self):
+        utc_end_date = pytz.utc.localize(self.end_date)
+        local_timezone = pytz.timezone(self.timezone)
+        return utc_end_date.astimezone(local_timezone)
     
     @property
     def event_date(self):
@@ -145,11 +162,11 @@ class BreakoutSession(models.Model):
     
     @property
     def is_active(self):
-        return self.start_date <= datetime.datetime.now() <= self.end_date
+        return self.start_date <= datetime.datetime.utcnow() <= self.end_date
     
     @property
     def is_future(self):
-        return self.start_date > datetime.datetime.now()
+        return self.start_date > datetime.datetime.utcnow()
     
     @property
     def is_past(self):
@@ -295,7 +312,7 @@ class BreakoutSession(models.Model):
         if not session_attendance.arrival_time:
             # if there is no arrival_time, set it now
             # if there was an arrival time, leave it alone
-            session_attendance.arrival_time = datetime.datetime.now()
+            session_attendance.arrival_time = datetime.datetime.utcnow()
         # remove any departure time, since the user is now at the session
         session_attendance.departure_time = None
         session_attendance.save()
@@ -313,10 +330,10 @@ class BreakoutSession(models.Model):
         session_attendance = SessionAttendance.objects.get(registrant=user, session=self)
         if session_attendance.status != 'P' or not session_attendance.arrival_time or session_attendance.departure_time:
             raise InvalidSessionCheckoutException()
-        if self.end_date < datetime.datetime.now():
+        if self.end_date < datetime.datetime.utcnow():
             session_attendance.departure_time = self.end_date
         else:
-            session_attendance.departure_time = datetime.datetime.now()
+            session_attendance.departure_time = datetime.datetime.utcnow()
         session_attendance.save()
         return True
         

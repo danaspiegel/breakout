@@ -15,7 +15,7 @@ from ...models import BreakoutSession, SessionAttendance
 class Command(NoArgsCommand):    
     def handle_noargs(self, **options):
         # for all breakout sessions that finished in the last day
-        now = datetime.datetime.now()
+        now = datetime.datetime.utcnow()
         yesterday = now - relativedelta(days=1)
         breakout_sessions = BreakoutSession.objects.filter(end_date__gt=yesterday, end_date__lt=now)
         for breakout_session in breakout_sessions:

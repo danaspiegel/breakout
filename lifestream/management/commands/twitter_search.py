@@ -36,7 +36,7 @@ class Command(NoArgsCommand):
         search_api = pytwitter.pytwitter(url='http://search.twitter.com')
         
         # Get a list of all active sessions
-        now = datetime.datetime.now()
+        now = datetime.datetime.utcnow()
         last_week = now - relativedelta(weeks=1)
         breakout_sessions = breakout.models.BreakoutSession.objects.filter(start_date__lte=now, end_date__gte=last_week)
         

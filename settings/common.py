@@ -61,6 +61,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
     'django_pagination.middleware.PaginationMiddleware',
     'breakout.middleware.BreakoutMiddleware',
+    'middleware.wsgi_exceptions.WsgiLogErrors',
     # 'django.middleware.gzip.GZipMiddleware',
 )
 
@@ -118,7 +119,6 @@ INSTALLED_APPS = (
     'django_robots',
     'django_extensions',
     'django_chronograph',
-    'django_timezones',
     'django_pagination',
     'django_mailer',
     'rte_widgets',

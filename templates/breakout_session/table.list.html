@@ -1,0 +1,40 @@
+{% load common_tags %}
+
+<table class="breakout-session-list-container">
+    <tr>
+        <td class="breakout-session-list-description">
+            <p>
+                <a href="{{ breakout_session.get_absolute_url }}">{{ breakout_session.name }}</a>
+                {% if not venue %} at <a href="{{ breakout_session.venue.get_absolute_url }}">{{ breakout_session.venue.name }}</a>{% endif %}
+            </p>
+            {{ breakout_session.description|safe|urlize|linebreaks }}
+        </td>
+        <td class="breakout-session-list-details">
+            <p><a href="{{ breakout_session.category.get_absolute_url }}">{{ breakout_session.category }}</a></p>
+            <p>
+                <strong>Time</strong><br/>
+                {{ breakout_session.start_date_localized.time|time:"P" }}-{{ breakout_session.end_date_localized.time|time:"P" }} ({{ breakout_session.timezone }})
+            </p>
+            {% if not venue %}
+                <p>
+                    <strong>Location</strong><br/>
+                    {% with breakout_session.venue as venue %}
+                        {% include 'venue/div.address.html' %}
+                    {% endwith %}
+                </p>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td class="breakout-session-list-attending">
+            <strong>{{ breakout_session.registered_users.count }} {{ breakout_session.registered_users.count|pluralize:"person,people" }} attending{% if breakout_session.remaining_spots %}</strong> | {{ breakout_session.remaining_spots }} spots remaining{% endif %}
+        </td>
+        <td class="breakout-session-list-action">
+            {% if not breakout_session|is_registered:request.user %}
+                <a href="{% url breakout_session_register venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Sign Up To Attend &raquo;</a>
+            {% else %}
+                <strong>Already Registered!</strong>
+            {% endif %}
+        </td>
+    </tr>
+</table>

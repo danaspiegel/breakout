@@ -1,4 +1,4 @@
-import datetime, random, re, sha, calendar
+import datetime, random, re, calendar
 
 from django.conf import settings
 from django.forms import *

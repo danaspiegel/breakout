@@ -48,33 +48,15 @@ function create_venue_map() {
     {% for breakout_session_dates in breakout_session_dates_list %}
     <div class="breakout-session-list-date">{{ breakout_session_dates.grouper|date:"l, F dS" }}</div>
     <div class="breakout-session-list">
-        <table class="breakout-session-list-container">
-            {% for breakout_session in breakout_session_dates.list %}
-                <tr>
-                    <td>
-                        <a href="{{ breakout_session.get_absolute_url }}"><strong>{{ breakout_session.name }}</strong></a><br/>
-                        {{ breakout_session.description|default_if_none:""|linebreaks }}
-                    </td>
-                    <td>
-                        <div class="venue-name"><a href="{{ breakout_session.venue.get_absolute_url }}">{{ breakout_session.venue.name }}</a></div>
-                        <div class="breakout-session-date">{{ breakout_session.start_date|date:"P" }} - {{ breakout_session.end_date|date:"P" }}</div>
-                        <div class="breakout-session-registration">
-                            {% if not breakout_session|is_registered:request.user.id %}
-                                <a href="{% url breakout_session_register venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Sign Up To Attend &raquo;</a>
-                            {% else %}
-                                <strong>Already Registered!</strong>
-                            {% endif %}
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+        {% for breakout_session in breakout_session_dates.list %}
+            {% include 'breakout_session/table.list.html' %}
+        {% endfor %}
     </div>
     {% endfor %}
 {% endif %}
 
 <div id="map_canvas" class="google-map"></div>
 
-<div class="">Useful Nearby Locations</div>
+{# <div class="">Useful Nearby Locations</div> #}
 
 {% endblock %}

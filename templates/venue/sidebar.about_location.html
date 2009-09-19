@@ -1,18 +1,7 @@
-<div class="sidebar-information">
+<div class="sidebar-container">
     <h2>About This Location</h2>
 
-    <div class="venue-address">
-        {% if venue.image %}
-		<p>
-			<img src="{{venue.image.url}}" width="200" height="200">
-		</p>
-		{% endif %}
-		<p>
-            {{ venue.street_address_1|default_if_none:"" }}<br/>
-            {% if venue.street_address_2 %}{{ venue.street_address_2 }}<br/>{% endif %}
-            {{ venue.city }}, {{ venue.state }} {{ venue.zip_code|default_if_none:"" }}
-        </p>
+    <div class="sidebar-information">
+        {% include 'venue/div.address.html' %}
     </div>
-    
-    <div class="venue-description">{{ venue.description|default_if_none:""|linebreaks }}</div>
 </div>

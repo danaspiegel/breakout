@@ -1,11 +1,13 @@
 {% if venue.future_breakout_sessions.count %}
-<div class="sidebar-information">
+<div class="sidebar-container">
 
     <h2>{{ venue.future_breakout_sessions.count }} Upcoming Sessions Here</h2>
 
-    {% with venue.future_breakout_sessions as breakout_sessions %}
-        {% include 'breakout_session/ul.list.small.html' %}
-    {% endwith %}
+    <div class="sidebar-information">
+        {% with venue.future_breakout_sessions as breakout_sessions %}
+            {% include 'breakout_session/ul.list.small.html' %}
+        {% endwith %}
     
+    </div>
 </div>
 {% endif %}

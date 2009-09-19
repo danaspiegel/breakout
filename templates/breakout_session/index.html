@@ -16,43 +16,7 @@
 <div class="breakout-session-list-date">{{ breakout_session_dates.grouper|date:"l, F dS" }}</div>
 <div class="breakout-session-list">
     {% for breakout_session in breakout_session_dates.list %}
-        <table class="breakout-session-list-container">
-            <tr>
-                <td class="breakout-session-list-description">
-                    <p><a href="{{ breakout_session.get_absolute_url }}">{{ breakout_session.name }}</a> at <a href="{{ breakout_session.venue.get_absolute_url }}">{{ breakout_session.venue.name }}</a></p>
-                    {{ breakout_session.description|linebreaks }}
-                </td>
-                <td class="breakout-session-list-details">
-                    <p><a href="{{ breakout_session.category.get_absolute_url }}">{{ breakout_session.category }}</a></p>
-                    <p>
-                        <strong>Time</strong><br/>
-                        {{ breakout_session.start_date.time|time:"P" }}-{{ breakout_session.end_date.time|time:"P" }} 
-                    </p>
-                    <p>
-                        <strong>Location</strong><br/>
-						{% if breakout_session.venue.image %}
-						<a class="lightbox" href="{{breakout_session.venue.image.url}}" target="_blank"><img src="{{breakout_session.venue.image.url}}" width="50" height="50"></a><br/>
-						{% endif %}
-                        {{ breakout_session.venue.street_address_1|default_if_none:"" }}<br/>
-                        {% if breakout_session.venue.street_address_2 %}{{ breakout_session.venue.street_address_2 }}<br/>{% endif %}
-                        {{ breakout_session.venue.city }}, {{ breakout_session.venue.state }} {{ breakout_session.venue.zip_code|default_if_none:"" }}<br/>
-                        {{ breakout_session.venue.description|default_if_none:""|safe|urlize|linebreaksbr }}
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td class="breakout-session-list-attending">
-                    {{ breakout_session.registered_users.count }} {{ breakout_session.registered_users.count|pluralize:"person,people" }} attending{% if breakout_session.remaining_spots %} | {{ breakout_session.remaining_spots }} spots remaining{% endif %}
-                </td>
-                <td class="breakout-session-list-action">
-                    {% if not breakout_session|is_registered:request.user %}
-                        <a href="{% url breakout_session_register venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Sign Up To Attend &raquo;</a>
-                    {% else %}
-                        <strong>Already Registered!</strong>
-                    {% endif %}
-                </td>
-            </tr>
-        </table>
+        {% include 'breakout_session/table.list.html' %}
     {% endfor %}
 </div>
 

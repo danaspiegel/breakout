@@ -73,17 +73,13 @@ div.clear {
 
 /*** Sidebar ***/
 
-.sidebar-information {
+div.sidebar-container {
 	border: 1px solid #0093df;
 	padding: 0px;
 	margin-top: 10px;
 }
 
-.sidebar-information p {
-	margin: 10px;
-}
-
-.sidebar-information h2 {
+div.sidebar-container h2 {
 	color: #fff;
 	background-color: #0093df;
 	padding: 7px;
@@ -91,8 +87,13 @@ div.clear {
 	font-size: 16px;
 }
 
-.sidebar-information ul {
-	padding: 0px 10px 5px 25px;
+div.sidebar-container div.sidebar-information,
+div.sidebar-container p.sidebar-information {
+	margin: 10px;
+}
+
+div.sidebar-container ul {
+	padding-left: 20px;
 }
 
 #footer {		
@@ -456,15 +457,14 @@ breakout-session-list-container table{
     vertical-align: top;
     border-top: 1px solid #0093df;
     padding: 4px;
-    font-weight: bold;
     background-color: #d4eefe;
 }
 
 .breakout-session-list-action {
     width: 200px;
     vertical-align: top;
-    background: #faf257;
-    color: #fff;
+    background: #fef777;
+    color: #000;
     font-weight: bold;
     padding: 7px;
     text-align: center;
@@ -473,7 +473,7 @@ breakout-session-list-container table{
 
 .breakout-session-list-action:hover {
 	background: #fff200;
-	color: #0093df;
+	color: #000;
 }
 
 .breakout-session-list-action a {

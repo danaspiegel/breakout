@@ -1,11 +1,17 @@
-<div class="sidebar-information">
+{% if breakout_session.participants %}
+
+<div class="sidebar-container">
     
     <h2>Here Now</h2>
     
-    <ul class="participant-list">
-        {% for participant in breakout_session.participants %}
-            <li><a href="{{ participant.get_absolute_url }}">{{ participant.short_name }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="sidebar-information">
+        <ul class="participant-list">
+            {% for participant in breakout_session.participants %}
+                <li><a href="{{ participant.get_absolute_url }}">{{ participant.short_name }}</a></li>
+            {% endfor %}
+        </ul>
     
+    </div>
 </div>
+
+{% endif %}

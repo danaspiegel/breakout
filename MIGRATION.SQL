@@ -19,3 +19,7 @@ ALTER TABLE `breakout_breakoutsession` ADD CONSTRAINT `session_format_id_refs_id
 -- ALTER TABLE `breakout_breakoutsession` ADD CONSTRAINT `rain_venue_id_refs_id_22c01e7b` FOREIGN KEY (`rain_venue_id`) REFERENCES `breakout_venue` (`id`);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+
+-- for timezone support
+ALTER TABLE `breakout_breakoutsession` ADD COLUMN `timezone` VARCHAR(100) NOT NULL DEFAULT 'US/Eastern';

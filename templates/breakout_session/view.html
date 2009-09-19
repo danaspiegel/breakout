@@ -23,7 +23,7 @@
 
 <div class="session-description">
     
-    {{ breakout_session.description|linebreaks }}
+    {{ breakout_session.description|safe|urlize|linebreaks }}
 
     {% if breakout_session.is_future %}
         {# the breakout session is in the future, so let the user register #}

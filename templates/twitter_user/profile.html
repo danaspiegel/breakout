@@ -25,7 +25,7 @@
 <div class="clear"></div>
 
 <div class="about">
-    {% if twitter_user.description %}<p>{{ twitter_user.description|linebreaksbr }}</p>{% endif %}
+    {% if twitter_user.description %}<p>{{ twitter_user.description|safe|urlize|linebreaksbr }}</p>{% endif %}
     {% if twitter_user.location %}<p><strong>Location</strong>: {{ twitter_user.location }}<p>{% endif %}
     {% if twitter_user.url %}<p><strong>Website</strong>: {{ twitter_user.url|urlize }}</p>{% endif %}
 </div>
