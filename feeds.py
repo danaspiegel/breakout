@@ -11,7 +11,7 @@ class BreakoutSessionsFeed(Feed):
 
     def items(self):
         now = datetime.datetime.utcnow()
-        return breakout.models.BreakoutSession.objects.filter(start_date__gte=now).order_by('-start_date')[:20]
+        return breakout.models.BreakoutSession.objects.filter(start_date__gte=now).order_by('start_date')[:20]
 
 feeds = {
     'sessions': BreakoutSessionsFeed,

@@ -427,7 +427,7 @@ div.tabs li.active a {
 .breakout-session-list-container {
     margin: 0;
     padding: 0;
-    border-top: 1px solid #0093df;
+    border-top: 3px solid #0093df;
 }
 
 breakout-session-list-container table{
