@@ -19,7 +19,13 @@
 
 <p><strong>Session Format</strong>: {{ obj.session_format.name }}</p>
 
-<p><strong>Time</strong>: {{ obj.start_date_localized.time|time:"P" }}-{{ obj.end_date_localized.time|time:"P" }} ({{ obj.timezone }})</p>
+<p><strong>Date &amp; Time</strong>: 
+    {% ifequal obj.start_date_localized.date obj.end_date_localized.date %}
+        {{ obj.start_date_localized|date:"D, M jS \f\r\o\m P" }}&ndash;{{ obj.end_date_localized|date:"P" }} ({{ obj.timezone }})
+    {% else %}
+        {{ obj.start_date_localized|date:"D, M jS \a\t P" }}&ndash;{{ obj.end_date_localized|date:"D, M jS \a\t P" }} ({{ obj.timezone }})
+    {% endifequal %}
+</p>
 
 <p>
     <strong>{{ obj.registered_users.count }} {{ obj.registered_users.count|pluralize:"person,people" }} attending</strong>
