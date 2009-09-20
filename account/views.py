@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.encoding import smart_unicode, force_unicode
 import django.contrib.auth
+import django.contrib.auth.models
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.models import Site, RequestSite
@@ -103,7 +104,6 @@ def configure_services(request):
         form = ServicesForm(initial=initial)
     return render_to_response('account/services.html', { 'form': form }, context_instance=RequestContext(request))
 
-
 @never_cache
 def password_reset(request):
     if request.method == "POST":
@@ -116,3 +116,10 @@ def password_reset(request):
         form = PasswordResetForm()
     return render_to_response('account/password_reset_form.html', { 'form': form, }, context_instance=RequestContext(request))
 
+def view(request, username):
+    try:
+        user = django.contrib.auth.models.User.objects.get(username=username)
+        return render_to_response('account/view.html', { 'user': user }, context_instance=RequestContext(request))
+    except User.DoesNotExist:
+        return HttpResponseRedirect(reverse('index'))        
+    

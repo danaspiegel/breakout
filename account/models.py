@@ -8,6 +8,9 @@ import lifestream.models
 
 # short_name is a user's first name and last initial
 User.short_name = property(lambda self: "%s %s." % (self.first_name, self.last_name[0:1]))
+User.get_absolute_url = models.permalink(lambda self: ('account_view', (), { 'username': self.username, }))
+
+
 
 class UserProfile(models.Model):
     GENDER_CHOICES = (

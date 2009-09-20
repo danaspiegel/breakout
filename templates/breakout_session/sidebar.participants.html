@@ -5,11 +5,14 @@
     <h2>Here Now</h2>
     
     <div class="sidebar-information">
-        <ul class="participant-list">
+        <div class="participant-list">
             {% for participant in breakout_session.participants %}
-                <li><a href="{{ participant.get_absolute_url }}">{{ participant.short_name }}</a></li>
+                <div class="participant" style="border-left: 4px solid #4de;">
+                    <a href="{{ participant.get_absolute_url }}"><img class="profile-image" src="{{ participant.get_profile.twitter_user.profile_image_url }}" />{{ participant.short_name }}</a>
+
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     
     </div>
 </div>

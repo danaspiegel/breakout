@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load pagination_tags %}
+{% load common_tags %}
+
+{% block title %}{% block pagetitle %}{{ user.short_name }}'s Page{% endblock %}{% endblock %}
+
+{% block content %}
+
+
+{% for lifestream_entry in user.lifestream_entries.all %}
+
+    {% if lifestream_entry.twitterstatus %}
+        {% include "lifestream/twitterstatus.html" %}
+    {% else %}
+        {% if lifestream_entry.flickrimage %}
+            <p>FlickrImage - {{ lifestream_entry }}</p>
+        {% else %}
+            <p>{{ lifestream_entry }}</p>
+        {% endif %}
+    {% endif %}
+   
+{% endfor %}
+
+{% endblock %}
+

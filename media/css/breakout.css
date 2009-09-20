@@ -63,12 +63,14 @@ div.clear {
 
 #header {
     margin: 0 auto;
-    height: 140px;
+    background: #fff;
+    height: 150px;
 }
 
 #header-login {
-    float: right;
-    padding: 0 10px;
+/*    float: right;*/
+    padding: 2px 10px;
+    text-align: right;
 }
 
 /*** Sidebar ***/
@@ -138,7 +140,7 @@ div.sidebar-container ul {
 	clear: both;
 	padding: 10px 10px 10px 10px;
 	background-color:#b5b5b5;
-	height: 46px;
+	height: 52px;
 }
 
 #footer .footer-text {
@@ -175,7 +177,7 @@ div.sidebar-container ul {
 #footer .attribution {
     color: #494949;
     text-align: right;
-    padding: 0px 17px 3px 0;
+    padding-bottom: 6px;
 	float: right;
 }
 
@@ -605,6 +607,28 @@ div.lifestream-entry .lifestream-created-time,
 div.lifestream-entry .lifestream-created-time a {
     font-size: 10px;
     color: #666;
+}
+
+div.participant {
+    clear: both;
+    margin-bottom: 2px;
+    height: 48px;
+    padding-left: 2px;
+}
+
+div.participant .lifestream-color {
+    float: left;
+    width: 3px;
+    height: 100%;
+}
+
+div.participant .lifestream-service-icon {
+    float: right;
+}
+
+div.participant .profile-image {
+    margin: 0 4px 4px 0;
+    float: left;
 }
 
 div#participation-bar {
