@@ -19,6 +19,8 @@
 
 <p><strong>Session Format</strong>: {{ obj.session_format.name }}</p>
 
+<p><strong>Hosted By</strong>: {{ obj.moderator.short_name }}</p>
+
 <p><strong>Date &amp; Time</strong>: 
     {% ifequal obj.start_date_localized.date obj.end_date_localized.date %}
         {{ obj.start_date_localized|date:"D, M jS \f\r\o\m P" }}&ndash;{{ obj.end_date_localized|date:"P" }} ({{ obj.timezone }})

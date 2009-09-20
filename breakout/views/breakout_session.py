@@ -9,6 +9,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils.encoding import smart_unicode, force_unicode
 from django.views.decorators.cache import never_cache
+from django.contrib.sites.models import Site
 
 from ..models import Venue, BreakoutSession, BreakoutSessionFormat, SessionAttendance
 from ..forms import BreakoutSessionForm
@@ -138,7 +139,8 @@ def ical(request):
     for breakout_session in breakout_sessions:
         vevent = calendar.add('vevent')
         vevent.add('summary').value = breakout_session.name
-        vevent.add('description').value = breakout_session.description
+        vevent.add('description').value = "%s\n\nSession Format: %s\nHosted By: %s" % (breakout_session.description, breakout_session.session_format.name, breakout_session.moderator.short_name, )
+        vevent.add('url').value = "http://%s%s" % (Site.objects.get_current().domain, breakout_session.get_absolute_url(), )
         vevent.add('location').value = "%s - %s, %s, %s %s" % (breakout_session.venue.name, breakout_session.venue.street_address_1, breakout_session.venue.city, breakout_session.venue.state, breakout_session.venue.zip_code, )
         vevent.add('dtstart').value = breakout_session.start_date_localized
         vevent.add('dtend').value = breakout_session.end_date_localized
