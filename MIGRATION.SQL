@@ -23,3 +23,21 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 -- for timezone support
 ALTER TABLE `breakout_breakoutsession` ADD COLUMN `timezone` VARCHAR(100) NOT NULL DEFAULT 'US/Eastern';
+
+
+-- twitterpocalyse
+ALTER TABLE `breakout`.`lifestream_twitterstatus` CHANGE COLUMN `twitter_id` `twitter_id` BIGINT(10) UNSIGNED NOT NULL DEFAULT 0  COMMENT ''  AFTER `lifestreamentry_ptr_id`;
+
+ALTER TABLE `breakout`.`lifestream_twitteruser` CHANGE COLUMN `twitter_id` `twitter_id` BIGINT(10) UNSIGNED NULL DEFAULT 0  COMMENT ''  AFTER `updated_on`;
+
+ALTER TABLE `breakout`.`lifestream_twitteruser` CHANGE COLUMN `screen_name` `screen_name` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT ''  COMMENT ''  AFTER `twitter_id`;
+
+ALTER TABLE `breakout`.`lifestream_twitteruser` CHANGE COLUMN `url` `url` VARCHAR(400) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL  COMMENT ''  AFTER `screen_name`;
+
+ALTER TABLE `breakout`.`lifestream_twitteruser` CHANGE COLUMN `profile_image_url` `profile_image_url` VARCHAR(400) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL  COMMENT ''  AFTER `url`;
+
+ALTER TABLE `breakout`.`lifestream_twitteruser` CHANGE COLUMN `location` `location` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL  COMMENT ''  AFTER `profile_image_url`;
+
+ALTER TABLE `breakout`.`lifestream_twitteruser` CHANGE COLUMN `description` `description` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL  COMMENT ''  AFTER `location`;
+
+
