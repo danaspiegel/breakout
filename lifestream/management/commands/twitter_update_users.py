@@ -25,9 +25,13 @@ class Command(NoArgsCommand):
                 updated_users += 1
             except pytwitter.TwitterError, e:
                 if e.code == 404:
-                    print "Deleting hidden user or suspended user (%s): %s" % (e.error, twitter_user.screen_name) 
-                    twitter_user.statuses.all().delete()
-                    twitter_user.delete()
+                    pass
+                    # FIXME!!
+                    # GETTING EXCEPTION:
+                    # AttributeError: 'TwitterUser' object has no attribute 'statuses'
+                    # print "Deleting hidden user or suspended user (%s): %s" % (e.error, twitter_user.screen_name) 
+                    # twitter_user.statuses.all().delete()
+                    # twitter_user.delete()
                 else:
                     print "Exception for %s: %s" % (twitter_user.screen_name, e)
         print "Updated %s users" % (updated_users)
