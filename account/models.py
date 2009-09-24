@@ -8,9 +8,10 @@ import lifestream.models
 
 # short_name is a user's first name and last initial
 User.short_name = property(lambda self: "%s %s." % (self.first_name, self.last_name[0:1]))
+
 User.get_absolute_url = models.permalink(lambda self: ('account_view', (), { 'username': self.username, }))
 
-
+User.participated_sessions = property(lambda self: self.registered_sessions.filter(session_attendance__status='P'))
 
 class UserProfile(models.Model):
     GENDER_CHOICES = (
