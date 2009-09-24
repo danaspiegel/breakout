@@ -6,6 +6,16 @@
 
 {% block content %}
 
+{% regroup user.lifestream_entries.all|dictsort:"breakout_session" by breakout_session as breakout_sessions %}
+
+{% for breakout_session_group in breakout_sessions %}
+<div class="breakout-session">
+    <div class="session-name">{{ breakout_session_group.grouper.name }} &ndash; {{ breakout_session_group.grouper.start_date_localized|date:"P" }}</div>
+    {% for lifestream_entry in breakout_session_group.list %}
+        {% include "lifestream/twitterstatus.html" %}
+    {% endfor %}
+</div>
+{% endfor %}
 
 {% for lifestream_entry in user.lifestream_entries.all %}
 
