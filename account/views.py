@@ -118,8 +118,8 @@ def password_reset(request):
 
 def view(request, username):
     try:
-        user = django.contrib.auth.models.User.objects.get(username=username)
-        return render_to_response('account/view.html', { 'user': user }, context_instance=RequestContext(request))
+        participant = django.contrib.auth.models.User.objects.get(username=username)
+        return render_to_response('account/view.html', { 'participant': participant }, context_instance=RequestContext(request))
     except User.DoesNotExist:
         return HttpResponseRedirect(reverse('index'))        
     

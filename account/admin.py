@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.core.urlresolvers import reverse
 from django.contrib.sessions.models import Session
 
 from models import *

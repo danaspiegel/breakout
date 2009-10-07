@@ -16,7 +16,7 @@ class LifestreamEntry(models.Model):
     class Meta:
         verbose_name = 'Lifestream Entry'
         verbose_name_plural = 'Lifestream Entries'
-        ordering = ['-created_on', ]
+        ordering = ['-breakout_session__start_date', '-created_on', ]
         get_latest_by = 'updated_on'
 
 class TwitterUser(models.Model):

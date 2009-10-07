@@ -68,11 +68,11 @@ class RegistrationForm(forms.Form):
     password2 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
                                 label=_(u'Password (again)'))
     age = forms.IntegerField(label=_(u'Age'), required=False, min_value=0, max_value=150)
-    gender = forms.TypedChoiceField(label=_(u'Gender'), required=False, empty_value=None, choices=UserProfile.GENDER_CHOICES)
+    gender = forms.TypedChoiceField(label=_(u'Gender'), widget=forms.RadioSelect(), required=False, empty_value=None, choices=UserProfile.GENDER_CHOICES)
     occupation = forms.CharField(label=_(u'Occupation'), required=False, max_length=100)
     tos = forms.BooleanField(widget=forms.CheckboxInput(attrs=attrs_dict),
                              label=_(u'I have read and agree to the Terms of Service'),
-                             error_messages={ 'required': u"You must agree to the terms to register" })
+                             error_messages={ 'required': u"You must agree to the terms to register." })
 
     def clean_username(self):
         """

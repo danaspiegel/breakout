@@ -18,6 +18,9 @@ from tagging.fields import TagField
 
 DEFAULT_TIMEZONE = 'US/Eastern'
 
+User.participated_sessions = property(lambda self: self.registered_sessions.filter(session_attendance__status='P'))
+
+
 class Venue(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)

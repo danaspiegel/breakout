@@ -2,33 +2,37 @@
 {% load pagination_tags %}
 {% load common_tags %}
 
-{% block title %}{% block pagetitle %}{{ user.short_name }}'s Page{% endblock %}{% endblock %}
+{% block title %}{% block pagetitle %}{{ participant.short_name }}'s Page{% endblock %}{% endblock %}
 
 {% block content %}
 
-{% regroup user.lifestream_entries.all|dictsort:"breakout_session" by breakout_session as breakout_sessions %}
+{% regroup participant.participated_sessions.all by event_date as breakout_session_dates_list %}
 
-{% for breakout_session_group in breakout_sessions %}
-<div class="breakout-session">
-    <div class="session-name">{{ breakout_session_group.grouper.name }} &ndash; {{ breakout_session_group.grouper.start_date_localized|date:"P" }}</div>
-    {% for lifestream_entry in breakout_session_group.list %}
-        {% include "lifestream/twitterstatus.html" %}
+{% for breakout_session_dates in breakout_session_dates_list %}
+
+<div class="breakout-session-list-date">{{ breakout_session_dates.grouper|date:"l, F jS" }}</div>
+
+<div class="breakout-session-list">
+    {% for breakout_session in breakout_session_dates.list %}
+        {% include 'breakout_session/table.list.small.html' %}
+
+        {% for lifestream_entry in breakout_session|lifestream_entries_for_user:participant %}
+
+            {% if lifestream_entry.twitterstatus %}
+                {% include "lifestream/twitterstatus.html" %}
+            {% else %}
+                {% if lifestream_entry.flickrimage %}
+                    <p>FlickrImage - {{ lifestream_entry }}</p>
+                {% else %}
+                    <p>{{ lifestream_entry }}</p>
+                {% endif %}
+            {% endif %}
+
+        {% endfor %}
+
     {% endfor %}
 </div>
-{% endfor %}
 
-{% for lifestream_entry in user.lifestream_entries.all %}
-
-    {% if lifestream_entry.twitterstatus %}
-        {% include "lifestream/twitterstatus.html" %}
-    {% else %}
-        {% if lifestream_entry.flickrimage %}
-            <p>FlickrImage - {{ lifestream_entry }}</p>
-        {% else %}
-            <p>{{ lifestream_entry }}</p>
-        {% endif %}
-    {% endif %}
-   
 {% endfor %}
 
 {% endblock %}

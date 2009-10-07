@@ -65,6 +65,7 @@ MIDDLEWARE_CLASSES = (
     'django_pagination.middleware.PaginationMiddleware',
     'breakout.middleware.BreakoutMiddleware',
     'middleware.wsgi_exceptions.WsgiLogErrors',
+    'middleware.iphone.iPhoneMiddleware',
     # 'django.middleware.gzip.GZipMiddleware',
 )
 

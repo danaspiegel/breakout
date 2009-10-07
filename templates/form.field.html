@@ -1,0 +1,22 @@
+{% load common_tags %}
+
+<div class="field">
+{% if field.is_hidden %}
+    {{ field }}
+{% else %}
+    {% if field|is_boolean_field %}
+        <div class="label {% if field.errors %}error{% endif %}">
+            {{ field }} <span class="name {% if field.errors %}error{% endif %}">{{ field.label_tag }}{% if field.field.required %}*{% endif %}</span>
+            {% if field.errors %}<span class="error">&ndash; {{ field.errors|join:", " }}</span>{% endif %}
+        </div>
+    {% else %}
+        <div class="label {% if field.errors %}error{% endif %}">
+            <span class="name {% if field.errors %}error{% endif %}">{{ field.label_tag }}{% if field.field.required %}*{% endif %}</span>
+            {% if field.errors %}<span class="error">&ndash; {{ field.errors|join:", " }}</span>{% endif %}
+        </div>
+        <div class="widget {% if field.errors %}error{% endif %} {% if field.field.required %}required{% endif %}">
+            {{ field }}
+        </div>
+    {% endif %}
+{% endif %}
+</div>

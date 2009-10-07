@@ -41,3 +41,7 @@ ALTER TABLE `breakout`.`lifestream_twitteruser` CHANGE COLUMN `location` `locati
 ALTER TABLE `breakout`.`lifestream_twitteruser` CHANGE COLUMN `description` `description` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL  COMMENT ''  AFTER `location`;
 
 
+-- default profile avatar
+
+ALTER TABLE `breakout`.`account_userprofile` ADD COLUMN `profile_image` VARCHAR(400) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'profile_images/default_breakout_profile_image.png' AFTER `user_id`;
+

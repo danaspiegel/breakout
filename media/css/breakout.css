@@ -584,8 +584,9 @@ breakout-session-list-container table{
 div.lifestream-entry {
     padding: 2px;
     border: 1px solid #ddd;
+/*    border-top: none;*/
     clear: both;
-    margin-bottom: 2px;
+/*    margin-bottom: 2px;*/
 }
 
 div.lifestream-entry .lifestream-color {
@@ -655,4 +656,89 @@ div#participation-bar {
 
 .subscribe img {
     vertical-align: bottom;
+}
+
+div.form {
+    margin: 10px 0;
+    clear: both;
+}
+
+div.form div.field {
+    margin-top: 14px;
+    float: left;
+    margin-right: 20px;
+}
+
+div.form div.field div.label {
+    margin-bottom: 4px;
+}
+
+div.form div.field div.error {
+    color: red;
+}
+
+span.error {
+    color: red !important;
+/*    font-size: 12px;
+    font-style: italic;
+*/}
+
+div.form div.field span.name {
+    text-transform: uppercase;
+/*    letter-spacing: 2px;*/
+    font-size: 11px;
+    color: #444;
+}
+
+div.form div.field input[type=textarea],
+div.form div.field input[type=password],
+div.form div.field input[type=text] {
+    font-size: 16px;
+    width: 200px;
+    padding: 6px;
+    border: 1px solid #bbb;
+}
+
+div.form div.field .error input[type=textarea],
+div.form div.field .error input[type=password],
+div.form div.field .error input[type=text] {
+    border: 1px solid red;
+}
+
+div.form div.field .required input[type=textarea],
+div.form div.field .required input[type=password],
+div.form div.field .required input[type=text] {
+    border-left: 3px solid red;
+}
+
+div.form #id_available_spots, 
+div.form #id_age {
+    width: 30px;
+}
+
+div.form #id_username,
+div.form #id_email,
+div.form #id_password,
+div.form #id_password1,
+div.form #id_password2 {
+    width: 300px;
+}
+
+div.form #id_occupation {
+    width: 400px;
+}
+
+div.form #id_format,
+div.form #id_session_format,
+div.form #id_name,
+div.form #id_description {
+    width: 500px;
+}
+
+div.form #id_start_date_0,
+div.form #id_start_date_1,
+div.form #id_end_date_0,
+div.form #id_end_date_1 {
+    width: 100px;
+    margin-right: 10px;
 }

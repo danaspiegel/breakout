@@ -11,11 +11,59 @@
 {% endif %}
 
 <form action="#" method="POST">
-    <table>
-        {{ form }}
-        <tr><th></th><td><button type="submit">Register Breakout Session!</button>
-    </table>
+
+    <span class="error">
+        {% for error in form.non_field_errors %}
+            {{ error }} {% if not forloop.first %}<br/>{% endif %}
+        {% endfor %}
+    </span>
+
+    <div class="form">
+        {% with form.name as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+        {% with form.session_format as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+
+        {% with form.start_date as field %}{% include 'form.field.html' %}{% endwith %}
+        {% with form.timezone as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+        
+        {% with form.end_date as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+
+        {% with form.description as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+        
+        {% with form.venue as field %}{% include 'form.field.html' %}{% endwith %}
+        {% with form.available_spots as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+    </div>
+
+
+    <button type="submit">Register Breakout! Session</button>
 </form>
+
+<script type="text/javascript">
+	$(function() {
+	    $.datepicker.setDefaults({
+		    showButtonPanel: true, 
+		    constrainInput: true, 
+		    showTime: true,
+		    navigationAsDateFormat: true, 
+		    duration: ''
+        });
+	    
+		$("#id_start_date").datepicker({ 
+		    defaultDate: '+1d',
+		    minDate: '+1d'
+		});
+
+		$("#id_end_date").datepicker({ 
+		    defaultDate: '+1d',
+		    minDate: '+1d'
+		});
+	});
+</script>
 
 {% endblock %}
 

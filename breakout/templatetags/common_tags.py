@@ -18,6 +18,15 @@ def active(request, pattern):
         return 'active'
     return ''
 
+@register.filter
+def is_boolean_field(form_field):
+    import django.forms.fields
+    if isinstance(form_field, django.forms.forms.BoundField):
+        return isinstance(form_field.field, django.forms.fields.BooleanField)
+    else:
+        return False
+
+
 # from http://www.djangosnippets.org/snippets/1609/
 @register.filter
 def sortby(sequence, attribute):
@@ -26,6 +35,9 @@ def sortby(sequence, attribute):
     lst.sort(key=lambda obj: getattr(obj,attribute))
     return lst
 
+@register.filter
+def lifestream_entries_for_user(breakout_session, user):
+    return breakout_session.lifestream_entries.filter(user=user)
 
 # from http://www.djangosnippets.org/snippets/1703/
 def group_required(*group_names):

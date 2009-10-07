@@ -1,0 +1,14 @@
+{% load common_tags %}
+
+<span class="error">
+    {% for error in form.non_field_errors %}
+        {{ error }} {% if not forloop.first %}<br/>{% endif %}
+    {% endfor %}
+</span>
+
+<div class="form">
+    {% for field in form %}
+        {% include 'form.field.html' %}
+    {% endfor %}
+    <div class="clear"></div>
+</div>

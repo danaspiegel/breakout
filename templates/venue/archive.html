@@ -15,8 +15,10 @@
         <a href="{{ breakout_session.get_absolute_url }}"><strong>{{ breakout_session.name }}</strong></a> &mdash; <br/>
         {{ breakout_session.start_date_localized|date:"P" }} &ndash; {{ breakout_session.end_date_localized|date:"P" }} on {{ breakout_session.start_date_localized|date:"D, M j" }}<br/>
         <a href="{{ breakout_session.moderator.get_absolute_url }}">{{ breakout_session.moderator.short_name }}</a> moderated<br/>
-        {{ breakout_session.attending_users.count }} {{ breakout_session.attending_users.count|pluralize:"person,people" }} attended
+        {{ breakout_session.participants.count }} {{ breakout_session.participants.count|pluralize:"person,people" }} attended
     </div>
+
+
 {% endfor %}
 
 {% endblock %}

@@ -8,7 +8,14 @@
         <div class="participant-list">
             {% for participant in breakout_session.participants %}
                 <div class="participant" style="border-left: 4px solid #4de;">
-                    <a href="{{ participant.get_absolute_url }}"><img class="profile-image" src="{{ participant.get_profile.twitter_user.profile_image_url }}" />{{ participant.short_name }}</a>
+                    <a href="{{ participant.get_absolute_url }}">
+                        {% if participant.get_profile.twitter_user.profile_image_url %}
+                            <img class="profile-image" src="{{ participant.get_profile.twitter_user.profile_image_url }}" />
+                        {% else %}
+                            <img class="profile-image" src="{{ participant.get_profile.profile_image.url }}">
+                        {% endif %}
+                        {{ participant.short_name }}
+                    </a>
 
                 </div>
             {% endfor %}

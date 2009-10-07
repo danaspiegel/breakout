@@ -6,18 +6,45 @@
 
 {% block content %}
 
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
+<p>Registering for a Breakout! account will allow you to check-in at events, and schedule your own sessions for you and your colleagues.</p>
 
-<form method="post" action="#">
-    <table>
-        {{ form }}
-    </table>
+
+<form action="#" method="POST">
+
+    <span class="error">
+        {% for error in form.non_field_errors %}
+            {{ error }} {% if not forloop.first %}<br/>{% endif %}
+        {% endfor %}
+    </span>
+
+    <div class="form">
+        {% with form.first_name as field %}{% include 'form.field.html' %}{% endwith %}
+        {% with form.last_name as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+        {% with form.email as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+        
+        {% with form.username as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+        {% with form.password1 as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+        {% with form.password2 as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+        
+        {% with form.age as field %}{% include 'form.field.html' %}{% endwith %}
+        {% with form.gender as field %}{% include 'form.field.html' %}{% endwith %}
+        {% with form.occupation as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+
+        {% with form.tos as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+    </div>
 
     <button type="submit">Create Account</button>
 </form>
 
 <script type="text/javascript">
-document.getElementById('id_username').focus()
+document.getElementById('id_first_name').focus()
 </script>
 
 {% endblock %}
