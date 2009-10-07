@@ -409,4 +409,20 @@ class VenueSitemap(Sitemap):
         return Venue.objects.all().order_by('-created_on')
 
     def lastmod(self, obj):
-        return obj.statuses.latest().created_on
+        try:
+            return obj.breakout_sessions.latest().updated_on
+        except BreakoutSession.DoesNotExist:
+            return obj.updated_on
+
+class BreakoutSessionSitemap(Sitemap):
+    changefreq = 'daily'
+    priority = 0.6
+    
+    def items(self):
+        return BreakoutSession.objects.all().order_by('-created_on')
+    
+    def lastmod(self, obj):
+        try:
+            return obj.lifestream_entries.latest().updated_on
+        except:
+            return obj.updated_on

@@ -9,7 +9,12 @@ from django.contrib import admin
 admin.autodiscover()
 
 from feeds import feeds
-from breakout.models import VenueSitemap
+from breakout.models import VenueSitemap, BreakoutSessionSitemap
+
+sitemaps = {
+    'venues': VenueSitemap,
+    'breakout_sessions': BreakoutSessionSitemap,
+}
 
 urlpatterns = patterns('',
     url(r'^', include('breakout.urls')),
@@ -19,8 +24,8 @@ urlpatterns = patterns('',
 
     url(r'^contact/', include('contact_form.urls')),    
     url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
-    url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', { 'sitemaps': { 'venues': VenueSitemap() } }),
-    url(r'^robots.txt$', include('django_robots.urls')),
+    url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', { 'sitemaps': sitemaps }),
+    url(r'^robots.txt', 'django_robots.urls.rules_list', name='robots_rule_list'),
     # url(r"^announcements/", include('django_announcements.urls')),
 )
 
