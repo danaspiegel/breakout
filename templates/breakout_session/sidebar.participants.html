@@ -1,27 +1,44 @@
-{% if breakout_session.participants %}
-
 <div class="sidebar-container">
     
-    <h2>Here Now</h2>
+    <h2>
+        {% if breakout_session.is_future %}Registered to Attend{% endif %}
+        {% if breakout_session.is_active %}Here Now{% endif %}
+        {% if breakout_session.is_past %}Participants{% endif %}
+    </h2>
     
     <div class="sidebar-information">
         <div class="participant-list">
-            {% for participant in breakout_session.participants %}
-                <div class="participant" style="border-left: 4px solid #4de;">
-                    <a href="{{ participant.get_absolute_url }}">
-                        {% if participant.get_profile.twitter_user.profile_image_url %}
-                            <img class="profile-image" src="{{ participant.get_profile.twitter_user.profile_image_url }}" />
-                        {% else %}
-                            <img class="profile-image" src="{{ participant.get_profile.profile_image.url }}">
-                        {% endif %}
-                        {{ participant.short_name }}
-                    </a>
+            {% if breakout_session.participants %}
+                {% for participant in breakout_session.participants %}
+                    <div class="participant" style="border-left: 4px solid #4de;">
+                        <a href="{{ participant.get_absolute_url }}">
+                            {% if participant.get_profile.twitter_user.profile_image_url %}
+                                <img class="profile-image" src="{{ participant.get_profile.twitter_user.profile_image_url }}" />
+                            {% else %}
+                                <img class="profile-image" src="{{ participant.get_profile.profile_image.url }}">
+                            {% endif %}
+                            {{ participant.short_name }}
+                        </a>
 
-                </div>
-            {% endfor %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% for registrant in breakout_session.registered_users.all %}
+                    <div class="participant" style="border-left: 4px solid #4de;">
+                        <a href="{{ registrant.get_absolute_url }}">
+                            {% if registrant.get_profile.twitter_user.profile_image_url %}
+                                <img class="profile-image" src="{{ registrant.get_profile.twitter_user.profile_image_url }}" />
+                            {% else %}
+                                <img class="profile-image" src="{{ registrant.get_profile.profile_image.url }}">
+                            {% endif %}
+                            {{ registrant.short_name }}
+                        </a>
+
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     
     </div>
 </div>
 
-{% endif %}
