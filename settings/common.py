@@ -106,8 +106,6 @@ ACCOUNT_ACTIVATION_DAYS = 14
 
 FILE_UPLOAD_PERMISSIONS = 0644
 
-FLATPAGE_WIDGET = ('rte_widgets.yui.YuiTextarea', {'config': {'height': '400px', 'width': '700px', 'format': 'xhtml'}})
-
 # Django-tagging-ng settings
 FORCE_LOWERCASE_TAGS = True
 
@@ -125,8 +123,7 @@ INSTALLED_APPS = (
     'django_chronograph',
     'django_pagination',
     'django_mailer',
-    'rte_widgets',
-    'flatpage_widget',
+    'tinymce',
     'contact_form',
     # 'registration',
     # 'south',

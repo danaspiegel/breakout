@@ -20,6 +20,15 @@ p {
     margin: 3px 0;
 }
 
+ul {
+	list-style-type: disc;
+	padding-left: 25px;
+}
+
+li {
+	margin-bottom: 5px;
+}
+
 h1 {
     font-size: 24px;
     padding: 0px 0 8px 0;
@@ -92,10 +101,6 @@ div.sidebar-container h2 {
 div.sidebar-container div.sidebar-information,
 div.sidebar-container p.sidebar-information {
 	margin: 10px;
-}
-
-div.sidebar-container ul {
-	padding-left: 20px;
 }
 
 /* Navigation */
@@ -447,14 +452,6 @@ div.tabs li.active a {
     border-top: 0;
 }
 
-.breakout-session-list-small {
-	list-style-type: disc;
-}
-
-.breakout-session-list-small li {
-	margin-bottom: 5px;
-}
-
 .breakout-session-list-header {
 	margin: 10px 0px;
 	font-size: 18px;
@@ -633,12 +630,23 @@ div.participant .profile-image {
     float: left;
 }
 
-div#participation-bar {
+div.breakout-session-date-bar {
+    color: #000;
+    background: #AFD0E6;
+	border-right: 1px solid #0093df;
+	border-left: 1px solid #0093df;
+    font-weight: bold;
+    text-align: left;
+    font-size: 110%;
+    padding: 10px;
+}
+
+div.participation-bar {
     background: #faa;
     font-weight: bold;
     text-align: center;
     font-size: 110%;
-    padding: 5px;
+    padding: 10px;
 }
 
 #location-menu {

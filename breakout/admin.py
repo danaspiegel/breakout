@@ -6,6 +6,19 @@ from django.core.urlresolvers import reverse
 
 from models import *
 
+# for TinyMCE rich text editor in the site admin
+from django.contrib.flatpages.models import FlatPage
+from django.contrib.flatpages.admin import FlatPageAdmin as FlatPageAdminOld
+
+class FlatPageAdmin(FlatPageAdminOld):
+    class Media:
+        js = ('js/tiny_mce/tiny_mce.js', 'js/tiny_mce_admin.js', )
+
+# We have to unregister it, and then reregister
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageAdmin)
+
+
 class VenueAdmin(admin.ModelAdmin):
     fieldsets = ((None, { 'fields': ('name', 'slug', 'description', 'phone_number', 'url', 'image','tags', ) }),
                 ('Location', { 'fields': ('street_address_1', 'street_address_2', 'city', 'state', 'zip_code', 'latitude', 'longitude', ) }), )

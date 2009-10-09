@@ -9,8 +9,13 @@
 {% include "venue/ul.location_menu.html" %}
 
 {# Show the sign in button if the session is active and the user is not yet signed in #}
+
+<div class="breakout-session-date-bar">
+{{ breakout_session.start_date_localized.time|time:"P" }}&ndash;{{ breakout_session.end_date_localized.time|time:"P" }} ({{ breakout_session.timezone }})
+</div>
+
 {% if breakout_session.is_active %}
-<div id="participation-bar">
+<div class="participation-bar">
     {% if breakout_session|is_participating:request.user %}
         You are participating in this Breakout Session &mdash; <a href="{% url breakout_session_checkout venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Check Out</a>
     {% endif %}
