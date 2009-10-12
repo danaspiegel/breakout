@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from models import *
 
 class BreakoutMiddleware:
