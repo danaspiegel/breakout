@@ -19,8 +19,9 @@ INTERNAL_IPS = ('127.0.0.1', )
 IGNORABLE_404_STARTS = ('/favicon.ico', )
 
 ADMINS = (
-    ('Dana Spiegel', 'dana@nycwireless.com'),
+    ('Dana Spiegel', 'dana@breakoutfestival.org'),
 )
+
 MANAGERS = (
     ('Dana Spiegel', 'dana@breakoutfestival.org'),
     ('Anthony Townsend', 'anthony@breakoutfestival.org'),
@@ -66,6 +67,7 @@ MIDDLEWARE_CLASSES = (
     'breakout.middleware.BreakoutMiddleware',
     'middleware.wsgi_exceptions.WsgiLogErrors',
     'middleware.iphone.iPhoneMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     # 'django.middleware.gzip.GZipMiddleware',
 )
 
@@ -117,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.sitemaps',
     'django.contrib.flatpages',
+    'django.contrib.redirects',
     'django_announcements',
     'django_robots',
     'django_extensions',

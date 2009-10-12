@@ -15,6 +15,7 @@ from . import InactiveSessionException
 
 import tagging
 from tagging.fields import TagField
+from thumbs import ImageWithThumbsField
 
 DEFAULT_TIMEZONE = 'US/Eastern'
 
@@ -34,7 +35,7 @@ class Venue(models.Model):
     zip_code = models.CharField(max_length=10, null=True, blank=True)
     phone_number = PhoneNumberField(null=True, blank=True)
     url = models.URLField(max_length=400, verify_exists=False, blank=True, null=True)
-    image = models.ImageField(max_length=400, upload_to='venues', blank=True, null=True)
+    image = ImageWithThumbsField(max_length=400, upload_to='venues', sizes=((48, 48), (64, 64), (200, 200)), blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     

@@ -10,8 +10,9 @@ tinyMCE.init({
     theme_advanced_toolbar_location: "top",
     theme_advanced_toolbar_align: "left",
     theme_advanced_statusbar_location: "bottom",
-    theme_advanced_resizing: true
-
-    // plugins: "fullpage",
-    // theme_advanced_buttons3_add: "fullpage"
+    theme_advanced_resizing: true,
+    plugins : "inlinepopups, safari, searchreplace, table",
+    dialog_type : "modal",
+	theme_advanced_buttons1_add: "search,replace",
+	theme_advanced_buttons3_add: "tablecontrols"
 });

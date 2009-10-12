@@ -3,7 +3,7 @@
 <div class="venue-address">
     {% if venue.image %}
         <div class="image">
-            <a class="lightbox" href="{{venue.image.url}}" target="_blank"><img src="{{venue.image.url}}" width="50" height="50"></a>
+            <img src="{{ venue.image.url_64x64 }}" width="64" height="64">
         </div>
     {% endif %}
 

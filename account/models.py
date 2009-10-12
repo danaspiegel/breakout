@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from thumbs import ImageWithThumbsField
 
 import lifestream.models
 
@@ -20,7 +21,7 @@ class UserProfile(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(User)
-    profile_image = models.ImageField(max_length=400, upload_to='profile_images', default=models.ImageField(DEFAULT_PROFILE_IMAGE_PATH))
+    profile_image = ImageWithThumbsField(max_length=400, upload_to='profile_images', sizes=((48, 48), (64, 64), (200, 200)), default=ImageWithThumbsField(DEFAULT_PROFILE_IMAGE_PATH))
     age = models.PositiveSmallIntegerField(blank=True, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     occupation = models.CharField(max_length=100, blank=True, null=True)
