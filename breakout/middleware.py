@@ -12,6 +12,7 @@ class BreakoutMiddleware:
                 request.venue = Venue.objects.get(slug=venue_slug)
         except Venue.DoesNotExist, e:
             print e
+            return HttpResponseRedirect(reverse('index'))
         try:
             session_format_slug = view_kwargs.get('session_format_slug')
             if session_format_slug:
