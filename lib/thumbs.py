@@ -80,14 +80,14 @@ class ImageWithThumbsFieldFile(ImageFieldFile):
             for size in self.sizes:
                 (w,h) = size
                 setattr(self, 'url_%sx%s' % (w,h), get_size(self, size))
-                
+    
     def save(self, name, content, save=True):
         super(ImageWithThumbsFieldFile, self).save(name, content, save)
         
         if self.sizes:
             for size in self.sizes:
                 (w,h) = size
-                split = self._name.rsplit('.',1)
+                split = self.name.rsplit('.',1)
                 thumb_name = '%s.%sx%s.%s' % (split[0],w,h,split[1])
                 
                 # you can use another thumbnailing function if you like
