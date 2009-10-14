@@ -1,4 +1,5 @@
-{% load i18n %}
-{% trans "The job failed to run.  The exception is shown below." %}
-
+{% load i18n %}Job: {{ job.name }}
+Command: {{ job.command }} {{ job.args }}
+Run Date: {{ run_date }}
+-----------------------------------------------------------------------
 {{ exception }}

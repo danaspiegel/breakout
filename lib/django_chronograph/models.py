@@ -154,10 +154,14 @@ class Job(models.Model):
         except Exception, e:
             # The command failed to run; log the exception
             t = loader.get_template('chronograph/error_message.txt')
-            c = Context({'exception': unicode(e)})
-            stderr_str += t.render(c)
-        self.is_running = False
-        self.save()
+            c = Context({ 'exception': unicode(e), 'job': self, 'run_date': run_date })
+            rendered_exception = t.render(c)
+            from django.core.mail import mail_admins
+            mail_admins("[%s] Exception running command: %s (%s)" % (self.name, self.command, run_date), rendered_exception, fail_silently=True)
+            stderr_str += rendered_exception
+        finally:
+            self.is_running = False
+            self.save()
         
         if save:
             self.last_run = run_date
