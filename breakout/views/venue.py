@@ -24,4 +24,4 @@ def archive(request, session_format_slug=None, venue_slug=None):
         breakout_sessions = breakout_sessions.filter(session_format=request.session_format)
     if hasattr(request, 'venue'):
         breakout_sessions = breakout_sessions.filter(venue=request.venue)
-    return render_to_response('venue/archive.html', { 'breakout_sessions': breakout_sessions, }, context_instance=RequestContext(request))    
+    return render_to_response('venue/archive.html', { 'breakout_sessions': breakout_sessions, }, context_instance=RequestContext(request))
