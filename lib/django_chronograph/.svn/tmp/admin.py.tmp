@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.translation import ungettext, ugettext_lazy as _
 from django.http import HttpResponseRedirect, Http404
 from django.conf.urls.defaults import patterns, url
-from chronograph.models import Job, Log
+from models import Job, Log
 
 class JobAdmin(admin.ModelAdmin):
     list_display = ('name', 'next_run', 'last_run', 'frequency', 'params', 'get_timeuntil', 'is_running')

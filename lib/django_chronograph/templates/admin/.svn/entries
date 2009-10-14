@@ -1,18 +1,18 @@
-8
+10
 
 dir
-18
+21
 http://django-chronograph.googlecode.com/svn/trunk/chronograph/templates/admin
 http://django-chronograph.googlecode.com/svn
 
 
 
-2009-05-06T23:49:51.347451Z
-18
+2009-08-10T21:54:40.297445Z
+21
 wnielson
 
 
-svn:special svn:externals svn:needs-lock
+
 
 
 

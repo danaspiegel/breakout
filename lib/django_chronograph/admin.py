@@ -4,14 +4,10 @@ from django.http import HttpResponseRedirect, Http404
 from django.conf.urls.defaults import patterns, url
 from models import Job, Log
 
-try:
-    from batchadmin.admin import BatchModelAdmin as ModelAdmin
-except ImportError:
-    from django.contrib.admin import ModelAdmin
-
 class JobAdmin(admin.ModelAdmin):
     list_display = ('name', 'next_run', 'last_run', 'frequency', 'params', 'get_timeuntil', 'is_running')
     list_filter = ('frequency', 'disabled',)
+    actions = ['set_not_running', ]
     
     fieldsets = (
         (None, {
@@ -22,6 +18,13 @@ class JobAdmin(admin.ModelAdmin):
             'fields': ('frequency', 'next_run', 'params',)
         }),
     )
+    
+    def set_not_running(self, request, queryset):
+        for job in queryset:
+            job.is_running = False
+            job.save()
+        self.message_user(request, 'The selected job(s) have been reset')
+    set_not_running.short_description = "Reset Job Execution Status"
     
     def run_job_view(self, request, pk):
         """
@@ -38,11 +41,11 @@ class JobAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super(JobAdmin, self).get_urls()
         my_urls = patterns('',
-            url(r'^(.+)/run/$', self.admin_site.admin_view(self.run_job_view), name="admin_chronograph_job_run")
+            url(r'^(.+)/run/$', self.admin_site.admin_view(self.run_job_view), name="chronograph_job_run")
         )
         return my_urls + urls
 
-class LogAdmin(ModelAdmin):
+class LogAdmin(admin.ModelAdmin):
     list_display = ('job_name', 'run_date',)
     search_fields = ('stdout', 'stderr', 'job__name', 'job__command')
     date_hierarchy = 'run_date'
