@@ -19,12 +19,11 @@ INTERNAL_IPS = ('127.0.0.1', )
 IGNORABLE_404_STARTS = ('/favicon.ico', )
 
 ADMINS = (
-    ('Dana Spiegel', 'dana@breakoutfestival.org'),
+    ('Dana Spiegel', 'dana@nycwireless.net'),
 )
 
 MANAGERS = (
-    ('Dana Spiegel', 'dana@breakoutfestival.org'),
-    ('Anthony Townsend', 'anthony@breakoutfestival.org'),
+    ('Dana Spiegel', 'dana@nycwireless.net'),
 )
 
 DATABASE_ENGINE = 'mysql'
