@@ -1,3 +1,5 @@
+import datetime
+from dateutil.relativedelta import *
 from django.contrib import admin
 from django.utils.translation import ungettext, ugettext_lazy as _
 from django.http import HttpResponseRedirect, Http404
@@ -49,6 +51,17 @@ class LogAdmin(admin.ModelAdmin):
     list_display = ('job_name', 'run_date',)
     search_fields = ('stdout', 'stderr', 'job__name', 'job__command')
     date_hierarchy = 'run_date'
+    actions = ['delete_old_logs', ]
+    
+    def delete_old_logs(self, request, queryset):
+        print "DELETING!"
+        two_weeks_ago = datetime.datetime.utcnow() - relativedelta(weeks=2)
+        deleted_count = 0
+        for log in Log.objects.filter(run_date__lte=two_weeks_ago):
+            log.delete()
+            deleted_count += 1
+        self.message_user(request, '%s logs older than 2 weeks have been deleted' % deleted_count)
+    delete_old_logs.short_description = "Delete logs older than 2 weeks"
     
     def job_name(self, obj):
       return obj.job.name
