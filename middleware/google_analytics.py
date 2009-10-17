@@ -100,10 +100,10 @@ class GoogleAnalyticsMiddleware(object):
     def ignore_admin(func):
         'Curry ignore_if_admin onto function passed as argument. '
         def ignore_if_admin(request, response):
-            if request.user.is_authenticated() and request.user.is_staff:
-                return response
-            else:
-                return func(request, response)
+            if hasattr(request, 'user'):
+                if request.user.is_authenticated() and request.user.is_staff:
+                    return response
+            return func(request, response)
 
         return ignore_if_admin
 

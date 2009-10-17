@@ -52,22 +52,20 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    # 'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'middleware.profiler.ProfilerMiddleware',
-    'middleware.google_analytics.GoogleAnalyticsMiddleware',
-    'middleware.timer.TimerMiddleware',
+    'middleware.wsgi_exceptions.WsgiLogErrors',
     'middleware.debug.DebugFooter',
-    # 'django.contrib.csrf.middleware.CsrfMiddleware',
-    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    # 'django.contrib.csrf.middleware.CsrfMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
+    'middleware.google_analytics.GoogleAnalyticsMiddleware',
     'django_pagination.middleware.PaginationMiddleware',
     'breakout.middleware.BreakoutMiddleware',
-    'middleware.wsgi_exceptions.WsgiLogErrors',
     'middleware.iphone.iPhoneMiddleware',
-    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    # 'django.middleware.gzip.GZipMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
