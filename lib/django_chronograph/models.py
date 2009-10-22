@@ -6,6 +6,7 @@ from django.conf import settings
 
 import os
 import sys
+import traceback
 from datetime import datetime
 from dateutil import rrule
 from StringIO import StringIO
@@ -134,7 +135,6 @@ class Job(models.Model):
         A ``Log`` will be created if there is any output from either stdout or stderr.
         """
         from django.core.management import call_command
-        
         args, options = self.get_args()
         stdout = StringIO()
         stderr = StringIO()
@@ -145,16 +145,17 @@ class Job(models.Model):
         sys.stdout = stdout
         sys.stderr = stderr
         stdout_str, stderr_str = "", ""
-        
+
         run_date = datetime.now()
         self.is_running = True
         self.save()
         try:
+            raise Exception()
             call_command(self.command, *args, **options)
         except Exception, e:
             # The command failed to run; log the exception
             t = loader.get_template('chronograph/error_message.txt')
-            c = Context({ 'exception': unicode(e), 'job': self, 'run_date': run_date })
+            c = Context({ 'exception': unicode(e), 'traceback': unicode(traceback.format_exc()), 'job': self, 'run_date': run_date })
             rendered_exception = t.render(c)
             from django.core.mail import mail_admins
             mail_admins("[%s] Exception running command: %s (%s)" % (self.name, self.command, run_date), rendered_exception, fail_silently=True)

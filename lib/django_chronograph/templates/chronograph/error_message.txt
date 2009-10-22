@@ -2,4 +2,5 @@
 Command: {{ job.command }} {{ job.args }}
 Run Date: {{ run_date }}
 -----------------------------------------------------------------------
-{{ exception }}
+
+{{ traceback|safe }}
