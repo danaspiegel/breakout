@@ -150,7 +150,6 @@ class Job(models.Model):
         self.is_running = True
         self.save()
         try:
-            raise Exception()
             call_command(self.command, *args, **options)
         except Exception, e:
             # The command failed to run; log the exception
