@@ -6,18 +6,19 @@
 
 {% block content %}
 
-{% include "venue/ul.location_menu.html" %}
+{% include "venue/ul.venue_menu.html" %}
 
-<div class="breakout-session-list-header">Past Sessions Here</div>
+{% regroup breakout_sessions by event_date as breakout_session_dates_list %}
 
-{% for breakout_session in breakout_sessions %}
-    <div class="breakout-session-list-item">
-        <a href="{{ breakout_session.get_absolute_url }}"><strong>{{ breakout_session.name }}</strong></a> &mdash; <br/>
-        {{ breakout_session.start_date_localized|date:"P" }} &ndash; {{ breakout_session.end_date_localized|date:"P" }} on {{ breakout_session.start_date_localized|date:"D, M j" }}<br/>
-        <a href="{{ breakout_session.moderator.get_absolute_url }}">{{ breakout_session.moderator.short_name }}</a> moderated<br/>
-        {{ breakout_session.participants.count }} {{ breakout_session.participants.count|pluralize:"person,people" }} attended
+{% for breakout_session_dates in breakout_session_dates_list %}
+
+    <div class="breakout-session-list-date">{{ breakout_session_dates.grouper|date:"l, F jS" }}</div>
+
+    <div class="breakout-session-list">
+        {% for breakout_session in breakout_session_dates.list %}
+            {% include 'breakout_session/table.list.html' %}
+        {% endfor %}
     </div>
-
 
 {% endfor %}
 

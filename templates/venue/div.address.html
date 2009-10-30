@@ -6,6 +6,8 @@
             <img src="{{ venue.image.url_64x64 }}" width="64" height="64">
         </div>
     {% endif %}
+    
+    <div class="venue-name"><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a></div>
 
     <div class="address">
         {{ venue.street_address_1|default_if_none:"" }}<br/>

@@ -20,7 +20,7 @@ admin.site.register(FlatPage, FlatPageAdmin)
 
 
 class VenueAdmin(admin.ModelAdmin):
-    fieldsets = ((None, { 'fields': ('name', 'slug', 'description', 'phone_number', 'url', 'image','tags', ) }),
+    fieldsets = ((None, { 'fields': ('name', 'slug', 'description', 'phone_number', 'url', 'image', ) }),
                 ('Location', { 'fields': ('street_address_1', 'street_address_2', 'city', 'state', 'zip_code', 'latitude', 'longitude', ) }), )
     prepopulated_fields = { 'slug': ('name', ) }
     list_display_links = ('name', )

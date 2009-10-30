@@ -1,9 +1,11 @@
 <ul class="breakout-session-list-small">
     
     {% for breakout_session in breakout_sessions %}
-        <li>
-            <a href="{{ breakout_session.get_absolute_url }}">{{ breakout_session.name }}</a> from {{ breakout_session.start_date_localized|date:"P" }}-{{ breakout_session.end_date_localized|date:"P" }} on {{ breakout_session.start_date_localized|date:"D, M j" }}
-        </li>
+        {# {% ifnotequal ignored_session breakout_session %} #}
+            <li>
+                <a href="{{ breakout_session.get_absolute_url }}">{{ breakout_session.name }}</a> from {{ breakout_session.start_date_localized|date:"P" }}-{{ breakout_session.end_date_localized|date:"P" }} on {{ breakout_session.start_date_localized|date:"D, M j" }}
+            </li>
+        {# {% endifnotequal %} #}
     {% endfor %}
 
 </ul>

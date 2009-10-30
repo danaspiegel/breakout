@@ -113,6 +113,8 @@
 
     		<!-- BEGIN MAIN CONTENT -->
     		<div id="content-main">
+                {% block breakout_session_status %}{% endblock %}
+                
                 <h1>{% block pagetitle %}{% endblock %}</h1>
 
                 {% if messages %}

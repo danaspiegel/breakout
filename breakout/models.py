@@ -39,7 +39,7 @@ class Venue(models.Model):
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     
-    tags = TagField()
+    # tags = TagField()
     # rain_venue = models.ForeignKey('self', null=True, blank=True)
     geocoder = geocoders.Google(settings.GOOGLE_MAPS_API_KEY)
     
@@ -63,7 +63,7 @@ class Venue(models.Model):
     @property
     def future_breakout_sessions(self):
         today = datetime.datetime.utcnow()
-        return self.breakout_sessions.filter(start_date__gt=datetime.datetime(today.year, today.month, today.day)).order_by('start_date')
+        return self.breakout_sessions.filter(start_date__gt=today).order_by('start_date')
     
     @property
     def current_breakout_session(self):
@@ -127,6 +127,7 @@ class BreakoutSession(models.Model):
     moderator = models.ForeignKey(User, related_name='moderating_sessions')
     registered_users = models.ManyToManyField(User, related_name='registered_sessions', through='SessionAttendance')
     venue = models.ForeignKey(Venue, related_name='breakout_sessions')
+    session_tag = models.SlugField(name='Tag', unique=True)
     # is_rain_venue_active = models.BooleanField(default=False)
     available_spots = models.PositiveSmallIntegerField(null=True, blank=True)
     

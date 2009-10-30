@@ -45,3 +45,5 @@ ALTER TABLE `breakout`.`lifestream_twitteruser` CHANGE COLUMN `description` `des
 
 ALTER TABLE `breakout`.`account_userprofile` ADD COLUMN `profile_image` VARCHAR(400) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'profile_images/default_breakout_profile_image.png' AFTER `user_id`;
 
+ALTER TABLE `breakout`.`breakout_breakoutsession` ADD COLUMN `session_tag` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT ''   AFTER `name`;
+ALTER TABLE `breakout`.`breakout_breakoutsession` ADD UNIQUE KEY `breakout_breakoutsession_session_tag` (`session_tag`);

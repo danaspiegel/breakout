@@ -2,31 +2,39 @@
 {% load pagination_tags %}
 {% load common_tags %}
 
-{% block title %}{% block pagetitle %}{{ venue.name }}{% endblock %}{% endblock %}
+{% block title %}
+    {% if breakout_session.is_active %}Happening Now: {% else %}{% if breakout_session.is_future %}Upcoming: {% endif %}{% endif %}
+    {{ breakout_session.name }}
+{% endblock %}
+
+{% block pagetitle %}
+    {{ breakout_session.name }}
+{% endblock %}
+
+{% block breakout_session_status %}
+    {# <div class="breakout-session-status"> #}
+    {#     {% if breakout_session.is_active %}Happening Now #}
+    {#     {% else %} #}
+    {#         {% if breakout_session.is_future %}Upcoming{% endif %} #}
+    {#     {% endif %} #}
+    {# </div> #}
+{% endblock %}
 
 {% block content %}
-
-{% include "venue/ul.location_menu.html" %}
 
 {# Show the sign in button if the session is active and the user is not yet signed in #}
 
 <div class="breakout-session-date-bar">
-{{ breakout_session.start_date_localized.time|time:"P" }}&ndash;{{ breakout_session.end_date_localized.time|time:"P" }} ({{ breakout_session.timezone }})
+    {% ifnotequal breakout_session.start_date_localized.date breakout_session.end_date_localized.date %}
+        {{ breakout_session.start_date_localized|date:"D M j, Y P" }}&ndash;{{ breakout_session.end_date_localized|date:"D M j, Y P" }} ({{breakout_session.timezone }})
+    {% else %}
+        {{ breakout_session.start_date_localized|date:"D M j, Y P" }}&ndash;{{ breakout_session.end_date_localized.time|time:"P" }} ({{breakout_session.timezone }})
+    {% endifnotequal %}
 </div>
 
-{% if breakout_session.is_active %}
-<div class="participation-bar">
-    {% if breakout_session|is_participating:request.user %}
-        You are participating in this Breakout Session &mdash; <a href="{% url breakout_session_checkout venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Check Out</a>
-    {% endif %}
+<div class="breakout-session-tag">Session Tag:<br/><strong>#{{ breakout_session.session_tag }}</strong></div>
 
-    {% if not breakout_session|is_participating:request.user %}
-        <a href="{% url breakout_session_checkin venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Check in to participate in this Breakout Session</a>
-    {% endif %}
-</div>
-{% endif %}
-
-<div class="session-description">
+<div class="breakout-session-description">
     
     {{ breakout_session.description|safe|urlize|linebreaks }}
 

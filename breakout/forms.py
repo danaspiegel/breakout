@@ -22,39 +22,33 @@ class BreakoutSessionForm(forms.ModelForm):
     end_date = forms.DateTimeField(label='Ending Date and Time', input_formats=('%m/%d/%Y %I:%M %p', ))
     session_format = forms.ModelChoiceField(queryset=BreakoutSessionFormat.objects.all().order_by('name'))
     
-    # def clean_start_date(self):
-    #     start_date = self.cleaned_data['start_date']
-    #     return start_date
-    # 
-    # def clean_end_date(self):
-    #     end_date = self.cleaned_data['end_date']
-    #     return end_date
-    
     def clean(self):
-        if not 'start_date' in self.cleaned_data or not 'end_date' in self.cleaned_data or 'timezone' in self.cleaned_data:
+        super(BreakoutSessionForm, self).clean()
+        cleaned_data = self.cleaned_data
+        if not ('start_date' in cleaned_data) or not ('end_date' in cleaned_data) or not ('timezone' in cleaned_data):
             # there are missing fields, so just return since the required fields already have errors
             return self.cleaned_data
         
         # get the declared timezone
-        timezone = pytz.timezone(self.cleaned_data['timezone'])
+        timezone = pytz.timezone(cleaned_data['timezone'])
         
         # make sure that the start_date is before the end_date
-                
+        
         # localize the start_date using the timezone
-        localized_start_date = timezone.localize(self.cleaned_data['start_date'])
+        localized_start_date = timezone.localize(cleaned_data['start_date'])
         # convert the start_date to UTC
         utc_start_date = localized_start_date.astimezone(pytz.utc)
         # recreate the start_date stripping the timezone (since we can't have a timezone)
         cleaned_utc_start_date = datetime.datetime(utc_start_date.year, utc_start_date.month, utc_start_date.day, utc_start_date.hour, utc_start_date.minute)
-        self.cleaned_data['start_date'] = cleaned_utc_start_date
-        
+        cleaned_data['start_date'] = cleaned_utc_start_date
+        print cleaned_utc_start_date
         # localize the end_date using the timezone
-        localized_end_date = timezone.localize(self.cleaned_data['end_date'])
+        localized_end_date = timezone.localize(cleaned_data['end_date'])
         # convert the end_date to UTC
         utc_end_date = localized_end_date.astimezone(pytz.utc)
         # recreate the end_date stripping the timezone (since we can't have a timezone)
         cleaned_utc_end_date = datetime.datetime(utc_end_date.year, utc_end_date.month, utc_end_date.day, utc_end_date.hour, utc_end_date.minute)
-        self.cleaned_data['end_date'] = cleaned_utc_end_date
+        cleaned_data['end_date'] = cleaned_utc_end_date
         
         return cleaned_data
     

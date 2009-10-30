@@ -55,9 +55,10 @@ def create(request):
     if request.method == 'POST':
         form = BreakoutSessionForm(request.POST, instance=breakout_session)
         if form.is_valid():
-            print "FORM IS VALID!!!"
             breakout_session = form.save()            
             request.user.message_set.create(message="Session <strong>%s</strong> created" % breakout_session.name)
+            if breakout_session.register(request.user):
+                request.user.message_set.create(message="You have been registered for this Breakout Session")
             return HttpResponseRedirect(reverse('breakout_session_view', kwargs={ "breakout_session_id": breakout_session.id, "venue_slug": breakout_session.venue.slug }))
     else:
         form = BreakoutSessionForm(instance=breakout_session)

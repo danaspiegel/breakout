@@ -1,0 +1,20 @@
+{% load common_tags %}
+
+<div class="tabs">
+    <ul id="location-menu">
+        <li class="active">
+            <a href="{{ venue.current_breakout_session.get_absolute_url }}">
+                {% if venue.current_breakout_session %}<span>Current Session</span>{% else %}
+                    {% if venue.next_breakout_session %}<span>Upcoming Session</span>{% else %}
+                        {% if breakout_session %}<span>Past Session</span>{% endif %}
+                    {% endif %}
+                {% endif %}
+            </a>
+        </li>
+        <li><a href="{{ venue.get_absolute_url }}"><span>About This Location</span></a></li>
+        
+        {% if venue.past_breakout_sessions.count %}
+            <li><a href="{% url archive_breakout_session_list venue_slug=venue.slug %}"><span>Past Sessions</span></a></li>
+        {% endif %}
+    </ul>
+</div>

@@ -1,34 +1,25 @@
+{% with venue.recent_past_breakout_sessions as past_breakout_sessions %}
 
-{% if venue %}
-    {% if venue.recent_past_breakout_sessions %}
-        <div class="sidebar-container">
-            <h2>{{ venue.past_breakout_sessions.count }} Past Sessions Here</h2>
+{% if past_breakout_sessions %}
+    <div class="sidebar-container">
+        <h2>{{ past_breakout_sessions.count }} Past Breakout Sessions{% if venue %} Here{% endif %}</h2>
 
-            <div class="sidebar-information">
-                <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
+        <div class="sidebar-information">
+            <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
 
-                {% with venue.recent_past_breakout_sessions as breakout_sessions %}
+            {% with past_breakout_sessions as breakout_sessions %}
+                {% with breakout_session as ignored_session %}
                     {% include 'breakout_session/ul.list.small.html' %}
                 {% endwith %}
+            {% endwith %}
 
+            {% if venue %}
                 <p><a href="{% url archive_breakout_session_list venue_slug=venue.slug %}">View More &raquo;</a></p>
-            </div>
-        </div>
-    {% endif %}
-{% else %}
-    {% if past_breakout_sessions %}
-        <div class="sidebar-container">
-            <h2>Past Breakout Sessions</h2>
-
-            <div class="sidebar-information">
-                <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
-
-                {% with past_breakout_sessions as breakout_sessions %}
-                    {% include 'breakout_session/ul.list.small.html' %}
-                {% endwith %}
-
+            {% else %}
                 <p><a href="{% url past_breakout_session_list %}">View More &raquo;</a></p>
-            </div>
+            {% endif %}
         </div>
-    {% endif %}
+    </div>
 {% endif %}
+
+{% endwith %}

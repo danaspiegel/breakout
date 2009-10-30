@@ -19,11 +19,12 @@ INTERNAL_IPS = ('127.0.0.1', )
 IGNORABLE_404_STARTS = ('/favicon.ico', )
 
 ADMINS = (
-    ('Dana Spiegel', 'dana@nycwireless.net'),
+    ('Dana Spiegel', 'dana@nycwireless.net', ),
 )
 
 MANAGERS = (
-    ('Dana Spiegel', 'dana@nycwireless.net'),
+    ('Dana Spiegel', 'dana@nycwireless.net', ),
+    ('Dana Spiegel', 'anthony@breakoutfestival.org', ),
 )
 
 DATABASE_ENGINE = 'mysql'
@@ -55,7 +56,8 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.gzip.GZipMiddleware',
     'django.middleware.common.CommonMiddleware',
     'middleware.wsgi_exceptions.WsgiLogErrors',
-    'middleware.debug.DebugFooter',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'middleware.debug.DebugFooter',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
@@ -108,6 +110,25 @@ FILE_UPLOAD_PERMISSIONS = 0644
 # Django-tagging-ng settings
 FORCE_LOWERCASE_TAGS = True
 
+DEBUG_TOOLBAR_PANELS = (
+    'debug_toolbar.panels.version.VersionDebugPanel',
+    'debug_toolbar.panels.timer.TimerDebugPanel',
+    'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+    'debug_toolbar.panels.headers.HeaderDebugPanel',
+    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+    'debug_toolbar.panels.template.TemplateDebugPanel',
+    'debug_toolbar.panels.sql.SQLDebugPanel',
+    'debug_toolbar.panels.signals.SignalDebugPanel',
+    'debug_toolbar.panels.logger.LoggingPanel',
+)
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+    # 'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+    # 'EXTRA_SIGNALS': ['myproject.signals.MySignal'],
+    'HIDE_DJANGO_SQL': True,
+}
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,6 +144,7 @@ INSTALLED_APPS = (
     'django_chronograph',
     'django_pagination',
     'django_mailer',
+    'debug_toolbar',
     'tinymce',
     'contact_form',
     # 'registration',

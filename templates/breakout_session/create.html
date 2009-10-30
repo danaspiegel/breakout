@@ -7,7 +7,7 @@
 {% block content %}
 
 {% if venue %}
-    {% include "venue/ul.location_menu.html" %}
+    {% include "venue/ul.venue_menu.html" %}
 {% endif %}
 
 <form action="#" method="POST">
@@ -20,6 +20,8 @@
 
     <div class="form">
         {% with form.name as field %}{% include 'form.field.html' %}{% endwith %}
+        <div class="clear"></div>
+        {% with form.session_tag as field %}{% include 'form.field.html' %}{% endwith %}
         <div class="clear"></div>
         {% with form.session_format as field %}{% include 'form.field.html' %}{% endwith %}
         <div class="clear"></div>

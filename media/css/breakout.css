@@ -31,6 +31,7 @@ li {
 
 h1 {
     font-size: 24px;
+    line-height: 26px;
     padding: 0px 0 8px 0;
     margin-top: 0px;
     color: #0093df;
@@ -120,6 +121,7 @@ div.sidebar-container p.sidebar-information {
 #primary-navigation ul {
     list-style: none;
     height: 25px;
+    padding-left: 0;
 }
 
 #primary-navigation ul li {
@@ -336,12 +338,11 @@ div.twitter-date {
 
 div#messages {
     padding: 3px;
-    margin: 5px 0;
-    background: #81A752;
+    color: #f00;
 }
 
 div#messages .notice {
-    color: #fff;
+/*    color: #fff;*/
     font-weight: bold;
 /*    font-size: 10px;*/
 }
@@ -573,10 +574,11 @@ breakout-session-list-container table{
     height: 400px;
 }
 
-.session-description {
-	padding: 10px;
-	border: 1px solid #0093df;
-	border-top: none;
+div.breakout-session-tag {
+    float: right;
+    padding: 5px;
+    background: #0093df;
+    color: #fff;
 }
 
 div.lifestream-entry {
@@ -631,22 +633,22 @@ div.participant .profile-image {
 }
 
 div.breakout-session-date-bar {
-    color: #000;
-    background: #AFD0E6;
-	border-right: 1px solid #0093df;
-	border-left: 1px solid #0093df;
     font-weight: bold;
-    text-align: left;
     font-size: 110%;
-    padding: 10px;
+    padding: 6px 0;
 }
 
-div.participation-bar {
+div.breakout-session-description {
+	padding: 6px;
+	border: 1px solid #0093df;
+}
+
+div.breakout-session-participation-bar {
     background: #faa;
     font-weight: bold;
     text-align: center;
     font-size: 110%;
-    padding: 10px;
+    padding: 6px;
 }
 
 #location-menu {

@@ -1,0 +1,15 @@
+{% load common_tags %}
+
+<div class="tabs">
+    <ul id="location-menu">
+        <li class="{% active request '/venues/[a-zA-Z0-9\-]+/$' %}">
+            <a href="{{ venue.get_absolute_url }}"><span>About This Location</span></a>
+        </li>
+        
+        {% if venue.past_breakout_sessions.count %}
+            <li class="{% active request '/venues/[a-zA-Z0-9\-]+/archive/$' %}">
+                <a href="{% url archive_breakout_session_list venue_slug=venue.slug %}"><span>Past Breakout Sessions</span></a>
+            </li>
+        {% endif %}
+    </ul>
+</div>

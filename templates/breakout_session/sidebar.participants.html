@@ -1,3 +1,7 @@
+{% load common_tags %}
+
+{% if breakout_session.registered_users.count %}
+
 <div class="sidebar-container">
     
     <h2>
@@ -6,6 +10,18 @@
         {% if breakout_session.is_past %}Participants{% endif %}
     </h2>
     
+    {% if breakout_session.is_active %}
+    <div class="breakout-session-participation-bar">
+        {% if breakout_session|is_participating:request.user %}
+            Thanks for participating! &mdash; <a href="{% url breakout_session_checkout venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Check Out</a>
+        {% endif %}
+
+        {% if not breakout_session|is_participating:request.user %}
+            <a href="{% url breakout_session_checkin venue_slug=breakout_session.venue.slug, breakout_session_id=breakout_session.id %}">Are you at this Breakout Session?</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
     <div class="sidebar-information">
         <div class="participant-list">
             {% if breakout_session.participants %}
@@ -17,7 +33,8 @@
                             {% else %}
                                 <img class="profile-image" src="{{ participant.get_profile.profile_image.url }}">
                             {% endif %}
-                            {{ participant.short_name }}
+                            {% ifequal participant request.user %}<strong>You!</strong>
+                            {% else %}{{ participant.short_name }}{% endifequal %}
                         </a>
 
                     </div>
@@ -31,7 +48,8 @@
                             {% else %}
                                 <img class="profile-image" src="{{ registrant.get_profile.profile_image.url }}">
                             {% endif %}
-                            {{ registrant.short_name }}
+                            {% ifequal registrant request.user %}<strong>You!</strong>
+                            {% else %}{{ registrant.short_name }}{% endifequal %}
                         </a>
 
                     </div>
@@ -42,3 +60,4 @@
     </div>
 </div>
 
+{% endif %}
