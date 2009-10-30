@@ -1,25 +1,36 @@
-{% with venue.recent_past_breakout_sessions as past_breakout_sessions %}
-
-{% if past_breakout_sessions %}
+{% if venue.recent_past_breakout_sessions %}
     <div class="sidebar-container">
-        <h2>{{ past_breakout_sessions.count }} Past Breakout Sessions{% if venue %} Here{% endif %}</h2>
+        <h2>{{ venue.recent_past_breakout_sessions.count }} Past Breakout Sessions Here</h2>
 
         <div class="sidebar-information">
             <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
 
-            {% with past_breakout_sessions as breakout_sessions %}
+            {% with venue.recent_past_breakout_sessions as breakout_sessions %}
                 {% with breakout_session as ignored_session %}
                     {% include 'breakout_session/ul.list.small.html' %}
                 {% endwith %}
             {% endwith %}
 
-            {% if venue %}
-                <p><a href="{% url archive_breakout_session_list venue_slug=venue.slug %}">View More &raquo;</a></p>
-            {% else %}
-                <p><a href="{% url past_breakout_session_list %}">View More &raquo;</a></p>
-            {% endif %}
+            <p><a href="{% url archive_breakout_session_list venue_slug=venue.slug %}">View More &raquo;</a></p>
         </div>
     </div>
-{% endif %}
+{% else %}
+    {% if past_breakout_sessions or venue.recent_past_breakout_sessions %}
+        <div class="sidebar-container">
+            <h2>{{ past_breakout_sessions.count }} Past Breakout Sessions{% if venue %} Here{% endif %}</h2>
 
-{% endwith %}
+            <div class="sidebar-information">
+                <p>View the "meeting minutes" from past sessions &ndash; the collected social media posted by people who participated.</p>
+
+                {% with past_breakout_sessions as breakout_sessions %}
+                    {% with breakout_session as ignored_session %}
+                        {% include 'breakout_session/ul.list.small.html' %}
+                    {% endwith %}
+                {% endwith %}
+
+                <p><a href="{% url past_breakout_session_list %}">View More &raquo;</a></p>
+            </div>
+        </div>
+    {% endif %}
+
+{% endif %}
