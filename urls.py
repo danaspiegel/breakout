@@ -8,6 +8,7 @@ import django.contrib.auth.views
 from django.contrib import admin
 admin.autodiscover()
 
+from contact_form.forms import AkismetContactForm
 from feeds import feeds
 from breakout.models import VenueSitemap, BreakoutSessionSitemap
 
@@ -22,7 +23,8 @@ urlpatterns = patterns('',
     # url(r'^oauth/twitter/', include('twitter_app.urls')),
     url(r'^accounts/', include('account.urls')),
 
-    url(r'^contact/', include('contact_form.urls')),    
+    url(r'^contact/$', 'contact_form.views.contact_form', { 'form_class': AkismetContactForm }, name='contact_form'),
+    url(r'^contact/sent/$', direct_to_template, { 'template': 'contact_form/contact_form_sent.html' }, name='contact_form_sent'),
     url(r'^feeds/(?P<url>.*)/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds}),
     url(r'^sitemap.xml$', 'django.contrib.sitemaps.views.sitemap', { 'sitemaps': sitemaps }),
     url(r'^robots.txt', 'django_robots.urls.rules_list', name='robots_rule_list'),
@@ -32,5 +34,5 @@ urlpatterns = patterns('',
 if settings.DEBUG:
     urlpatterns += patterns('',
         url(r'^media/(.*)$', 'django.views.static.serve', kwargs={'document_root': os.path.join(settings.PROJECT_PATH, 'media')}),
-    	url(r'^storage/(?P<path>.*)$','django.views.static.serve',kwargs={'document_root': os.path.join(settings.PROJECT_PATH,'storage')}),
+    	url(r'^storage/(?P<path>.*)$','django.views.static.serve',kwargs={'document_root': os.path.join(settings.PROJECT_PATH, 'storage')}),
     )

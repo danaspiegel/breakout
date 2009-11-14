@@ -1,5 +1,3 @@
-# Django settings for temp project.
-
 # set up a shortcut for the base location of the project
 import os
 import os.path
@@ -16,6 +14,7 @@ TIME_ZONE = 'UTC'
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 INTERNAL_IPS = ('127.0.0.1', )
+APPEND_SLASH = True
 IGNORABLE_404_STARTS = ('/favicon.ico', )
 
 ADMINS = (
@@ -24,7 +23,7 @@ ADMINS = (
 
 MANAGERS = (
     ('Dana Spiegel', 'dana@nycwireless.net', ),
-    ('Dana Spiegel', 'anthony@breakoutfestival.org', ),
+    ('Anthony Townsend', 'anthony@breakoutfestival.org', ),
 )
 
 DATABASE_ENGINE = 'mysql'
@@ -57,7 +56,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'middleware.wsgi_exceptions.WsgiLogErrors',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    # 'middleware.debug.DebugFooter',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
@@ -99,6 +97,8 @@ LOGIN_REDIRECT_URL = '/'
 
 CONSUMER_KEY = 'i7jNBFeCfpLgLgxuxCuA'
 CONSUMER_SECRET = 'TzYNIUtvemCkKWUjwlB8S4GAsabqcWQvQiIneYX6gw'
+
+AKISMET_API_KEY = '706388e95254'
 
 ANALYTICS_ID = 'UA-5053085-4'
 ANALYTICS_IGNORE_ADMIN = True

@@ -579,6 +579,7 @@ div.breakout-session-tag {
     padding: 5px;
     background: #0093df;
     color: #fff;
+    margin: 0 0 5px 5px;
 }
 
 div.lifestream-entry {
