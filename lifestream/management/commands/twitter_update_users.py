@@ -33,5 +33,5 @@ class Command(NoArgsCommand):
                     # twitter_user.statuses.all().delete()
                     # twitter_user.delete()
                 else:
-                    print unicode("Exception for %s: %s" % (twitter_user.screen_name, e), errors='ignore')
+                    print "Exception for %s: %s" % (unicode(twitter_user.screen_name, errors='ignore'), e)
         print "Updated %s users" % (updated_users)
