@@ -25,7 +25,7 @@ import urllib
 import urllib2
 
 __author__ = 'nsheridan@gmail.com (Niall Sheridan)'
-__license__ = 'Python'
+__license__ = 'Apache License 2.0'
 __copyright__ = 'Copyright 2008, Niall Sheridan'
 
 class TwitterError(Exception):
@@ -59,76 +59,71 @@ class pytwitter:
   def __getattr__(self, method):
     def method(_self=self, _method=method, **params):
       """ Dynamic api method constructor
-      Takes: A valid twitter method
+      Args: A valid twitter method
       Returns: Output from the server in the requested format (e.g. json)
       """
-      # Some methods are POST only. Default to sending a GET.
-      use_post = False
-      post_only_methods = ('statuses_update', 'statuses_delete',
-          'account_end_session', 'friendships_destroy', 'friendships_create',
-          'direct_messages_destroy', 'direct_messages_new',
-          'account_update_delivery_service', 'account_update_profile_colors',
-          'account_update_profile_image', 'favorites_create',
-          'account_update_profile_background_image', 'account_update_profile',
-          'notifications_follow', 'notifications_leave', 'blocks_create',
-          'blocks_destroy', 'favorites_destroy', 'oauth_access_token',
-          'saved_searches_destroy', 'saved_searches_create')
-      if _method in post_only_methods:
-        use_post = True
-      # Exception case for 'direct_messages' and 'saved_searches'
-      # Can't just replace('_', '/') for this one
-      if 'direct_messages' in _method:
-        # _method should look like one of:
-        #  direct_messages.format
-        #  direct_messages/method.format
-        _method = re.sub(r'^(direct_messages)_(.+)$', r'\1/\2', _method)
-      elif 'saved_searches' in _method:
-        #  saved_searches.format
-        #  saved_searches/method.format
-        _method = re.sub(r'^(saved_searches)_(.+)$', r'\1/\2', _method)
+      # Normal case: the method 'category_method()' is converted to
+      # category/method.format e.g. 'statuses_update' => 'statuses/update.json'
+      # Exception cases: methods that have a '_' in the category and
+      # cannot be directly translated and have to be handled differently.
+      exception_methods = ('direct_messages', 'saved_searches', 'report_spam')
+      regex = r'(%s)_(.+)$'
+      for exc in exception_methods:
+        if exc in _method:
+          regex %= exc
+          _method = re.sub(regex, r'\1/\2', _method)
+          break
       else:
         # Everything else.
         _method = _method.replace('_', '/', 1)
+
       # Set the format. Fallback to json.
       # format='' implies no format requested (for e.g. oauth methods)
       if params.has_key('format'):
         if params['format'] == '':
-          format = ''
+          req_format = ''
         else:
-          format = '.%s' % params['format']
-        del params['format']
+          req_format = ''.join(['.', params['format']])
+        params.pop('format')
       else:
-        format = '.json'
-      url = '%s/%s%s' % (_self.url, _method, format)
+        req_format = '.json'
+      req_method = ''.join([_method, req_format])
+      url = '/'.join([_self.url.strip('/'), req_method])
       for key in params.keys():
         params[key] = str(params[key])
       params = urllib.urlencode(params)
-      resp = _self._send_data(url, params, use_post)
+      resp = _self._send_data(url, params)
       return resp
     return method
 
-  def _send_data(self, url, data, use_post=False):
+  def _send_data(self, url, data):
     """ Authenticates with the server
     Sends the request and returns a response in the requested format (e.g json)
     Raises TwitterError exception on urllib2.UrlError
     """
+    pwdmanager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+    pwdmanager.add_password(
+        None, self.url, self.username, self.password)
+    opener = urllib2.build_opener(urllib2.HTTPBasicAuthHandler(pwdmanager))
+    # Try a POST first
+    req = urllib2.Request(url, data)
     try:
-      pwdmanager = urllib2.HTTPPasswordMgrWithDefaultRealm()
-      pwdmanager.add_password(
-          None, self.url, self.username, self.password)
-      opener = urllib2.build_opener(urllib2.HTTPBasicAuthHandler(pwdmanager))
-      if use_post:
-        req = urllib2.Request(url, data)
-      else:
-        url = '%s?%s' % (url, data)
-        req = urllib2.Request(url)
       resp = opener.open(req).read()
-      try:
-        return resp
-      except:
-        return None
+      return resp
     except urllib2.URLError, error:
-      raise TwitterError(error.code, error.read())
+      if error.code == 400:
+        # This probably means that the wrong request type was used.
+        # Twitter should be returning a HTTP 405 in that case, but it doesn't.
+        # Potentially throw away real errors and reissue the request using GET.
+        url = ''.join([url, '?', data])
+        req = urllib2.Request(url)
+        try:
+          resp = opener.open(req).read()
+          return resp
+        except urllib2.URLError, error:
+          raise TwitterError(error.code, error.read())
+      else:
+        raise TwitterError(error.code, error.read())
 
 
 def main():
